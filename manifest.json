@@ -1,0 +1,33 @@
+{
+  "project": "Engine",
+  "version": "1.0.0-basic",
+  "entity": "VEÍCULOS",
+  "files": [
+    ".gitignore",
+    "README.md",
+    "css/base.css",
+    "css/layout.css",
+    "css/tabela.css",
+    "gas/Api.gs",
+    "gas/README_GAS.md",
+    "index.html",
+    "js/app.js",
+    "js/config/api.js",
+    "js/core/events.js",
+    "js/core/router.js",
+    "js/core/state.js",
+    "js/pages/veiculos/veiculos.events.js",
+    "js/pages/veiculos/veiculos.fields.js",
+    "js/pages/veiculos/veiculos.form.js",
+    "js/pages/veiculos/veiculos.helpers.js",
+    "js/pages/veiculos/veiculos.js",
+    "js/pages/veiculos/veiculos.state.js",
+    "js/services/veiculos.service.js",
+    "js/ui/loading.js",
+    "js/ui/modal.js",
+    "js/ui/table.js",
+    "js/utils/datas.js",
+    "js/utils/erros.js",
+    "js/utils/formulario.js"
+  ]
+}

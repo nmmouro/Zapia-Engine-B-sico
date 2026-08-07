@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engine • Veículos</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layout.css">
+  <link rel="stylesheet" href="./css/tabela.css">
+</head>
+<body>
+  <div id="app-loading" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <span>Carregando...</span>
+  </div>
+
+  <header class="topbar">
+    <div>
+      <div class="brand">ENGINE</div>
+      <div class="subtitle">Framework básico • Veículos</div>
+    </div>
+    <div id="clock" class="clock"></div>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <div>
+        <h1>Veículos</h1>
+        <p>Cadastro e gerenciamento da frota.</p>
+      </div>
+      <button id="btnNovo" class="btn btn-primary" type="button">+ Novo veículo</button>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <h2>Veículos cadastrados</h2>
+          <span id="contador" class="muted">0 registros</span>
+        </div>
+        <button id="btnAtualizar" class="btn btn-secondary" type="button">Atualizar</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table id="tabelaVeiculos">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="vazio" class="empty hidden">Nenhum veículo cadastrado.</div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+      <div class="modal-header">
+        <div>
+          <h2 id="tituloModal">Novo veículo</h2>
+          <p>Preencha os dados do veículo.</p>
+        </div>
+        <button id="btnFecharModal" class="icon-button" type="button" aria-label="Fechar">×</button>
+      </div>
+
+      <form id="formVeiculo" autocomplete="off">
+        <input id="id" type="hidden">
+
+        <div class="form-grid">
+          <label>
+            <span>Placa *</span>
+            <input id="placa" name="Placa" maxlength="8" required>
+          </label>
+
+          <label>
+            <span>Modelo *</span>
+            <input id="modelo" name="Modelo" required>
+          </label>
+
+          <label>
+            <span>Marca</span>
+            <input id="marca" name="Marca">
+          </label>
+
+          <label>
+            <span>Ano</span>
+            <input id="ano" name="Ano" type="number" min="1900" max="2100">
+          </label>
+
+          <label>
+            <span>Cor</span>
+            <input id="cor" name="Cor">
+          </label>
+
+          <label>
+            <span>Status *</span>
+            <select id="status" name="Status" required>
+              <option value="ATIVO">ATIVO</option>
+              <option value="INATIVO">INATIVO</option>
+              <option value="MANUTENÇÃO">MANUTENÇÃO</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="formErro" class="form-error hidden"></div>
+
+        <div class="modal-footer">
+          <button id="btnCancelar" class="btn btn-secondary" type="button">Cancelar</button>
+          <button class="btn btn-primary" type="submit">Salvar</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

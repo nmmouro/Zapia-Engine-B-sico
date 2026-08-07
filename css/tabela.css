@@ -1,0 +1,63 @@
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th, td {
+  padding: 13px 16px;
+  text-align: left;
+  border-bottom: 1px solid #edf0f3;
+  white-space: nowrap;
+}
+
+th {
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #667085;
+}
+
+td {
+  font-size: .92rem;
+}
+
+tbody tr:hover {
+  background: #fafcff;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+}
+
+.action {
+  border: 0;
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.action-edit {
+  background: #e8f1ff;
+  color: #1557a6;
+}
+
+.action-delete {
+  background: #fff0f0;
+  color: #a61b1b;
+}
+
+.empty {
+  padding: 45px 20px;
+  text-align: center;
+  color: #667085;
+}

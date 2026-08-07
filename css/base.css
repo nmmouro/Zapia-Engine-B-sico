@@ -1,0 +1,81 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #202124;
+  background: #f5f7fa;
+  line-height: 1.4;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button, input, select { font: inherit; }
+
+button { cursor: pointer; }
+
+.hidden { display: none !important; }
+
+.muted {
+  color: #6b7280;
+  font-size: .88rem;
+}
+
+.btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #1f6feb;
+  color: white;
+}
+
+.btn-primary:hover { filter: brightness(.94); }
+
+.btn-secondary {
+  background: #e9edf2;
+  color: #263238;
+}
+
+.btn-danger {
+  background: #c62828;
+  color: white;
+}
+
+.icon-button {
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  color: #667085;
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid #d7dce2;
+  border-top-color: #1f6feb;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
