@@ -10,7 +10,7 @@ export function obterDadosFormulario() {
     Marca: valor("marca"),
     Ano: valor("ano"),
     Cor: valor("cor"),
-    Combustivel: valor("combustivel"),
+    Combustível: valor("combustivel"),
     Status: valor("status")
   };
 
