@@ -22,7 +22,7 @@ export function obterDadosFormulario() {
       Number(dados.Ano) < 1900 || Number(dados.Ano) > 2100)) {
     throw new Error("Ano do veículo inválido.");
   }
-
+                                                          console.log("DADOS VEÍCULO →", dados);
   return dados;
 }
 
@@ -77,6 +77,6 @@ function normalizarHora(value) {
 
   if (/^\d{2}:\d{2}:\d{2}$/.test(text)) return text.slice(0, 5);
   if (/^\d{2}:\d{2}$/.test(text)) return text;
-                                                              console.log("DADOS VEÍCULO →", dados);
+
   return "";
 }
