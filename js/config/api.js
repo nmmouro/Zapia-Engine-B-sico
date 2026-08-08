@@ -1,4 +1,4 @@
 export const API_URL =
-  "https://script.google.com/macros/s/AKfycbxredBQ3ii0DkRodxhUS3SjHvnHT5djyLj-Jwm1z4GmDL7nf_RCRX5PAzuy56sSD-xWVw/exec";
+  "https://script.google.com/macros/s/AKfycbw5B6YSk5FdOYAv1TFW5fTZgTTYTtddi8Z-ctf8CMaTSL45lqaBTKsjS43SpeLK6mwfSw/exec";
 
 export const API_TIMEOUT = 15000;
