@@ -409,9 +409,7 @@ export async function atualizarEmpregado(
 // EXCLUIR
 // ============================================================================
 
-export async function excluirEmpregado
-  id
-) {
+export async function excluirEmpregado(id) {
 
   if (!id) {
 
