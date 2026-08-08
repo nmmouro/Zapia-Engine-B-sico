@@ -148,21 +148,6 @@ script.onerror = (evento) => {
     ));
 };
 
-
-      /*script.onerror =
-        () => {
-
-          finalizar();
-
-          reject(
-            new Error(
-              "Não foi possível acessar a API."
-            )
-          );
-
-        };*/
-
-
       document
         .head
         .appendChild(script);
