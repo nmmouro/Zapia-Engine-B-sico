@@ -360,7 +360,7 @@ export async function obterEmpregado(id) {
 // SALVAR
 // ============================================================================
 
-export async function salvarEmpregados(
+export async function salvarEmpregado(
   dados
 ) {
 
@@ -379,7 +379,7 @@ export async function salvarEmpregados(
 // ATUALIZAR
 // ============================================================================
 
-export async function atualizarEmpregados(
+export async function atualizarEmpregado(
   id,
   dados
 ) {
@@ -409,7 +409,7 @@ export async function atualizarEmpregados(
 // EXCLUIR
 // ============================================================================
 
-export async function excluirEmpregados(
+export async function excluirEmpregado
   id
 ) {
 
