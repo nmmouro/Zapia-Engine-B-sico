@@ -3,9 +3,7 @@
 // Arquivo: js/pages/empregados/empregados.fields.js
 // ============================================================================
 
-import {
-    dataInput
-} from "../../utils/datas.js";
+import { preencher, valor } from "../../utils/formulario.js";
 
 // ============================================================================
 // ELEMENTOS
