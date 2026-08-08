@@ -131,6 +131,7 @@ function criar_(dados) {
     dados.Marca || "",
     dados.Ano || "",
     dados.Cor || "",
+    dados.Combustivel || "",
     dados.Status || "ATIVO"
   ];
 
@@ -162,6 +163,7 @@ function atualizar_(id, dados) {
         dados.Marca || "",
         dados.Ano || "",
         dados.Cor || "",
+        dados.combustivel || "",
         dados.Status || "ATIVO"
       ];
 
@@ -221,7 +223,8 @@ function registro_(row) {
     Marca: row[4],
     Ano: row[5],
     Cor: row[6],
-    Status: row[7]
+    Combustivel: row[7],
+    Status: row[8]
   };
 }
 
