@@ -23,9 +23,9 @@ import {
     limparFormulario
 } from "./empregados.fields.js";
 
-import { carregarTabela } from "./veiculos.helpers.js";
+import { carregarTabela } from "./empregados.helpers.js";
 
-import { definirRegistroEditando, registroEditando } from "./veiculos.state.js";
+import { definirRegistroEditando, registroEditando } from "./empregados.state.js";
 
 import {
     tratarErro
