@@ -3,8 +3,8 @@
 // Arquivo: js/pages/empregados/empregados.events.js
 // ============================================================================
 
-import { novoEmpregadoo, editarEmpregado, salvar, remover } from "./Empregados.form.js";
-import { carregarTabela } from "./Empregados.helpers.js";
+import { novoEmpregadoo, editarEmpregado, salvar, remover } from "./empregados.form.js";
+import { carregarTabela } from "./empregados.helpers.js";
 import { tratarErro } from "../../utils/erros.js";
 
 export function registrarEventos() {
