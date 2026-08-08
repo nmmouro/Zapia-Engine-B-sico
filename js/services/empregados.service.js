@@ -326,7 +326,7 @@ export async function obterEmpregados() {
 // BUSCAR
 // ============================================================================
 
-export async function obterEmpregados(id) {
+export async function obterEmpregado(id) {
 
   if (!id) {
 
