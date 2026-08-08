@@ -15,9 +15,7 @@ import {
     esconderLoading
 } from "../../ui/loading.js";
 
-import {
-    tratarErro
-} from "../../utils/erros.js";
+import { abrirModal, fecharModal } from "../../ui/modal.js";
 
 import {
     obterDadosFormulario,
@@ -25,15 +23,13 @@ import {
     limparFormulario
 } from "./empregados.fields.js";
 
-import {
-    carregarTabela
-} from "./empregados.helpers.js";
+import { carregarTabela } from "./veiculos.helpers.js";
+
+import { definirRegistroEditando, registroEditando } from "./veiculos.state.js";
 
 import {
-    registroEditando,
-    definirRegistroEditando,
-    limparRegistroEditando
-} from "./empregados.state.js";
+    tratarErro
+} from "../../utils/erros.js";
 
 // ============================================================================
 // EDITAR
@@ -45,48 +41,38 @@ export async function editarEmpregado(id) {
 
         mostrarLoading();
 
-        const registro =
-            await obterEmpregado(id);
+        const registro = await obterEmpregado(id);
+        const dados = registro?.dados ?? registro;
 
-        if (!registro) {
+        if (!dados || Array.isArray(dados)) {
 
             throw new Error(
                 "Empregado não encontrado."
             );
-
         }
-
-        preencherFormulario(registro);
-
-        definirRegistroEditando(
-            registro.ID
-        );
-
-        atualizarModoFormulario(true);
-
-    } catch (erro) {
-
-        tratarErro(erro);
-
-    } finally {
-
-        esconderLoading();
-
-    }
-
+        definirRegistroEditando(dados.ID ?? id);
+    preencherFormulario(dados);
+    limparErro();
+    document.getElementById("tituloModal").textContent = "Editar empregado";
+    abrirModal();
+  } catch (error) {
+    tratarErro(error);
+  } finally {
+    esconderLoading();
+  }
 }
 
 // ============================================================================
 // SALVAR
 // ============================================================================
 
-export async function salvar(evento) {
-
-    evento.preventDefault();
+export async function salvar() {
 
     try {
 
         mostrarLoading();
+        limparErro();
+
 
         const dados =
             obterDadosFormulario();
@@ -106,52 +92,30 @@ export async function salvar(evento) {
 
         }
 
-        limparRegistroEditando();
-
-        limparFormulario();
-
-        atualizarModoFormulario(false);
-
-        await carregarTabela();
-
-    } catch (erro) {
-
-        tratarErro(erro);
-
-    } finally {
-
-        esconderLoading();
-
-    }
-
+       definirRegistroEditando(null);
+    fecharModal();
+    await carregarTabela();
+  } catch (error) {
+    mostrarErro(error?.message || "Não foi possível salvar.");
+  } finally {
+    esconderLoading();
+  }
 }
+
 
 // ============================================================================
 // EXCLUIR
 // ============================================================================
 
-export async function removerEmpregado(id) {
+export async function remover(id) {
 
-    const confirmar =
-        confirm(
-            "Excluir empregado?"
-        );
-
-    if (!confirmar) {
-        return;
-    }
+    if (!confirm("Excluir este empregado?")) return;
 
     try {
 
         mostrarLoading();
 
         await excluirEmpregado(id);
-
-        limparRegistroEditando();
-
-        limparFormulario();
-
-        atualizarModoFormulario(false);
 
         await carregarTabela();
 
@@ -171,48 +135,10 @@ export async function removerEmpregado(id) {
 // NOVO
 // ============================================================================
 
-export function novo() {
+export function novoEmpregado() {
 
-    limparRegistroEditando();
-
-    limparFormulario();
-
-    atualizarModoFormulario(false);
-
-}
-
-// ============================================================================
-// MODO DO FORMULÁRIO
-// ============================================================================
-
-function atualizarModoFormulario(editando) {
-
-    const titulo =
-        document.querySelector(
-            "#tituloFormulario"
-        );
-
-    if (titulo) {
-
-        titulo.textContent =
-            editando
-                ? "Editar empregado"
-                : "Novo empregado";
-
-    }
-
-    const formulario =
-        document.querySelector(
-            "#formEmpregado"
-        );
-
-    if (formulario) {
-
-        formulario.classList.toggle(
-            "modo-edicao",
-            editando
-        );
-
-    }
-
+    definirRegistroEditando(null);
+  limparFormulario();
+  document.getElementById("tituloModal").textContent = "Novo empregado";
+  abrirModal();
 }
