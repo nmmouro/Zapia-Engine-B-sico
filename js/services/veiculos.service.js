@@ -44,9 +44,52 @@ async function request(params = {}, options = {}) {
   }
 }
 
-export function obterVeiculos() {
-  return request({ acao: "listar", aba: "VEÍCULOS" });
+
+export async function obterVeiculos() {
+
+  const resposta = await request({
+    acao: "listar",
+    aba: "VEÍCULOS"
+  });
+
+  console.log("ENGINE - resposta listar:", resposta);
+
+  // Formato:
+  //
+  // resposta
+  //   └── data
+  //        └── data
+  //             └── array
+  //
+
+  const lista =
+    resposta?.data?.data ??
+    resposta?.data ??
+    resposta?.dados?.data ??
+    resposta?.dados ??
+    [];
+
+  if (!Array.isArray(lista)) {
+
+    console.error(
+      "ENGINE - formato inesperado:",
+      resposta
+    );
+
+    throw new Error(
+      "A API não retornou uma lista de veículos."
+    );
+  }
+
+  return lista;
 }
+
+
+
+
+//export function obterVeiculos() {
+//  return request({ acao: "listar", aba: "VEÍCULOS" });
+//}
 
 export async function obterVeiculo(id) {
   return request({ acao: "buscar", aba: "VEÍCULOS", id });
