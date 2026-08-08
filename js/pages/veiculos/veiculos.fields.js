@@ -77,6 +77,6 @@ function normalizarHora(value) {
 
   if (/^\d{2}:\d{2}:\d{2}$/.test(text)) return text.slice(0, 5);
   if (/^\d{2}:\d{2}$/.test(text)) return text;
-
+                                                              console.log("DADOS VEÍCULO →", dados);
   return "";
 }
