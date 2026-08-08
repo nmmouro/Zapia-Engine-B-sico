@@ -135,7 +135,21 @@ function jsonp(params = {}) {
       script.async = true;
 
 
-      script.onerror =
+
+
+
+     
+script.onerror = (evento) => {
+    console.error("ENGINE → JSONP ERROR:", evento);
+    console.error("URL:", url);
+
+    reject(new Error(
+        "Não foi possível acessar a API JSONP."
+    ));
+};
+
+
+      /*script.onerror =
         () => {
 
           finalizar();
@@ -146,7 +160,7 @@ function jsonp(params = {}) {
             )
           );
 
-        };
+        };*/
 
 
       document
