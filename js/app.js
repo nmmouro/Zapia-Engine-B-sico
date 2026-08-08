@@ -1,5 +1,6 @@
 import { startRouter } from "./core/router.js";
 import { initVeiculos } from "./pages/veiculos/veiculos.js";
+import { initEmpregados } from "./pages/empregados/empregados.js";
 
 function atualizarRelogio() {
   const agora = new Date();
@@ -18,6 +19,12 @@ function boot() {
     if (route === "veiculos") {
       await initVeiculos();
     }
+
+  startRouter(async route => {
+    if (route === "empregados") {
+      await initEmpregados();
+    }
+    
   });
 }
 
