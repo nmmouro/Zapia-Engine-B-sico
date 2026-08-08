@@ -33,3 +33,11 @@ export async function carregarTabela() {
 
   document.getElementById("vazio").classList.toggle("hidden", lista.length > 0);
 }
+
+export {
+  obterVeiculos,
+  obterVeiculo,
+  salvarVeiculo,
+  atualizarVeiculo,
+  excluirVeiculo
+};
