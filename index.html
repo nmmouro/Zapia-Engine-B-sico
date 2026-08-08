@@ -1,231 +1,95 @@
-<section class="pagina">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engine • Empregados</title>
+<link rel="stylesheet" href="./css/base.css">
+<link rel="stylesheet" href="./css/layout.css">
+<link rel="stylesheet" href="./css/tabela.css">
+</head>
+<body>
+<div id="app-loading" class="loading-overlay hidden">
+  <div class="spinner"></div><span>Carregando...</span>
+</div>
 
-    <div class="cabecalho-pagina">
+<header class="topbar">
+  <div>
+    <div class="brand">ENGINE</div>
+    <div class="subtitle">Framework básico • Veículos</div>
+  </div>
+  <div id="clock" class="clock"></div>
+</header>
 
-        <div>
-            <h1>Empregados</h1>
-            <p>Cadastro e gerenciamento de empregados</p>
-        </div>
+<main class="container">
+  <section class="page-header">
+    <div>
+      <h1>Empregados</h1>
+      <p>Cadastro e gerenciamento da frota.</p>
+    </div>
+    <button id="btnNovo" class="btn btn-primary" type="button">+ Novo veículo</button>
+  </section>
 
-        <button
-            type="button"
-            id="btnNovo"
-            class="btn btn-primary">
-            Novo empregado
-        </button>
-
+  <section class="card">
+    <div class="card-header">
+      <div>
+        <h2>Empregados cadastrados</h2>
+        <span id="contador" class="muted">0 registros</span>
+      </div>
+      <button id="btnAtualizar" class="btn btn-secondary" type="button">Atualizar</button>
     </div>
 
-
-    <!-- ================================================================ -->
-    <!-- FORMULÁRIO -->
-    <!-- ================================================================ -->
-
-    <section class="card">
-
-        <h2 id="tituloFormulario">
-            Novo empregado
-        </h2>
-
-        <form id="formEmpregado">
-
-            <div class="form-grid">
-
-                <div class="campo">
-                    <label for="data">
-                        Data
-                    </label>
-
-                    <input
-                        type="date"
-                        id="data"
-                        name="data">
-                </div>
-
-
-                <div class="campo">
-                    <label for="foto">
-                        Foto
-                    </label>
-
-                    <input
-                        type="text"
-                        id="foto"
-                        name="foto">
-                </div>
-
-
-                <div class="campo">
-                    <label for="empregado">
-                        Empregado
-                    </label>
-
-                    <input
-                        type="text"
-                        id="empregado"
-                        name="empregado"
-                        required>
-                </div>
-
-
-                <div class="campo">
-                    <label for="matricula">
-                        Matrícula
-                    </label>
-
-                    <input
-                        type="text"
-                        id="matricula"
-                        name="matricula">
-                </div>
-
-
-                <div class="campo">
-                    <label for="diretoria">
-                        Diretoria
-                    </label>
-
-                    <input
-                        type="text"
-                        id="diretoria"
-                        name="diretoria">
-                </div>
-
-
-                <div class="campo">
-                    <label for="setor">
-                        Setor
-                    </label>
-
-                    <input
-                        type="text"
-                        id="setor"
-                        name="setor">
-                </div>
-
-
-                <div class="campo">
-                    <label for="usuario">
-                        Usuário
-                    </label>
-
-                    <input
-                        type="text"
-                        id="usuario"
-                        name="usuario">
-                </div>
-
-
-                <div class="campo">
-                    <label for="condicao">
-                        Condição
-                    </label>
-
-                    <select
-                        id="condicao"
-                        name="condicao">
-
-                        <option value="">
-                            Selecione
-                        </option>
-
-                        <option value="NORMAL">
-                            NORMAL
-                        </option>
-
-                        <option value="AFASTADO">
-                            AFASTADO
-                        </option>
-
-                        <option value="FÉRIAS">
-                            FÉRIAS
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="status">
-                        Status
-                    </label>
-
-                    <select
-                        id="status"
-                        name="status">
-
-                        <option value="ATIVO">
-                            ATIVO
-                        </option>
-
-                        <option value="INATIVO">
-                            INATIVO
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <div class="form-acoes">
-
-                <button
-                    type="submit"
-                    class="btn btn-primary">
-                    Salvar
-                </button>
-
-                <button
-                    type="button"
-                    id="btnNovo"
-                    class="btn btn-secondary">
-                    Limpar
-                </button>
-
-            </div>
-
-        </form>
-
-    </section>
-
-
-    <!-- ================================================================ -->
-    <!-- EMPREGADOS CADASTRADOS -->
-    <!-- ================================================================ -->
-
-    <section class="card">
-
-        <div class="cabecalho-tabela">
-
-            <div>
-
-                <h2>
-                    EMPREGADOS CADASTRADOS
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="tabela-container">
-
-            <table id="tabelaEmpregados">
-
-                <thead>
-                    <tr></tr>
-                </thead>
-
-                <tbody></tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-</section>
+    <div class="table-wrapper">
+      <table id="tabelaEmpregados"><thead></thead><tbody></tbody></table>
+    </div>
+    <div id="vazio" class="empty hidden">Nenhum empregado cadastrado.</div>
+  </section>
+</main>
+
+<div id="modal" class="modal hidden" aria-hidden="true">
+  <div class="modal-backdrop" data-close-modal></div>
+  <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+    <div class="modal-header">
+      <div>
+        <h2 id="tituloModal">Novo empregado</h2>
+        <p>Preencha os dados do empregado.</p>
+      </div>
+      <button id="btnFecharModal" class="icon-button" type="button" aria-label="Fechar">×</button>
+    </div>
+
+    <form id="formEmpregado" autocomplete="off">
+      <input id="id" type="hidden">
+
+      <div class="form-grid">
+        <label><span>Data</span><input id="data" name="Data" type="date"></label>
+        <label><span>Hora</span><input id="hora" name="Hora" type="time"></label>
+        <label><span>Foto</span><input id="foto" name="Foto"></label>
+        <label><span>Empregado *</span><input id="empregado" name="Empregado" maxlength="8" required></label>
+        <label><span>Matrícula *</span><input id="matricula" name="Matricula" required></label>
+        <label><span>Diretoria</span><input id="diretoria" name="Diretoria"></label>
+        <label><span>Setor</span><input id="setor" name="Setor"></label>
+        <label><span>Usuário</span><input id="usuario" name="Usuario"></label>
+        <label><span>Cndição</span><input id="condicao" name="Condicao"></label>
+        <label>
+          <span>Status *</span>
+          <select id="status" name="Status" required>
+            <option value="ATIVO">ATIVO</option>
+            <option value="INATIVO">INATIVO</option>
+            <option value="MANUTENÇÃO">MANUTENÇÃO</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="formErro" class="form-error hidden"></div>
+
+      <div class="modal-footer">
+        <button id="btnCancelar" class="btn btn-secondary" type="button">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Salvar</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
