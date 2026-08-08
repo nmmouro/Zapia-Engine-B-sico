@@ -248,14 +248,6 @@ function normalizarData(value) {
     }
 
 
-function normalizarHora(value) {
-  if (!value) return "";
-  const text = String(value).trim();
-
-  if (/^\d{2}:\d{2}:\d{2}$/.test(text)) return text.slice(0, 5);
-  if (/^\d{2}:\d{2}$/.test(text)) return text;
-    
-
     return "";
 
 }
