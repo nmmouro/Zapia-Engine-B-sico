@@ -8,7 +8,7 @@
 
 const CONFIG = {
   ABA: "VEÍCULOS",
-  CABECALHOS: ["ID", "Data", "Placa", "Modelo", "Marca", "Ano", "Cor", "Status"],
+  CABECALHOS: ["ID", "Data", "Placa", "Modelo", "Marca", "Ano", "Cor", "Combustível", "Status"],
   TIMEZONE: Session.getScriptTimeZone() || "America/Sao_Paulo"
 };
 
