@@ -8,6 +8,8 @@ import {
     esconderLoading
 } from "../../ui/loading.js";
 
+import { configurarModal } from "../../ui/modal.js";
+
 import {
     registrarEventos
 } from "./empregados.events.js";
@@ -16,45 +18,28 @@ import {
     carregarTabela
 } from "./empregados.helpers.js";
 
-// ============================================================================
-// INICIALIZAÇÃO
-// ============================================================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    init
-);
+import { tratarErro } from "../../utils/erros.js";
 
 // ============================================================================
 // INIT
 // ============================================================================
 
-async function init() {
+export async function initEmpregados() {
+
 
     try {
 
         mostrarLoading();
 
-        registrarEventos();
-
         await carregarTabela();
 
     } catch (erro) {
 
-        console.error(
-            "ENGINE → ERRO EMPREGADOS:",
-            erro
-        );
-
-        alert(
-            erro.message ||
-            "Erro ao carregar empregados."
-        );
-
+       tratarErro(error);
+ 
     } finally {
 
         esconderLoading();
 
     }
-
 }
