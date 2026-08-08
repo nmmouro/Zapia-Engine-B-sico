@@ -49,7 +49,7 @@ export const COLUNAS_VEICULOS = [
   },
 
   {
-    key: "Combustivel",
+    key: "Combustível",
     label: "Combustivel"
   },
 
