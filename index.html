@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#1f2937"
+    >
+
+    <title>Engine Framework</title>
+
+
+    <!-- ================================================================ -->
+    <!-- CSS GLOBAL                                                       -->
+    <!-- ================================================================ -->
+
+    <link
+        rel="stylesheet"
+        href="./css/global.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================================================ -->
+    <!-- ENGINE APPLICATION                                               -->
+    <!-- ================================================================ -->
+
+    <div id="engine">
+
+
+        <!-- ============================================================ -->
+        <!-- HEADER                                                       -->
+        <!-- ============================================================ -->
+
+        <header
+            id="header"
+            class="engine-header"
+        >
+
+            <div class="engine-brand">
+
+                <h1>
+                    Painel Frota
+                </h1>
+
+                <span>
+                    Engine Framework
+                </span>
+
+            </div>
+
+
+            <!-- ======================================================== -->
+            <!-- RELÓGIO                                                  -->
+            <!-- ======================================================== -->
+
+            <div
+                id="clock"
+                class="engine-clock"
+            >
+                --/--/---- --:--:--
+            </div>
+
+        </header>
+
+
+        <!-- ============================================================ -->
+        <!-- MENU                                                         -->
+        <!-- ============================================================ -->
+
+        <nav
+            id="menu"
+            class="engine-menu"
+            aria-label="Menu principal"
+        >
+
+            <a
+                href="#/veiculos"
+                data-route="veiculos"
+            >
+                Veículos
+            </a>
+
+
+            <a
+                href="#/empregados"
+                data-route="empregados"
+            >
+                Empregados
+            </a>
+
+        </nav>
+
+
+        <!-- ============================================================ -->
+        <!-- CONTEÚDO DAS ROTAS                                           -->
+        <!-- ============================================================ -->
+
+        <main
+            id="app"
+            class="engine-app"
+        >
+
+            <section
+                class="engine-loading"
+            >
+
+                <p>
+                    Carregando...
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <!-- ============================================================ -->
+        <!-- FOOTER                                                       -->
+        <!-- ============================================================ -->
+
+        <footer
+            id="footer"
+            class="engine-footer"
+        >
+
+            <span>
+                Engine Framework
+            </span>
+
+        </footer>
+
+
+    </div>
+
+
+    <!-- ================================================================ -->
+    <!-- LOADING GLOBAL                                                   -->
+    <!-- ================================================================ -->
+
+    <div
+        id="loading"
+        class="loading hidden"
+        aria-hidden="true"
+    >
+
+        <div class="loading-content">
+
+            <div class="loading-spinner"></div>
+
+            <span>
+                Processando...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================================ -->
+    <!-- JAVASCRIPT ENGINE                                                -->
+    <!-- ================================================================ -->
+
+    <script
+        type="module"
+        src="js/app.js"
+    ></script>
+
+
+</body>
+
+</html>
