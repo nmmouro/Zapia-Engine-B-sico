@@ -22,7 +22,7 @@ import {
     preencherFormulario,
     limparFormulario,
     mostrarErro,
-    limparFormulario
+    
 } from "./empregados.fields.js";
 
 import { carregarTabela } from "./empregados.helpers.js";
