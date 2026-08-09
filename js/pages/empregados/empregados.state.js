@@ -21,8 +21,8 @@ export function definirRegistroEditando(id) {
 
 }
 
-//export function limparRegistroEditando() {
+export function limparRegistroEditando() {
 
- //   registroEditando = null;
+    registroEditando = null;
 
-//}
+}
