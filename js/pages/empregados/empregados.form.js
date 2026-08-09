@@ -41,7 +41,9 @@ export function novoEmpregado() {
   definirRegistroEditando(null);
   limparFormulario();
   document.getElementById("tituloModal").textContent = "Novo empregado";
-  abrirModal();
+  abrirModal({
+        focus: "empregado"
+    });
 }
 
 
