@@ -25,7 +25,7 @@ export function registrarEventos() {
     await salvar();
   });
 
-  document.getElementById("tabelaEmpregado").addEventListener("click", async event => {
+  document.getElementById("tabelaEmpregados").addEventListener("click", async event => {
     const button = event.target.closest("[data-action]");
     if (!button) return;
 
