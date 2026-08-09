@@ -7,13 +7,13 @@ import {
 
     iniciarRelogio
 
-} from "../utils/relogio.js";
+} from "../../utils/relogio.js";
 
 import {
 
     iniciarFullscreen
 
-} from "../utils/fullscreen.js";
+} from "../../utils/fullscreen.js";
 
 import {
     mostrarLoading,
