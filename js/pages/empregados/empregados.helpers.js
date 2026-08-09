@@ -75,9 +75,9 @@ export async function carregarTabela() {
 
     }
 
-    console.log(
-        "ENGINE → EMPREGADOS:",
-        lista
+                                                    console.log(
+                                                                "ENGINE → EMPREGADOS:",
+                                                                                            lista
     );
 
     definirRegistros(lista);
