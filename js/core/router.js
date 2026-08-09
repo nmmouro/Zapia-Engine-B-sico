@@ -30,66 +30,36 @@ const DEFAULT_ROUTE = "dashboard";
 // ROTAS
 // ============================================================================
 
+const ENGINE_ROOT = "./js";
+
 const routes = {
 
     dashboard: {
-
         path: "/",
-
-        view:
-            "../pages/dashboard/dashboard.html",
-
-        init:
-            "../pages/dashboard/dashboard.js",
-
-        initFunction:
-            "initDashboard"
-
+        view: `${ENGINE_ROOT}/pages/dashboard/dashboard.html`,
+        init: `${ENGINE_ROOT}/pages/dashboard/dashboard.js`,
+        initFunction: "initDashboard"
     },
 
     lancamentos: {
-
         path: "/lancamentos",
-
-        view:
-            "../pages/lancamentos/lancamentos.html",
-
-        init:
-            "../pages/lancamentos/lancamentos.js",
-
-        initFunction:
-            "initLancamentos"
-
+        view: `${ENGINE_ROOT}/pages/lancamentos/lancamentos.html`,
+        init: `${ENGINE_ROOT}/pages/lancamentos/lancamentos.js`,
+        initFunction: "initLancamentos"
     },
 
     veiculos: {
-
         path: "/veiculos",
-
-        view:
-            "../pages/veiculos/veiculos.html",
-
-        init:
-            "../pages/veiculos/veiculos.js",
-
-        initFunction:
-            "initVeiculos"
-
+        view: `${ENGINE_ROOT}/pages/veiculos/veiculos.html`,
+        init: `${ENGINE_ROOT}/pages/veiculos/veiculos.js`,
+        initFunction: "initVeiculos"
     },
 
     empregados: {
-
         path: "/empregados",
-
-        view:
-            "../pages/empregados/empregados.html",
-
-        init:
-            "../pages/empregados/empregados.js",
-
-        initFunction:
-            "initEmpregados"
-
+        view: `${ENGINE_ROOT}/pages/empregados/empregados.html`,
+        init: `${ENGINE_ROOT}/pages/empregados/empregados.js`,
+        initFunction: "initEmpregados"
     }
 
 };
