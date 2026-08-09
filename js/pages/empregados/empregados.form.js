@@ -20,6 +20,8 @@ import { abrirModal, fecharModal } from "../../ui/modal.js";
 import {
     obterDadosFormulario,
     preencherFormulario,
+    limparFormulario,
+    mostrarErro,
     limparFormulario
 } from "./empregados.fields.js";
 
