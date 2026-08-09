@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -15,12 +16,17 @@
         content="#1f2937"
     >
 
-    <title>Engine Framework</title>
+    <meta
+        name="description"
+        content="Painel Frota - Sistema de gerenciamento de frota"
+    >
+
+    <title>Painel Frota</title>
 
 
-    <!-- ================================================================ -->
-    <!-- CSS GLOBAL                                                       -->
-    <!-- ================================================================ -->
+    <!-- ============================================================ -->
+    <!-- CSS GLOBAL                                                   -->
+    <!-- ============================================================ -->
 
     <link
         rel="stylesheet"
@@ -33,16 +39,16 @@
 <body>
 
 
-    <!-- ================================================================ -->
-    <!-- ENGINE APPLICATION                                               -->
-    <!-- ================================================================ -->
+    <!-- ============================================================ -->
+    <!-- ENGINE APPLICATION                                           -->
+    <!-- ============================================================ -->
 
     <div id="engine">
 
 
-        <!-- ============================================================ -->
-        <!-- HEADER                                                       -->
-        <!-- ============================================================ -->
+        <!-- ======================================================== -->
+        <!-- HEADER                                                   -->
+        <!-- ======================================================== -->
 
         <header
             id="header"
@@ -51,62 +57,287 @@
 
             <div class="engine-brand">
 
-                <h1>
-                    Painel Frota
-                </h1>
 
-                <span>
-                    Engine Framework
-                </span>
+                <!-- LOGO -->
+
+                <img
+                    src="./assets/img/logo.png"
+                    alt="Logo Painel Frota"
+                    class="header-logo"
+                >
+
+
+                <!-- TÍTULO -->
+
+                <div class="header-title">
+
+                    <h1>
+                        PAINEL FROTA
+                    </h1>
+
+                    <span>
+                        Engine Framework
+                    </span>
+
+                </div>
 
             </div>
 
 
-            <!-- ======================================================== -->
-            <!-- RELÓGIO                                                  -->
-            <!-- ======================================================== -->
+            <!-- ==================================================== -->
+            <!-- RELÓGIO                                               -->
+            <!-- ==================================================== -->
 
             <div
                 id="clock"
-                class="engine-clock"
+                class="clock"
+                aria-label="Relógio"
             >
                 --/--/---- --:--:--
             </div>
 
+
+            <!-- ==================================================== -->
+            <!-- TELA CHEIA                                            -->
+            <!-- ==================================================== -->
+
+            <button
+                id="btnFullscreen"
+                class="btn-icon"
+                type="button"
+                aria-label="Tela cheia"
+                title="Tela cheia"
+            >
+                ⛶
+            </button>
+
         </header>
 
 
-        <!-- ============================================================ -->
-        <!-- MENU                                                         -->
-        <!-- ============================================================ -->
+        <!-- ======================================================== -->
+        <!-- MENU PRINCIPAL                                           -->
+        <!-- ======================================================== -->
 
         <nav
             id="menu"
-            class="engine-menu"
+            class="menu-grid"
             aria-label="Menu principal"
         >
 
+
+            <!-- DASHBOARD -->
+
             <a
-                href="#/veiculos"
-                data-route="veiculos"
+                href="#/"
+                class="menu-card"
+                data-route="dashboard"
             >
-                Veículos
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    📊
+                </span>
+
+                <strong>
+                    Dashboard
+                </strong>
+
+                <small>
+                    Visualização da operação
+                </small>
+
             </a>
 
 
+            <!-- LANÇAMENTOS -->
+
+            <a
+                href="#/lancamentos"
+                class="menu-card"
+                data-route="lancamentos"
+            >
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    📝
+                </span>
+
+                <strong>
+                    Lançamentos
+                </strong>
+
+                <small>
+                    Registrar utilização dos veículos
+                </small>
+
+            </a>
+
+
+            <!-- CADASTRO -->
+
+            <a
+                href="#/cadastro"
+                class="menu-card"
+                data-route="cadastro"
+            >
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    ➕
+                </span>
+
+                <strong>
+                    Cadastro
+                </strong>
+
+                <small>
+                    Cadastros gerais
+                </small>
+
+            </a>
+
+
+            <!-- VEÍCULOS -->
+
+            <a
+                href="#/veiculos"
+                class="menu-card"
+                data-route="veiculos"
+            >
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    🚙
+                </span>
+
+                <strong>
+                    Veículos
+                </strong>
+
+                <small>
+                    Controle da frota
+                </small>
+
+            </a>
+
+
+            <!-- EMPREGADOS -->
+
             <a
                 href="#/empregados"
+                class="menu-card"
                 data-route="empregados"
             >
-                Empregados
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    👨‍✈️
+                </span>
+
+                <strong>
+                    Empregados
+                </strong>
+
+                <small>
+                    Cadastro e disponibilidade
+                </small>
+
+            </a>
+
+
+            <!-- AGENDA -->
+
+            <a
+                href="#/agenda"
+                class="menu-card"
+                data-route="agenda"
+            >
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    📅
+                </span>
+
+                <strong>
+                    Agenda
+                </strong>
+
+                <small>
+                    Programação diária
+                </small>
+
+            </a>
+
+
+            <!-- ABASTECIMENTOS -->
+
+            <a
+                href="#/abastecimentos"
+                class="menu-card"
+                data-route="abastecimentos"
+            >
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    ⛽
+                </span>
+
+                <strong>
+                    Abastecimentos
+                </strong>
+
+                <small>
+                    Controle de combustível
+                </small>
+
+            </a>
+
+
+            <!-- MANUTENÇÕES -->
+
+            <a
+                href="#/manutencoes"
+                class="menu-card"
+                data-route="manutencoes"
+            >
+
+                <span
+                    class="menu-icon"
+                    aria-hidden="true"
+                >
+                    🔧
+                </span>
+
+                <strong>
+                    Manutenções
+                </strong>
+
+                <small>
+                    Controle mecânico
+                </small>
+
             </a>
 
         </nav>
 
 
-        <!-- ============================================================ -->
-        <!-- CONTEÚDO DAS ROTAS                                           -->
-        <!-- ============================================================ -->
+        <!-- ======================================================== -->
+        <!-- CONTEÚDO DO ENGINE ROUTER                               -->
+        <!-- ======================================================== -->
 
         <main
             id="app"
@@ -125,35 +356,37 @@
 
         </main>
 
-        <!-- ================================================================ -->
-        <!-- MODAL GLOBAL ENGINE                                             -->
-        <!-- ================================================================ -->
-        
+
+        <!-- ======================================================== -->
+        <!-- MODAL GLOBAL                                             -->
+        <!-- ======================================================== -->
+
         <div
             id="modal"
             class="modal hidden"
             aria-hidden="true"
         >
-        
+
             <div
                 class="modal-overlay"
                 data-modal-close
             ></div>
-        
-        
+
+
             <div
                 class="modal-dialog"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="tituloModal"
             >
-        
+
                 <div class="modal-header">
-        
+
                     <h2 id="tituloModal">
                         Cadastro
                     </h2>
-        
+
+
                     <button
                         type="button"
                         id="btnFecharModal"
@@ -163,23 +396,23 @@
                     >
                         ×
                     </button>
-        
+
                 </div>
-        
-        
+
+
                 <div
                     id="modalBody"
                     class="modal-body"
                 ></div>
-        
+
             </div>
-        
+
         </div>
 
 
-        <!-- ============================================================ -->
-        <!-- FOOTER                                                       -->
-        <!-- ============================================================ -->
+        <!-- ======================================================== -->
+        <!-- FOOTER                                                   -->
+        <!-- ======================================================== -->
 
         <footer
             id="footer"
@@ -187,18 +420,21 @@
         >
 
             <span>
+                Painel Frota © 2026
+            </span>
+
+            <span>
                 Engine Framework
             </span>
 
         </footer>
 
-
     </div>
 
 
-    <!-- ================================================================ -->
-    <!-- LOADING GLOBAL                                                   -->
-    <!-- ================================================================ -->
+    <!-- ============================================================ -->
+    <!-- LOADING GLOBAL                                               -->
+    <!-- ============================================================ -->
 
     <div
         id="loading"
@@ -219,9 +455,9 @@
     </div>
 
 
-    <!-- ================================================================ -->
-    <!-- JAVASCRIPT ENGINE                                                -->
-    <!-- ================================================================ -->
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT ENGINE                                            -->
+    <!-- ============================================================ -->
 
     <script
         type="module"
@@ -232,3 +468,4 @@
 </body>
 
 </html>
+```
