@@ -27,10 +27,9 @@
     <!-- CSS GLOBAL                                                   -->
     <!-- ============================================================ -->
 
-    <link
-        rel="stylesheet"
-        href="./css/global.css"
-    >
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/components.css">
 
 </head>
 
@@ -49,66 +48,45 @@
         <!-- HEADER                                                   -->
         <!-- ======================================================== -->
 
-        <header
-            id="header"
-            class="engine-header"
-        >
+       <header class="header">
+  
 
-            <div class="engine-brand">
+<div class="header-logo"><img
 
+      src="assets/img/logo.png"
 
-                <!-- LOGO -->
+      alt="Logo Painel Frota">
 
-                <img
-                    src="./assets/img/logo.png"
-                    alt="Logo Painel Frota"
-                    class="header-logo"
-                >
+</div>
 
+      <div class="header-title">
 
-                <!-- TÍTULO -->
+      <h1> PAINEL FROTA </h1>
 
-                <div class="header-title">
+</div>
 
-                    <h1>
-                        PAINEL FROTA
-                    </h1>
+<div class="header-info">
 
-                    <span>
-                        Engine Framework
-                    </span>
+      <div id="clock"
 
-                </div>
+      class="clock"  aria-label="Relógio">
 
-            </div>
-
-
-            <!-- ==================================================== -->
-            <!-- RELÓGIO                                               -->
-            <!-- ==================================================== -->
-
-            <div
-                id="clock"
-                class="clock"
-                aria-label="Relógio"
-            >
-                --/--/---- --:--:--
-            </div>
+</div>
 
 
             <!-- ==================================================== -->
             <!-- TELA CHEIA                                            -->
             <!-- ==================================================== -->
 
-            <button
-                id="btnFullscreen"
-                class="btn-icon"
-                type="button"
-                aria-label="Tela cheia"
-                title="Tela cheia"
-            >
-                ⛶
-            </button>
+           <button
+
+          id="btnFullscreen"
+
+          class="btn-icon"  aria-label="Tela cheia">
+
+                          ⛶
+
+        </button>
 
         </header>
 
