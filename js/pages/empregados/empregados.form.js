@@ -35,6 +35,14 @@ import {
 // EDITAR
 // ============================================================================
 
+export function novoEmpregado() {
+  definirRegistroEditando(null);
+  limparFormulario();
+  document.getElementById("tituloModal").textContent = "Novo empregado";
+  abrirModal();
+}
+
+
 export async function editarEmpregado(id) {
 
     try {
