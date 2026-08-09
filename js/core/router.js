@@ -1,4 +1,3 @@
-```javascript
 // ============================================================================
 // ENGINE FRAMEWORK
 // CORE ROUTER
@@ -121,4 +120,3 @@ export function startRouter(
     };
 
 }
-```
