@@ -31,6 +31,10 @@ export async function initEmpregados() {
 
         mostrarLoading();
 
+        configurarModal();
+        
+        registrarEventos();
+
         await carregarTabela();
 
     } catch (erro) {
