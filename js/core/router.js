@@ -16,7 +16,6 @@
 //
 // ============================================================================
 
-
 // ============================================================================
 // CONFIGURAÇÃO
 // ============================================================================
@@ -33,7 +32,6 @@ const ENGINE = {
 
 };
 
-
 // ============================================================================
 // ROTAS
 // ============================================================================
@@ -43,52 +41,36 @@ const routes = {
     dashboard: {
 
         path: "/",
-
         page: "dashboard",
-
-        initFunction:
-            "initDashboard"
+        initFunction: "initDashboard"
 
     },
-
 
     lancamentos: {
 
         path: "/lancamentos",
-
         page: "lancamentos",
-
-        initFunction:
-            "initLancamentos"
+        initFunction: "initLancamentos"
 
     },
-
 
     veiculos: {
 
         path: "/veiculos",
-
         page: "veiculos",
-
-        initFunction:
-            "initVeiculos"
+        initFunction: "initVeiculos"
 
     },
-
 
     empregados: {
 
         path: "/empregados",
-
         page: "empregados",
-
-        initFunction:
-            "initEmpregados"
+        initFunction: "initEmpregados"
 
     }
 
 };
-
 
 // ============================================================================
 // PATH
@@ -101,20 +83,17 @@ export function getPath() {
             .replace(/^#/, "")
             .trim();
 
-
     if (!hash) {
 
         return "/";
 
     }
 
-
     return hash.startsWith("/")
         ? hash
         : `/${hash}`;
 
 }
-
 
 // ============================================================================
 // RESOLVER ROTA
