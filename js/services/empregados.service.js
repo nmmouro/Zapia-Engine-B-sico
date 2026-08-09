@@ -396,7 +396,7 @@ export async function atualizarEmpregado(
   return post(
     {
       acao: "atualizar",
-      aba: "eMPREGADOS",
+      aba: "EMPREGADOS",
       id,
       dados
     }
