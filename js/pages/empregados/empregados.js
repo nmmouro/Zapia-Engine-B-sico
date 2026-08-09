@@ -35,9 +35,9 @@ export async function initEmpregados() {
 
     } catch (erro) {
 
-       tratarErro(error);
- 
-    } finally {
+    tratarErro(erro);
+
+} finally {
 
         esconderLoading();
 
