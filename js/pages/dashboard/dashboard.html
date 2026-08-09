@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Painel Frota - Dashboard
+
+    </title>
+
+    <!-- =============================================================== -->
+    <!-- CSS -->
+    <!-- =============================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="css/table.css">
+
+    <link
+        rel="stylesheet"
+        href="css/forms.css">
+
+    <link
+        rel="stylesheet"
+        href="css/components.css">
+
+</head>
+
+<body>
+
+    <!-- =============================================================== -->
+    <!-- HEADER -->
+    <!-- =============================================================== -->
+
+    <header class="header">
+
+        <div class="header-logo">
+
+            <img
+                src="assets/img/logo.png"
+                alt="Painel Frota">
+
+        </div>
+
+        <div class="header-title">
+
+            <h1>
+
+                DASHBOARD
+
+            </h1>
+
+        </div>
+
+        <div class="header-info">
+
+            <div
+                id="clock"
+                class="clock">
+
+            </div>
+
+            <button
+                id="btnFullscreen"
+                class="btn-icon">
+
+                ⛶
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- =============================================================== -->
+    <!-- CONTEÚDO -->
+    <!-- =============================================================== -->
+
+    <main class="dashboard">
+
+        <!-- =========================================================== -->
+        <!-- LINHA SUPERIOR -->
+        <!-- =========================================================== -->
+
+        <section class="dashboard-top">
+
+            <!-- ======================================================= -->
+            <!-- VEÍCULOS -->
+            <!-- ======================================================= -->
+
+            <article class="card">
+
+                <h2>
+
+                    Veículos
+
+                </h2>
+
+                <div id="tabelaVeiculos">
+
+                </div>
+
+            </article>
+
+            <!-- ======================================================= -->
+            <!-- EMPREGADOS -->
+            <!-- ======================================================= -->
+
+            <article class="card">
+
+                <h2>
+
+                    Empregados
+
+                </h2>
+
+                <div id="tabelaEmpregados">
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <!-- =========================================================== -->
+        <!-- PAINEL DE OCORRÊNCIAS -->
+        <!-- =========================================================== -->
+
+       <section class="dashboard-bottom">
+
+        <article class="card">
+
+            <h2>Ocorrências em Andamento</h2>
+
+            <div id="tabelaOcorrencias"></div>
+
+            </article>
+
+        </section>
+
+    </main>
+    <!-- =============================================================== -->
+    <!-- FOOTER -->
+    <!-- =============================================================== -->
+
+    <footer class="footer">
+
+        <p>
+
+            Painel Frota © 2026
+
+        </p>
+
+    </footer>
+
+    <!-- =============================================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- =============================================================== -->
+
+    <script
+        type="module"
+        src="js/pages/dashboard.js">
+
+    </script>
+
+</body>
+
+</html>
