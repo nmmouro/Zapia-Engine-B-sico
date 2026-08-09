@@ -18,20 +18,25 @@ const DEFAULT_ROUTE = "dashboard";
 
 const routes = {
 
-    "/":
-        "dashboard",
+    dashboard: {
+        view: "./pages/dashboard/dashboard.html",
+        init: "./pages/dashboard/dashboard.js"
+    },
 
-    "/lancamntos":
-        "lancamentos",
+    lancamentos: {
+        view: "./pages/lancamentos/lancamentos.html",
+        init: "./pages/lancamentos/lancamentos.js"
+    },
 
-    "/dashboard":
-        "dashboard",
+    veiculos: {
+        view: "./pages/veiculos/veiculos.html",
+        init: "./pages/veiculos/veiculos.js"
+    },
 
-    "/veiculos":
-        "veiculos",
-
-    "/empregados":
-        "empregados"
+    empregados: {
+        view: "./pages/empregados/empregados.html",
+        init: "./pages/empregados/empregados.js"
+    }
 
 };
 
