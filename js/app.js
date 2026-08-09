@@ -1,6 +1,21 @@
-import { startRouter } from "./core/router.js";
-import { initVeiculos } from "./pages/veiculos/veiculos.js";
-import { initEmpregados } from "./pages/empregados/empregados.js";
+// ============================================================================
+// ENGINE FRAMEWORK
+// APP
+// Arquivo: js/app.js
+// ============================================================================
+
+import {
+    startRouter
+} from "./core/router.js";
+
+import {
+    initVeiculos
+} from "./pages/veiculos/veiculos.js";
+
+import {
+    initEmpregados
+} from "./pages/empregados/empregados.js";
+
 
 function atualizarRelogio() {
   const agora = new Date();
@@ -15,27 +30,92 @@ function atualizarRelogio() {
   }
 }
 
-async function boot() {
-  atualizarRelogio();
+// ============================================================================
+// HANDLERS DE ROTAS
+// ============================================================================
 
-  setInterval(atualizarRelogio, 1000);
+const handlers = {
 
-  startRouter(async route => {
+    veiculos:
+        initVeiculos,
 
-    if (route === "veiculos") {
-      await initVeiculos();
-      return;
+    empregados:
+        initEmpregados
+
+};
+
+
+// ============================================================================
+// EXECUTAR ROTA
+// ============================================================================
+
+async function onRoute(
+    route
+) {
+
+    console.log(
+        "ENGINE → Rota:",
+        route
+    );
+
+
+    const handler =
+        handlers[route];
+
+
+    if (
+        typeof handler !==
+        "function"
+    ) {
+
+        console.warn(
+            `ENGINE → Handler não encontrado: ${route}`
+        );
+
+        return;
+
     }
 
-    if (route === "empregados") {
-      await initEmpregados();
-      return;
+
+    try {
+
+        await handler();
+
+    } catch (erro) {
+
+        console.error(
+            `ENGINE → Erro na rota "${route}":`,
+            erro
+        );
+
     }
 
-  });
 }
 
+
+// ============================================================================
+// BOOT
+// ============================================================================
+
+function boot() {
+
+    console.log(
+        "ENGINE → Boot"
+    );
+
+
+    startRouter(
+        onRoute
+    );
+
+}
+
+
+// ============================================================================
+// DOM READY
+// ============================================================================
+
 document.addEventListener(
-  "DOMContentLoaded",
-  boot
+    "DOMContentLoaded",
+    boot
 );
