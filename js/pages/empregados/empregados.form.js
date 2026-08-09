@@ -22,6 +22,7 @@ import {
     preencherFormulario,
     limparFormulario,
     mostrarErro,
+    limparErro
     
 } from "./empregados.fields.js";
 
