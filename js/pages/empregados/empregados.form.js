@@ -138,15 +138,3 @@ export async function remover(id) {
     }
 
 }
-
-// ============================================================================
-// NOVO
-// ============================================================================
-
-export function novoEmpregado() {
-
-    definirRegistroEditando(null);
-  limparFormulario();
-  document.getElementById("tituloModal").textContent = "Novo empregado";
-  abrirModal();
-}
