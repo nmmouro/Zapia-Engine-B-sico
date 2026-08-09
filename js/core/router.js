@@ -14,12 +14,18 @@
 // O Router NÃO conhece regras de VEÍCULOS, EMPREGADOS etc.
 // ============================================================================
 
-const DEFAULT_ROUTE = "veiculos";
+const DEFAULT_ROUTE = "dashboard";
 
 const routes = {
 
     "/":
-        "veiculos",
+        "dashboard",
+
+    "/lancamntos":
+        "lancamentos",
+
+    "/dashboard":
+        "dashboard",
 
     "/veiculos":
         "veiculos",
