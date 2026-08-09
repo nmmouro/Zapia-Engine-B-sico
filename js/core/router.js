@@ -3,18 +3,35 @@
 // CORE ROUTER
 // Arquivo: js/core/router.js
 // ============================================================================
+//
+// Responsabilidades:
+//
+//   1. Resolver rota
+//   2. Carregar a view HTML
+//   3. Inserir a view no container
+//   4. Executar o handler da rota
+//
+// O Router NÃO conhece regras de VEÍCULOS, EMPREGADOS etc.
+// ============================================================================
 
 const DEFAULT_ROUTE = "veiculos";
 
 const routes = {
-    "/": "veiculos",
-    "/veiculos": "veiculos",
-    "/empregados": "empregados"
+
+    "/":
+        "veiculos",
+
+    "/veiculos":
+        "veiculos",
+
+    "/empregados":
+        "empregados"
+
 };
 
 
 // ============================================================================
-// OBTER PATH
+// PATH
 // ============================================================================
 
 export function getPath() {
@@ -30,7 +47,7 @@ export function getPath() {
 
 
 // ============================================================================
-// OBTER ROTA
+// ROTA
 // ============================================================================
 
 export function getRoute() {
@@ -47,10 +64,12 @@ export function getRoute() {
 
 
 // ============================================================================
-// NAVEGAR
+// NAVEGAÇÃO
 // ============================================================================
 
-export function navigate(route) {
+export function navigate(
+    route
+) {
 
     const path =
         route.startsWith("/")
@@ -64,39 +83,192 @@ export function navigate(route) {
 
 
 // ============================================================================
-// ROUTER
+// CARREGAR VIEW
 // ============================================================================
 
-export function startRouter(
-    onRoute
+async function carregarView(
+    route,
+    options
 ) {
 
-    if (
-        typeof onRoute !==
-        "function"
-    ) {
+    const container =
+        document.querySelector(
+            options.container
+        );
 
-        throw new TypeError(
-            "ENGINE ROUTER: onRoute deve ser uma função."
+
+    if (!container) {
+
+        throw new Error(
+            `ENGINE ROUTER: container "${options.container}" não encontrado.`
         );
 
     }
 
 
+    const url =
+        `${options.viewsPath}/${route}/${route}.html`;
+
+
+    console.log(
+        "ENGINE ROUTER → View:",
+        url
+    );
+
+
+    const response =
+        await fetch(url);
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            `ENGINE ROUTER: não foi possível carregar "${url}".`
+        );
+
+    }
+
+
+    const html =
+        await response.text();
+
+
+    container.innerHTML =
+        html;
+
+
+    return container;
+
+}
+
+
+// ============================================================================
+// START ROUTER
+// ============================================================================
+
+export function startRouter(
+    handlers,
+    options = {}
+) {
+
+    const config = {
+
+        container:
+            options.container ||
+            "#app",
+
+        viewsPath:
+            options.viewsPath ||
+            "./pages"
+
+    };
+
+
+    if (
+        !handlers ||
+        typeof handlers !== "object"
+    ) {
+
+        throw new TypeError(
+            "ENGINE ROUTER: handlers inválidos."
+        );
+
+    }
+
+
+    let executando =
+        false;
+
+
     const run =
-        () => {
+        async () => {
 
-            const route =
-                getRoute();
+            if (executando) {
+                return;
+            }
 
-            console.log(
-                "ENGINE ROUTER →",
-                route
-            );
 
-            onRoute(
-                route
-            );
+            executando =
+                true;
+
+
+            try {
+
+                const route =
+                    getRoute();
+
+
+                console.log(
+                    "ENGINE ROUTER →",
+                    route
+                );
+
+
+                const handler =
+                    handlers[route];
+
+
+                if (
+                    typeof handler !==
+                    "function"
+                ) {
+
+                    throw new Error(
+                        `ENGINE ROUTER: handler não encontrado para "${route}".`
+                    );
+
+                }
+
+
+                // ------------------------------------------------------------
+                // CARREGA O HTML PRIMEIRO
+                // ------------------------------------------------------------
+
+                await carregarView(
+                    route,
+                    config
+                );
+
+
+                // ------------------------------------------------------------
+                // DEPOIS INICIALIZA O MÓDULO
+                // ------------------------------------------------------------
+
+                await handler();
+
+
+            } catch (erro) {
+
+                console.error(
+                    "ENGINE ROUTER → Erro:",
+                    erro
+                );
+
+
+                const container =
+                    document.querySelector(
+                        config.container
+                    );
+
+
+                if (container) {
+
+                    container.innerHTML = `
+                        <section class="engine-error">
+                            <h2>Erro ao carregar página</h2>
+                            <p>${erro.message}</p>
+                        </section>
+                    `;
+
+                }
+
+
+            } finally {
+
+                executando =
+                    false;
+
+            }
 
         };
 
