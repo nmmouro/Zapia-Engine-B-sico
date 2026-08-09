@@ -30,7 +30,7 @@ const DEFAULT_ROUTE = "dashboard";
 // ROTAS
 // ============================================================================
 
-const ENGINE_ROOT = "./js";
+const ENGINE_ROOT = "..";
 
 const routes = {
 
