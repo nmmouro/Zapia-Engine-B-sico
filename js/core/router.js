@@ -20,13 +20,11 @@
 //
 // ============================================================================
 
-
 // ============================================================================
 // CONFIGURAÇÃO
 // ============================================================================
 
 const DEFAULT_ROUTE = "dashboard";
-
 
 // ============================================================================
 // ROTAS
@@ -39,58 +37,55 @@ const routes = {
         path: "/",
 
         view:
-            "./pages/dashboard/dashboard.html",
+            "../pages/dashboard/dashboard.html",
 
         init:
-            "./pages/dashboard/dashboard.js",
+            "../pages/dashboard/dashboard.js",
 
         initFunction:
             "initDashboard"
 
     },
 
-
     lancamentos: {
 
         path: "/lancamentos",
 
         view:
-            "./pages/lancamentos/lancamentos.html",
+            "../pages/lancamentos/lancamentos.html",
 
         init:
-            "./pages/lancamentos/lancamentos.js",
+            "../pages/lancamentos/lancamentos.js",
 
         initFunction:
             "initLancamentos"
 
     },
 
-
     veiculos: {
 
         path: "/veiculos",
 
         view:
-            "./pages/veiculos/veiculos.html",
+            "../pages/veiculos/veiculos.html",
 
         init:
-            "./pages/veiculos/veiculos.js",
+            "../pages/veiculos/veiculos.js",
 
         initFunction:
             "initVeiculos"
 
     },
 
-
     empregados: {
 
         path: "/empregados",
 
         view:
-            "./pages/empregados/empregados.html",
+            "../pages/empregados/empregados.html",
 
         init:
-            "./pages/empregados/empregados.js",
+            "../pages/empregados/empregados.js",
 
         initFunction:
             "initEmpregados"
@@ -98,7 +93,6 @@ const routes = {
     }
 
 };
-
 
 // ============================================================================
 // PATH
@@ -118,13 +112,11 @@ export function getPath() {
 
     }
 
-
     return hash.startsWith("/")
         ? hash
         : `/${hash}`;
 
 }
-
 
 // ============================================================================
 // RESOLVER ROTA
@@ -134,7 +126,6 @@ export function getRoute() {
 
     const path =
         getPath();
-
 
     for (
         const [name, route]
@@ -151,11 +142,9 @@ export function getRoute() {
 
     }
 
-
     return DEFAULT_ROUTE;
 
 }
-
 
 // ============================================================================
 // OBTER CONFIGURAÇÃO DA ROTA
@@ -168,7 +157,6 @@ export function getRouteConfig(
     return routes[route] || null;
 
 }
-
 
 // ============================================================================
 // NAVEGAÇÃO
@@ -194,7 +182,6 @@ export function navigate(
             `ENGINE ROUTER: rota "${route}" não encontrada.`
         );
 
-
         window.location.hash =
             `#/${DEFAULT_ROUTE}`;
 
@@ -202,12 +189,10 @@ export function navigate(
 
     }
 
-
     window.location.hash =
         config.path;
 
 }
-
 
 // ============================================================================
 // CARREGAR VIEW
@@ -238,19 +223,15 @@ async function carregarView(
 
     }
 
-
     const html =
         await response.text();
-
 
     container.innerHTML =
         html;
 
-
     return container;
 
 }
-
 
 // ============================================================================
 // CARREGAR MÓDULO
@@ -266,18 +247,15 @@ async function carregarModulo(
 
     }
 
-
     console.log(
         "ENGINE ROUTER → Module:",
         config.init
     );
 
-
     const modulo =
         await import(
             config.init
         );
-
 
     if (
         !config.initFunction
@@ -287,12 +265,10 @@ async function carregarModulo(
 
     }
 
-
     const init =
         modulo[
             config.initFunction
         ];
-
 
     if (
         typeof init !==
@@ -305,11 +281,9 @@ async function carregarModulo(
 
     }
 
-
     return init;
 
 }
-
 
 // ============================================================================
 // START ROUTER
@@ -327,12 +301,10 @@ export function startRouter(
 
     };
 
-
     const container =
         document.querySelector(
             config.container
         );
-
 
     if (!container) {
 
@@ -342,18 +314,14 @@ export function startRouter(
 
     }
 
-
     let executando =
         false;
-
 
     let rotaAtual =
         null;
 
-
     let cleanupAtual =
         null;
-
 
     // ------------------------------------------------------------------------
     // EXECUTAR ROTA
@@ -368,22 +336,18 @@ export function startRouter(
 
             }
 
-
             executando =
                 true;
-
 
             try {
 
                 const route =
                     getRoute();
 
-
                 const routeConfig =
                     getRouteConfig(
                         route
                     );
-
 
                 if (!routeConfig) {
 
@@ -393,12 +357,10 @@ export function startRouter(
 
                 }
 
-
                 console.log(
                     "ENGINE ROUTER →",
                     route
                 );
-
 
                 // ------------------------------------------------------------
                 // NÃO RECARREGAR A MESMA ROTA
@@ -411,7 +373,6 @@ export function startRouter(
                     return;
 
                 }
-
 
                 // ------------------------------------------------------------
                 // CLEANUP DA ROTA ANTERIOR
@@ -437,14 +398,11 @@ export function startRouter(
 
                 }
 
-
                 cleanupAtual =
                     null;
 
-
                 rotaAtual =
                     route;
-
 
                 // ------------------------------------------------------------
                 // CARREGAR VIEW
@@ -455,7 +413,6 @@ export function startRouter(
                     container
                 );
 
-
                 // ------------------------------------------------------------
                 // CARREGAR INIT
                 // ------------------------------------------------------------
@@ -464,7 +421,6 @@ export function startRouter(
                     await carregarModulo(
                         routeConfig
                     );
-
 
                 // ------------------------------------------------------------
                 // EXECUTAR INIT
@@ -477,7 +433,6 @@ export function startRouter(
 
                     const resultado =
                         await init();
-
 
                     // --------------------------------------------------------
                     // OPCIONAL:
@@ -496,14 +451,12 @@ export function startRouter(
 
                 }
 
-
             } catch (erro) {
 
                 console.error(
                     "ENGINE ROUTER → Erro:",
                     erro
                 );
-
 
                 container.innerHTML = `
 
@@ -535,7 +488,6 @@ export function startRouter(
 
         };
 
-
     // ------------------------------------------------------------------------
     // HASHCHANGE
     // ------------------------------------------------------------------------
@@ -545,13 +497,11 @@ export function startRouter(
         run
     );
 
-
     // ------------------------------------------------------------------------
     // BOOT
     // ------------------------------------------------------------------------
 
     run();
-
 
     // ------------------------------------------------------------------------
     // DESTROY ROUTER
@@ -563,7 +513,6 @@ export function startRouter(
             "hashchange",
             run
         );
-
 
         if (
             typeof cleanupAtual ===
@@ -577,7 +526,6 @@ export function startRouter(
     };
 
 }
-
 
 // ============================================================================
 // EXPORTAR ROTAS
