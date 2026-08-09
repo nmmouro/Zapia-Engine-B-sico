@@ -66,7 +66,7 @@ export async function editarEmpregado(id) {
     preencherFormulario(dados);
     limparErro();
     document.getElementById("tituloModal").textContent = "Editar empregado";
-    abrirModal();
+    abrirModal({ focus: "empregado" });
   } catch (error) {
     tratarErro(error);
   } finally {
