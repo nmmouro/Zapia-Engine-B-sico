@@ -22,7 +22,9 @@ export function novoVeiculo() {
   definirRegistroEditando(null);
   limparFormulario();
   document.getElementById("tituloModal").textContent = "Novo veículo";
-  abrirModal();
+  abrirModal({
+        focus: "placa"
+    });
 }
 
 export async function editarVeiculo(id) {
