@@ -1,0 +1,232 @@
+// ============================================================================
+// EMPREGADOS FIELDS
+// Arquivo: js/pages/lancamentos/lancamentos.fields.js
+// ============================================================================
+
+import { preencher, valor} from "../../utils/formulario.js";
+
+// ============================================================================
+// OBTER DADOS DO FORMULÁRIO
+// ============================================================================
+
+export function obterDadosFormulario() {
+
+    const dados = {
+
+        Data: valor("data"),
+
+        Foto: valor("hora"),
+
+        Empregado: valor("empregado / matricula"),
+
+        Matrícula: valor("veiculo"),
+
+        Diretoria: valor("passageiro"),
+
+        Setor: valor("setor"),
+
+        Usuário: valor("motivo"),
+
+        Condição: valor("itineario"),
+
+        Status: valor("status")
+
+    };
+
+
+    // ========================================================================
+    // VALIDAÇÕES
+    // ========================================================================
+
+    if (!dados.Lancamento) {
+        throw new Error(
+            "Informe o nome do lançamento."
+        );
+    }
+
+    if (!dados["Matrícula"]) {
+        throw new Error(
+            "Informe a matrícula."
+        );
+    }
+
+    if (!dados.Diretoria) {
+        throw new Error(
+            "Informe a diretoria."
+        );
+    }
+
+    if (!dados.Setor) {
+        throw new Error(
+            "Informe o setor."
+        );
+    }
+
+    if (!dados.Status) {
+        throw new Error(
+            "Informe o status."
+        );
+    }
+
+
+    console.log(
+        "DADOS LANCAMENTO →",
+        dados
+    );
+
+
+    return dados;
+}
+
+
+// ============================================================================
+// PREENCHER FORMULÁRIO
+// ============================================================================
+
+export function preencherFormulario(
+    registro = {}
+) {
+
+    preencher(
+        "id",
+        registro.ID
+    );
+
+    preencher(
+        "data",
+        normalizarData(registro.Data)
+    );
+
+    preencher(
+        "hora",
+        registro.Hora
+    );
+
+    preencher(
+        "empregado",
+        registro.Empregado
+    );
+
+    preencher(
+        "matricula",
+        registro["Matrícula"]
+    );
+
+    preencher(
+        "veiculo",
+        registro.Veículo
+    );
+
+    preencher(
+        "passageiro / setor / motivo",
+        registro.Passageiro / Setro / Motivo
+    );
+
+    preencher(
+        "itinerario",
+        registro.Itinerário
+    );
+
+    preencher(
+        "status",
+        registro.Status || "ATIVO"
+    );
+
+}
+
+
+// ============================================================================
+// LIMPAR FORMULÁRIO
+// ============================================================================
+
+export function limparFormulario() {
+  document.getElementById("formLancamentos").reset();
+  preencher("id", "");
+  preencher("status", "ATIVO");
+  limparErro();
+}
+
+
+
+// ============================================================================
+// MOSTRAR ERRO
+// ============================================================================
+
+export function mostrarErro(
+    mensagem
+) {
+
+    const box =
+        document.getElementById(
+            "formErro"
+        );
+
+    box.textContent =
+        mensagem;
+
+    box.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+// ============================================================================
+// LIMPAR ERRO
+// ============================================================================
+
+export function limparErro() {
+
+    document
+        .getElementById("formErro")
+        ?.classList.add("hidden");
+
+}
+
+
+// ============================================================================
+// NORMALIZAR DATA
+// ============================================================================
+
+function normalizarData(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    const text =
+        String(value).trim();
+
+
+    // DD/MM/AAAA
+    if (
+        /^\d{2}\/\d{2}\/\d{4}$/.test(text)
+    ) {
+
+        const [
+            dia,
+            mes,
+            ano
+        ] = text.split("/");
+
+        return `${ano}-${mes}-${dia}`;
+
+    }
+
+
+    // AAAA-MM-DD ou AAAA-MM-DD HH...
+    if (
+        /^\d{4}-\d{2}-\d{2}/.test(text)
+    ) {
+
+        return text.slice(
+            0,
+            10
+        );
+
+    }
+
+
+    return "";
+
+}
