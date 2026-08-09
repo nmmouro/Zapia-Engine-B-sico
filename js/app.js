@@ -52,7 +52,7 @@ function boot() {
                 "#app",
 
             viewsPath:
-                "./pages"
+                "./js/pages"
         }
     );
 
