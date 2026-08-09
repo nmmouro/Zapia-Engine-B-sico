@@ -8,3 +8,9 @@ export function definirRegistros(lista) {
 export function definirRegistroEditando(id) {
   registroEditando = id ?? null;
 }
+
+export function limparRegistroEditando() {
+
+    registroEditando = null;
+
+}
