@@ -7,35 +7,94 @@
 // Responsabilidades:
 //
 //   1. Resolver rota
-//   2. Carregar a view HTML
-//   3. Inserir a view no container
-//   4. Executar o handler da rota
+//   2. Carregar a View HTML
+//   3. Inserir a View no container
+//   4. Carregar o módulo JS da rota
+//   5. Executar a função de inicialização
 //
-// O Router NÃO conhece regras de VEÍCULOS, EMPREGADOS etc.
+// O Router NÃO conhece regras de negócio.
+//
+// Cada página informa:
+//   - view
+//   - init
+//
+// ============================================================================
+
+
+// ============================================================================
+// CONFIGURAÇÃO
 // ============================================================================
 
 const DEFAULT_ROUTE = "dashboard";
 
+
+// ============================================================================
+// ROTAS
+// ============================================================================
+
 const routes = {
 
     dashboard: {
-        view: "./pages/dashboard/dashboard.html",
-        init: "./pages/dashboard/dashboard.js"
+
+        path: "/",
+
+        view:
+            "./pages/dashboard/dashboard.html",
+
+        init:
+            "./pages/dashboard/dashboard.js",
+
+        initFunction:
+            "initDashboard"
+
     },
+
 
     lancamentos: {
-        view: "./pages/lancamentos/lancamentos.html",
-        init: "./pages/lancamentos/lancamentos.js"
+
+        path: "/lancamentos",
+
+        view:
+            "./pages/lancamentos/lancamentos.html",
+
+        init:
+            "./pages/lancamentos/lancamentos.js",
+
+        initFunction:
+            "initLancamentos"
+
     },
+
 
     veiculos: {
-        view: "./pages/veiculos/veiculos.html",
-        init: "./pages/veiculos/veiculos.js"
+
+        path: "/veiculos",
+
+        view:
+            "./pages/veiculos/veiculos.html",
+
+        init:
+            "./pages/veiculos/veiculos.js",
+
+        initFunction:
+            "initVeiculos"
+
     },
 
+
     empregados: {
-        view: "./pages/empregados/empregados.html",
-        init: "./pages/empregados/empregados.js"
+
+        path: "/empregados",
+
+        view:
+            "./pages/empregados/empregados.html",
+
+        init:
+            "./pages/empregados/empregados.js",
+
+        initFunction:
+            "initEmpregados"
+
     }
 
 };
@@ -52,13 +111,23 @@ export function getPath() {
             .replace(/^#/, "")
             .trim();
 
-    return hash || "/";
+
+    if (!hash) {
+
+        return "/";
+
+    }
+
+
+    return hash.startsWith("/")
+        ? hash
+        : `/${hash}`;
 
 }
 
 
 // ============================================================================
-// ROTA
+// RESOLVER ROTA
 // ============================================================================
 
 export function getRoute() {
@@ -66,10 +135,37 @@ export function getRoute() {
     const path =
         getPath();
 
-    return (
-        routes[path] ||
-        DEFAULT_ROUTE
-    );
+
+    for (
+        const [name, route]
+        of Object.entries(routes)
+    ) {
+
+        if (
+            route.path === path
+        ) {
+
+            return name;
+
+        }
+
+    }
+
+
+    return DEFAULT_ROUTE;
+
+}
+
+
+// ============================================================================
+// OBTER CONFIGURAÇÃO DA ROTA
+// ============================================================================
+
+export function getRouteConfig(
+    route
+) {
+
+    return routes[route] || null;
 
 }
 
@@ -82,13 +178,33 @@ export function navigate(
     route
 ) {
 
-    const path =
+    const nome =
         route.startsWith("/")
-            ? route
-            : `/${route}`;
+            ? route.substring(1)
+            : route;
+
+
+    const config =
+        routes[nome];
+
+
+    if (!config) {
+
+        console.warn(
+            `ENGINE ROUTER: rota "${route}" não encontrada.`
+        );
+
+
+        window.location.hash =
+            `#/${DEFAULT_ROUTE}`;
+
+        return;
+
+    }
+
 
     window.location.hash =
-        path;
+        config.path;
 
 }
 
@@ -98,43 +214,26 @@ export function navigate(
 // ============================================================================
 
 async function carregarView(
-    route,
-    options
+    config,
+    container
 ) {
-
-    const container =
-        document.querySelector(
-            options.container
-        );
-
-
-    if (!container) {
-
-        throw new Error(
-            `ENGINE ROUTER: container "${options.container}" não encontrado.`
-        );
-
-    }
-
-
-    const url =
-        `${options.viewsPath}/${route}/${route}.html`;
-
 
     console.log(
         "ENGINE ROUTER → View:",
-        url
+        config.view
     );
 
 
     const response =
-        await fetch(url);
+        await fetch(
+            config.view
+        );
 
 
     if (!response.ok) {
 
         throw new Error(
-            `ENGINE ROUTER: não foi possível carregar "${url}".`
+            `ENGINE ROUTER: não foi possível carregar "${config.view}".`
         );
 
     }
@@ -154,11 +253,69 @@ async function carregarView(
 
 
 // ============================================================================
+// CARREGAR MÓDULO
+// ============================================================================
+
+async function carregarModulo(
+    config
+) {
+
+    if (!config.init) {
+
+        return null;
+
+    }
+
+
+    console.log(
+        "ENGINE ROUTER → Module:",
+        config.init
+    );
+
+
+    const modulo =
+        await import(
+            config.init
+        );
+
+
+    if (
+        !config.initFunction
+    ) {
+
+        return modulo;
+
+    }
+
+
+    const init =
+        modulo[
+            config.initFunction
+        ];
+
+
+    if (
+        typeof init !==
+        "function"
+    ) {
+
+        throw new Error(
+            `ENGINE ROUTER: função "${config.initFunction}" não encontrada em "${config.init}".`
+        );
+
+    }
+
+
+    return init;
+
+}
+
+
+// ============================================================================
 // START ROUTER
 // ============================================================================
 
 export function startRouter(
-    handlers,
     options = {}
 ) {
 
@@ -166,22 +323,21 @@ export function startRouter(
 
         container:
             options.container ||
-            "#app",
-
-        viewsPath:
-            options.viewsPath ||
-            "./pages"
+            "#app"
 
     };
 
 
-    if (
-        !handlers ||
-        typeof handlers !== "object"
-    ) {
+    const container =
+        document.querySelector(
+            config.container
+        );
 
-        throw new TypeError(
-            "ENGINE ROUTER: handlers inválidos."
+
+    if (!container) {
+
+        throw new Error(
+            `ENGINE ROUTER: container "${config.container}" não encontrado.`
         );
 
     }
@@ -191,11 +347,25 @@ export function startRouter(
         false;
 
 
+    let rotaAtual =
+        null;
+
+
+    let cleanupAtual =
+        null;
+
+
+    // ------------------------------------------------------------------------
+    // EXECUTAR ROTA
+    // ------------------------------------------------------------------------
+
     const run =
         async () => {
 
             if (executando) {
+
                 return;
+
             }
 
 
@@ -209,43 +379,122 @@ export function startRouter(
                     getRoute();
 
 
+                const routeConfig =
+                    getRouteConfig(
+                        route
+                    );
+
+
+                if (!routeConfig) {
+
+                    throw new Error(
+                        `ENGINE ROUTER: configuração da rota "${route}" não encontrada.`
+                    );
+
+                }
+
+
                 console.log(
                     "ENGINE ROUTER →",
                     route
                 );
 
 
-                const handler =
-                    handlers[route];
-
+                // ------------------------------------------------------------
+                // NÃO RECARREGAR A MESMA ROTA
+                // ------------------------------------------------------------
 
                 if (
-                    typeof handler !==
-                    "function"
+                    rotaAtual === route
                 ) {
 
-                    throw new Error(
-                        `ENGINE ROUTER: handler não encontrado para "${route}".`
-                    );
+                    return;
 
                 }
 
 
                 // ------------------------------------------------------------
-                // CARREGA O HTML PRIMEIRO
+                // CLEANUP DA ROTA ANTERIOR
+                // ------------------------------------------------------------
+
+                if (
+                    typeof cleanupAtual ===
+                    "function"
+                ) {
+
+                    try {
+
+                        await cleanupAtual();
+
+                    } catch (erro) {
+
+                        console.warn(
+                            "ENGINE ROUTER → Erro no cleanup:",
+                            erro
+                        );
+
+                    }
+
+                }
+
+
+                cleanupAtual =
+                    null;
+
+
+                rotaAtual =
+                    route;
+
+
+                // ------------------------------------------------------------
+                // CARREGAR VIEW
                 // ------------------------------------------------------------
 
                 await carregarView(
-                    route,
-                    config
+                    routeConfig,
+                    container
                 );
 
 
                 // ------------------------------------------------------------
-                // DEPOIS INICIALIZA O MÓDULO
+                // CARREGAR INIT
                 // ------------------------------------------------------------
 
-                await handler();
+                const init =
+                    await carregarModulo(
+                        routeConfig
+                    );
+
+
+                // ------------------------------------------------------------
+                // EXECUTAR INIT
+                // ------------------------------------------------------------
+
+                if (
+                    typeof init ===
+                    "function"
+                ) {
+
+                    const resultado =
+                        await init();
+
+
+                    // --------------------------------------------------------
+                    // OPCIONAL:
+                    // O módulo pode retornar uma função cleanup()
+                    // --------------------------------------------------------
+
+                    if (
+                        typeof resultado ===
+                        "function"
+                    ) {
+
+                        cleanupAtual =
+                            resultado;
+
+                    }
+
+                }
 
 
             } catch (erro) {
@@ -256,23 +505,26 @@ export function startRouter(
                 );
 
 
-                const container =
-                    document.querySelector(
-                        config.container
-                    );
+                container.innerHTML = `
 
+                    <section
+                        class="engine-error"
+                    >
 
-                if (container) {
+                        <h2>
+                            Erro ao carregar página
+                        </h2>
 
-                    container.innerHTML = `
-                        <section class="engine-error">
-                            <h2>Erro ao carregar página</h2>
-                            <p>${erro.message}</p>
-                        </section>
-                    `;
+                        <p>
+                            ${
+                                erro?.message ||
+                                "Erro desconhecido."
+                            }
+                        </p>
 
-                }
+                    </section>
 
+                `;
 
             } finally {
 
@@ -284,14 +536,26 @@ export function startRouter(
         };
 
 
+    // ------------------------------------------------------------------------
+    // HASHCHANGE
+    // ------------------------------------------------------------------------
+
     window.addEventListener(
         "hashchange",
         run
     );
 
 
+    // ------------------------------------------------------------------------
+    // BOOT
+    // ------------------------------------------------------------------------
+
     run();
 
+
+    // ------------------------------------------------------------------------
+    // DESTROY ROUTER
+    // ------------------------------------------------------------------------
 
     return () => {
 
@@ -300,6 +564,26 @@ export function startRouter(
             run
         );
 
+
+        if (
+            typeof cleanupAtual ===
+            "function"
+        ) {
+
+            cleanupAtual();
+
+        }
+
     };
 
 }
+
+
+// ============================================================================
+// EXPORTAR ROTAS
+// ============================================================================
+
+export {
+    routes,
+    DEFAULT_ROUTE
+};
