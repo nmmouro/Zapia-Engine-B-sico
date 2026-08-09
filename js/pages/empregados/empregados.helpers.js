@@ -99,9 +99,13 @@ export async function carregarTabela() {
         COLUNAS_EMPREGADOS,
         lista,
         {
-            onEdit: "editarEmpregado",
-            onDelete: "removerEmpregado"
-        }
+
+      edit: true,
+
+      remove: true
+
+    }
+
     );
 
 }
