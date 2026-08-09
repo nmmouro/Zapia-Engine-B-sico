@@ -14,11 +14,8 @@
 //
 // O Router NÃO conhece regras de negócio.
 //
-// Cada página informa:
-//   - view
-//   - init
-//
 // ============================================================================
+
 
 // ============================================================================
 // CONFIGURAÇÃO
@@ -26,43 +23,72 @@
 
 const DEFAULT_ROUTE = "dashboard";
 
+const ENGINE = {
+
+    // Caminho das páginas a partir do index.html
+    pagesPath: "./js/pages",
+
+    // Caminho dos módulos a partir de js/core/router.js
+    modulesPath: "../pages"
+
+};
+
+
 // ============================================================================
 // ROTAS
 // ============================================================================
 
-const ENGINE_ROOT = "..";
-
 const routes = {
 
     dashboard: {
+
         path: "/",
-        view: `${ENGINE_ROOT}/pages/dashboard/dashboard.html`,
-        init: `${ENGINE_ROOT}/pages/dashboard/dashboard.js`,
-        initFunction: "initDashboard"
+
+        page: "dashboard",
+
+        initFunction:
+            "initDashboard"
+
     },
+
 
     lancamentos: {
+
         path: "/lancamentos",
-        view: `${ENGINE_ROOT}/pages/lancamentos/lancamentos.html`,
-        init: `${ENGINE_ROOT}/pages/lancamentos/lancamentos.js`,
-        initFunction: "initLancamentos"
+
+        page: "lancamentos",
+
+        initFunction:
+            "initLancamentos"
+
     },
+
 
     veiculos: {
+
         path: "/veiculos",
-        view: `${ENGINE_ROOT}/pages/veiculos/veiculos.html`,
-        init: `${ENGINE_ROOT}/pages/veiculos/veiculos.js`,
-        initFunction: "initVeiculos"
+
+        page: "veiculos",
+
+        initFunction:
+            "initVeiculos"
+
     },
 
+
     empregados: {
+
         path: "/empregados",
-        view: `${ENGINE_ROOT}/pages/empregados/empregados.html`,
-        init: `${ENGINE_ROOT}/pages/empregados/empregados.js`,
-        initFunction: "initEmpregados"
+
+        page: "empregados",
+
+        initFunction:
+            "initEmpregados"
+
     }
 
 };
+
 
 // ============================================================================
 // PATH
@@ -82,11 +108,13 @@ export function getPath() {
 
     }
 
+
     return hash.startsWith("/")
         ? hash
         : `/${hash}`;
 
 }
+
 
 // ============================================================================
 // RESOLVER ROTA
@@ -96,6 +124,7 @@ export function getRoute() {
 
     const path =
         getPath();
+
 
     for (
         const [name, route]
@@ -112,12 +141,14 @@ export function getRoute() {
 
     }
 
+
     return DEFAULT_ROUTE;
 
 }
 
+
 // ============================================================================
-// OBTER CONFIGURAÇÃO DA ROTA
+// CONFIGURAÇÃO DA ROTA
 // ============================================================================
 
 export function getRouteConfig(
@@ -128,6 +159,7 @@ export function getRouteConfig(
 
 }
 
+
 // ============================================================================
 // NAVEGAÇÃO
 // ============================================================================
@@ -137,9 +169,9 @@ export function navigate(
 ) {
 
     const nome =
-        route.startsWith("/")
-            ? route.substring(1)
-            : route;
+        String(route)
+            .replace(/^#/, "")
+            .replace(/^\//, "");
 
 
     const config =
@@ -152,93 +184,136 @@ export function navigate(
             `ENGINE ROUTER: rota "${route}" não encontrada.`
         );
 
+
         window.location.hash =
-            `#/${DEFAULT_ROUTE}`;
+            "#/";
 
         return;
 
     }
+
 
     window.location.hash =
         config.path;
 
 }
 
+
+// ============================================================================
+// GERAR URL DA VIEW
+// ============================================================================
+
+function obterViewUrl(
+    route
+) {
+
+    return (
+        `${ENGINE.pagesPath}/` +
+        `${route.page}/` +
+        `${route.page}.html`
+    );
+
+}
+
+
+// ============================================================================
+// GERAR URL DO MÓDULO
+// ============================================================================
+
+function obterModuloUrl(
+    route
+) {
+
+    return (
+        `${ENGINE.modulesPath}/` +
+        `${route.page}/` +
+        `${route.page}.js`
+    );
+
+}
+
+
 // ============================================================================
 // CARREGAR VIEW
 // ============================================================================
 
 async function carregarView(
-    config,
+    route,
     container
 ) {
 
+    const url =
+        obterViewUrl(route);
+
+
     console.log(
         "ENGINE ROUTER → View:",
-        config.view
+        url
     );
 
 
     const response =
-        await fetch(
-            config.view
-        );
+        await fetch(url);
 
 
     if (!response.ok) {
 
         throw new Error(
-            `ENGINE ROUTER: não foi possível carregar "${config.view}".`
+            `ENGINE ROUTER: não foi possível carregar "${url}".`
         );
 
     }
 
+
     const html =
         await response.text();
+
 
     container.innerHTML =
         html;
 
+
     return container;
 
 }
+
 
 // ============================================================================
 // CARREGAR MÓDULO
 // ============================================================================
 
 async function carregarModulo(
-    config
+    route
 ) {
 
-    if (!config.init) {
+    const url =
+        obterModuloUrl(route);
 
-        return null;
-
-    }
 
     console.log(
         "ENGINE ROUTER → Module:",
-        config.init
+        url
     );
 
-    const modulo =
-        await import(
-            config.init
-        );
 
-    if (
-        !config.initFunction
-    ) {
+    const modulo =
+        await import(url);
+
+
+    const nomeFuncao =
+        route.initFunction;
+
+
+    if (!nomeFuncao) {
 
         return modulo;
 
     }
 
+
     const init =
-        modulo[
-            config.initFunction
-        ];
+        modulo[nomeFuncao];
+
 
     if (
         typeof init !==
@@ -246,14 +321,16 @@ async function carregarModulo(
     ) {
 
         throw new Error(
-            `ENGINE ROUTER: função "${config.initFunction}" não encontrada em "${config.init}".`
+            `ENGINE ROUTER: função "${nomeFuncao}" não encontrada em "${url}".`
         );
 
     }
 
+
     return init;
 
 }
+
 
 // ============================================================================
 // START ROUTER
@@ -271,10 +348,12 @@ export function startRouter(
 
     };
 
+
     const container =
         document.querySelector(
             config.container
         );
+
 
     if (!container) {
 
@@ -284,18 +363,22 @@ export function startRouter(
 
     }
 
+
     let executando =
         false;
+
 
     let rotaAtual =
         null;
 
+
     let cleanupAtual =
         null;
 
-    // ------------------------------------------------------------------------
+
+    // ========================================================================
     // EXECUTAR ROTA
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     const run =
         async () => {
@@ -306,46 +389,54 @@ export function startRouter(
 
             }
 
+
             executando =
                 true;
 
+
             try {
 
-                const route =
+                const routeName =
                     getRoute();
 
-                const routeConfig =
+
+                const route =
                     getRouteConfig(
-                        route
+                        routeName
                     );
 
-                if (!routeConfig) {
+
+                if (!route) {
 
                     throw new Error(
-                        `ENGINE ROUTER: configuração da rota "${route}" não encontrada.`
+                        `ENGINE ROUTER: configuração da rota "${routeName}" não encontrada.`
                     );
 
                 }
 
+
                 console.log(
                     "ENGINE ROUTER →",
-                    route
+                    routeName
                 );
 
+
                 // ------------------------------------------------------------
-                // NÃO RECARREGAR A MESMA ROTA
+                // EVITA RECARREGAR A MESMA ROTA
                 // ------------------------------------------------------------
 
                 if (
-                    rotaAtual === route
+                    rotaAtual ===
+                    routeName
                 ) {
 
                     return;
 
                 }
 
+
                 // ------------------------------------------------------------
-                // CLEANUP DA ROTA ANTERIOR
+                // CLEANUP
                 // ------------------------------------------------------------
 
                 if (
@@ -368,29 +459,34 @@ export function startRouter(
 
                 }
 
+
                 cleanupAtual =
                     null;
 
+
                 rotaAtual =
-                    route;
+                    routeName;
+
 
                 // ------------------------------------------------------------
                 // CARREGAR VIEW
                 // ------------------------------------------------------------
 
                 await carregarView(
-                    routeConfig,
+                    route,
                     container
                 );
 
+
                 // ------------------------------------------------------------
-                // CARREGAR INIT
+                // CARREGAR MÓDULO
                 // ------------------------------------------------------------
 
                 const init =
                     await carregarModulo(
-                        routeConfig
+                        route
                     );
+
 
                 // ------------------------------------------------------------
                 // EXECUTAR INIT
@@ -404,9 +500,9 @@ export function startRouter(
                     const resultado =
                         await init();
 
+
                     // --------------------------------------------------------
-                    // OPCIONAL:
-                    // O módulo pode retornar uma função cleanup()
+                    // CLEANUP OPCIONAL
                     // --------------------------------------------------------
 
                     if (
@@ -421,12 +517,14 @@ export function startRouter(
 
                 }
 
+
             } catch (erro) {
 
                 console.error(
                     "ENGINE ROUTER → Erro:",
                     erro
                 );
+
 
                 container.innerHTML = `
 
@@ -458,24 +556,27 @@ export function startRouter(
 
         };
 
-    // ------------------------------------------------------------------------
+
+    // ========================================================================
     // HASHCHANGE
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     window.addEventListener(
         "hashchange",
         run
     );
 
-    // ------------------------------------------------------------------------
+
+    // ========================================================================
     // BOOT
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     run();
 
-    // ------------------------------------------------------------------------
-    // DESTROY ROUTER
-    // ------------------------------------------------------------------------
+
+    // ========================================================================
+    // DESTROY
+    // ========================================================================
 
     return () => {
 
@@ -483,6 +584,7 @@ export function startRouter(
             "hashchange",
             run
         );
+
 
         if (
             typeof cleanupAtual ===
@@ -497,8 +599,9 @@ export function startRouter(
 
 }
 
+
 // ============================================================================
-// EXPORTAR ROTAS
+// EXPORTS
 // ============================================================================
 
 export {
