@@ -145,24 +145,12 @@ export function preencherFormulario(
 // ============================================================================
 
 export function limparFormulario() {
-
-    document
-        .getElementById("formEmpregado")
-        ?.reset();
-
-    preencher(
-        "id",
-        ""
-    );
-
-    preencher(
-        "status",
-        "ATIVO"
-    );
-
-    limparErro();
-
+  document.getElementById("formEmpregado").reset();
+  preencher("id", "");
+  preencher("status", "ATIVO");
+  limparErro();
 }
+
 
 
 // ============================================================================
@@ -177,10 +165,6 @@ export function mostrarErro(
         document.getElementById(
             "formErro"
         );
-
-    if (!box) {
-        return;
-    }
 
     box.textContent =
         mensagem;
