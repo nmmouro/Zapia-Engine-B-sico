@@ -20,7 +20,7 @@ export function registrarEventos() {
     }
   });
 
-  document.getElementById("formVeiculo").addEventListener("submit", async event => {
+  document.getElementById("formEmpregado").addEventListener("submit", async event => {
     event.preventDefault();
     await salvar();
   });
