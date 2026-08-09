@@ -4,6 +4,18 @@
 // ============================================================================
 
 import {
+
+    iniciarRelogio
+
+} from "../utils/relogio.js";
+
+import {
+
+    iniciarFullscreen
+
+} from "../utils/fullscreen.js";
+
+import {
     mostrarLoading,
     esconderLoading
 } from "../../ui/loading.js";
@@ -30,6 +42,10 @@ export async function initEmpregados() {
     try {
 
         mostrarLoading();
+
+                    iniciarRelogio();
+
+                    iniciarFullscreen();
 
         configurarModal();
         
