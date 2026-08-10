@@ -38,7 +38,7 @@ import { tratarErro } from "../../utils/erros.js";
 
 export async function initLancamentos() {
 
-
+                                    console.log("ENGINE → INIT LANÇAMENTOS");
     try {
 
         mostrarLoading();
