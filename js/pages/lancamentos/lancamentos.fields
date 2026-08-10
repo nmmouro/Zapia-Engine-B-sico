@@ -1,5 +1,5 @@
 // ============================================================================
-// EMPREGADOS FIELDS
+// LANÇAMENTOS FIELDS
 // Arquivo: js/pages/lancamentos/lancamentos.fields.js
 // ============================================================================
 
@@ -15,19 +15,19 @@ export function obterDadosFormulario() {
 
         Data: valor("data"),
 
-        Foto: valor("hora"),
+        Hora: valor("hora"),
 
-        Empregado: valor("empregado / matricula"),
+        Empregado / Matrícula: valor("empregado"),
 
-        Matrícula: valor("veiculo"),
+        Veículo: valor("veiculo"),
 
-        Diretoria: valor("passageiro"),
+        Passageiro: valor("passageiro"),
 
         Setor: valor("setor"),
 
-        Usuário: valor("motivo"),
+        Motivo: valor("motivo"),
 
-        Condição: valor("itineario"),
+        Itinerário: valor("itineario"),
 
         Status: valor("status")
 
@@ -38,36 +38,35 @@ export function obterDadosFormulario() {
     // VALIDAÇÕES
     // ========================================================================
 
-    if (!dados.Lancamento) {
-        throw new Error(
-            "Informe o nome do lançamento."
-        );
-    }
+    if (!dados["Empregado / Matrícula"]) {
 
-    if (!dados["Matrícula"]) {
         throw new Error(
-            "Informe a matrícula."
+            "Informe o empregado."
         );
-    }
+}
 
-    if (!dados.Diretoria) {
+    if (!dados.Veículo) {
+        
         throw new Error(
-            "Informe a diretoria."
-        );
-    }
+            "Informe o veículo."
+    );
+}
 
-    if (!dados.Setor) {
-        throw new Error(
-            "Informe o setor."
-        );
-    }
+        if (!dados["Passageiro / Setor / Motivo"]) {
 
-    if (!dados.Status) {
-        throw new Error(
-            "Informe o status."
-        );
-    }
+        throw new Error( "Informe o passageiro, setor ou motivo."
+);
+}
 
+        if (!dados.Itinerário) {
+            throw new Error( "Informe o itinerário."
+);
+}
+
+        if (!dados.Status) {
+            throw new Error( "Informe o status."
+);
+}
 
     console.log(
         "DADOS LANCAMENTO →",
@@ -102,30 +101,14 @@ export function preencherFormulario(
         registro.Hora
     );
 
-    preencher(
-        "empregado",
-        registro.Empregado
-    );
+   preencher( "empregado", registro["Empregado / Matrícula"] ?? registro.Empregado ?? "" );
 
-    preencher(
-        "matricula",
-        registro["Matrícula"]
-    );
+   preencher( "veiculo", registro.Veículo ?? registro.Veiculo ?? "" );
 
-    preencher(
-        "veiculo",
-        registro.Veículo
-    );
+   
+   preencher( "passageiro", registro["Passageiro / Setor / Motivo"] ?? registro.Passageiro ?? "" );
 
-    preencher(
-        "passageiro / setor / motivo",
-        registro.Passageiro / Setro / Motivo
-    );
-
-    preencher(
-        "itinerario",
-        registro.Itinerário
-    );
+   preencher( "passageiro", registro["Passageiro / Setor / Motivo"] ?? registro.Passageiro ?? "" );
 
     preencher(
         "status",
