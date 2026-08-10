@@ -1,6 +1,6 @@
 // ============================================================================
 // EMPREGADOS FORM
-// Arquivo: js/pages/empregados/LANÇAMENTOS.form.js
+// Arquivo: js/pages/lancamentos/lancamentos.form.js
 // ============================================================================
 
 import {
@@ -35,9 +35,23 @@ import {
 } from "../../utils/erros.js";
 
 // ============================================================================
-// EDITAR
+// NOVO LANÇAMENTO
 // ============================================================================
 
+export function novoLancamento() {
+    definirRegistroEditando(null);
+    limparFormulario(); const titulo =
+        document.getElementById("tituloModal");
+    
+    if (titulo) {
+        titulo.textContent =
+            "Novo lançamento";
+    }
+    abrirModal();
+}
+
+
+/*
 export function novoLancamento() {
   definirRegistroEditando(null);
   limparFormulario();
@@ -47,7 +61,11 @@ export function novoLancamento() {
         focus: "lancamento"
     });
 }
+*/
 
+// ============================================================================
+// EDITAR LANÇAMENTO
+// ============================================================================
 
 export async function editarLancamento(id) {
 
