@@ -41,6 +41,7 @@ import {
 export function novoLancamento() {
   definirRegistroEditando(null);
   limparFormulario();
+    
   document.getElementById("tituloModal").textContent = "Novo lancamento";
   abrirModal({
         focus: "lancamento"
