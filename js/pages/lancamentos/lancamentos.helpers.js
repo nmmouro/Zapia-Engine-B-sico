@@ -43,7 +43,7 @@ export const COLUNAS_LANCAMENTOS = [
 
     {
         key: "Passageiro / Setor / Motivo",
-        label: "Passageiro"
+        label: "Passageiro / Setor / Motivo"
     },
 
     {
