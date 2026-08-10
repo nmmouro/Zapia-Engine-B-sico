@@ -1,6 +1,6 @@
 // ============================================================================
 // EMPREGADOS EVENTS
-// Arquivo: js/pages/empregados/empregados.events.js
+// Arquivo: js/pages/lancamentos/lancamentos.events.js
 // ============================================================================
 
 import { novoLancamento, editarLancamento, salvar, remover } from "./lancamentos.form.js";
