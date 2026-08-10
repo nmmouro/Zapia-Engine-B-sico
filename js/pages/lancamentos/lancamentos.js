@@ -55,6 +55,8 @@ export async function initLancamentos() {
 
     } catch (erro) {
 
+                                    console.error( "ENGINE → Erro em Lançamentos:", erro );
+
     tratarErro(erro);
 
 } finally {
