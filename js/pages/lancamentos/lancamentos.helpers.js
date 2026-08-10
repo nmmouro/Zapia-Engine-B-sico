@@ -1,10 +1,10 @@
 // ============================================================================
-// EMPREGADOS HELPERS
+// LANÇAMENTOS HELPERS
 // Arquivo: js/pages/lancamentos/lancamentos.helpers.js
 // ============================================================================
 
 import {
-    obterEmpregados
+    obterLancamentos
 } from "../../services/lancamentos.service.js";
 
 import {
