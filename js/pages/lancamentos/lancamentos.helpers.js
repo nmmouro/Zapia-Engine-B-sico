@@ -1,5 +1,5 @@
 // ============================================================================
-// LANÇAMENTOS HELPERS
+// LANCAMENTOS HELPERS
 // Arquivo: js/pages/lancamentos/lancamentos.helpers.js
 // ============================================================================
 
