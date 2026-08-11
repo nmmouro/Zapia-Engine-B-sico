@@ -17,7 +17,7 @@ export function obterDadosFormulario() {
 
         Hora: valor("hora"),
 
-        Empregado / Matrícula: valor("empregado"),
+        "Empregado / Matrícula": valor("empregado"),
 
         Veículo: valor("veiculo"),
 
