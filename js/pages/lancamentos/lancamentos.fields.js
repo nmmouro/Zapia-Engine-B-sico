@@ -21,13 +21,10 @@ export function obterDadosFormulario() {
 
         Veículo: valor("veiculo"),
 
-        Passageiro: valor("passageiro"),
+        "Passageiro / Setor / Motivo": valor("passageiro"),
 
-        Setor: valor("setor"),
-
-        Motivo: valor("motivo"),
-
-        Itinerário: valor("itineario"),
+        
+        Itinerário: valor("itinerario"),
 
         Status: valor("status")
 
@@ -88,7 +85,7 @@ export function preencherFormulario(
 
     preencher(
         "id",
-        registro.ID
+        registro.ID ?? ""
     );
 
     preencher(
@@ -98,7 +95,7 @@ export function preencherFormulario(
 
     preencher(
         "hora",
-        registro.Hora
+        registro.Hora ?? ""
     );
 
    preencher( "empregado", registro["Empregado / Matrícula"] ?? registro.Empregado ?? "" );
@@ -108,11 +105,11 @@ export function preencherFormulario(
    
    preencher( "passageiro", registro["Passageiro / Setor / Motivo"] ?? registro.Passageiro ?? "" );
 
-   preencher( "passageiro", registro["Passageiro / Setor / Motivo"] ?? registro.Passageiro ?? "" );
+   preencher( "itinerario", registro.Itinerário ?? registro.Itinerario ?? "" );
 
     preencher(
         "status",
-        registro.Status || "ATIVO"
+       registro.Status ?? "ATIVO"
     );
 
 }
@@ -123,7 +120,7 @@ export function preencherFormulario(
 // ============================================================================
 
 export function limparFormulario() {
-  document.getElementById("formLancamentos").reset();
+  document.getElementById("formLancamento")?.reset();
   preencher("id", "");
   preencher("status", "ATIVO");
   limparErro();
@@ -143,6 +140,8 @@ export function mostrarErro(
         document.getElementById(
             "formErro"
         );
+
+    if (!box) { return; }
 
     box.textContent =
         mensagem;
