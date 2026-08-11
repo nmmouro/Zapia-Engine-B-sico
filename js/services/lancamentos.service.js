@@ -326,7 +326,7 @@ export async function obterLancamentos() {
 // BUSCAR
 // ============================================================================
 
-export async function obterLancamentos(id) {
+export async function obterLancamento(id) {
 
   if (!id) {
 
@@ -360,7 +360,7 @@ export async function obterLancamentos(id) {
 // SALVAR
 // ============================================================================
 
-export async function salvarLancamentos(
+export async function salvarLancamento(
   dados
 ) {
 
@@ -379,7 +379,7 @@ export async function salvarLancamentos(
 // ATUALIZAR
 // ============================================================================
 
-export async function atualizarLancamentos(
+export async function atualizarLancamento(
   id,
   dados
 ) {
@@ -409,7 +409,7 @@ export async function atualizarLancamentos(
 // EXCLUIR
 // ============================================================================
 
-export async function excluirLancamentos(id) {
+export async function excluirLancamento(id) {
 
   if (!id) {
 
