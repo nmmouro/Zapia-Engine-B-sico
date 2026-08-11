@@ -138,9 +138,10 @@ function jsonp(params = {}) {
      
 script.onerror = (evento) => {
     console.error("ENGINE → JSONP ERROR:", evento);
-    console.error("URL:", url);
+    console.error("URL:", url.toString());
 
-    reject(new Error(
+  finalizar();  
+  reject(new Error(
         "Não foi possível acessar a API JSONP."
     ));
 };
