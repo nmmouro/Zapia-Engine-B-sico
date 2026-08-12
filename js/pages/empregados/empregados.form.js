@@ -15,7 +15,10 @@ import {
     esconderLoading
 } from "../../ui/loading.js";
 
-import { abrirModal, fecharModal } from "../../ui/modal.js";
+import {
+    abrirModal,
+    fecharModal
+} from "../../ui/modal.js";
 
 import {
     obterDadosFormulario,
@@ -23,60 +26,135 @@ import {
     limparFormulario,
     mostrarErro,
     limparErro
-    
 } from "./empregados.fields.js";
 
-import { carregarTabela } from "./empregados.helpers.js";
+import {
+    carregarTabela
+} from "./empregados.helpers.js";
 
-import { definirRegistroEditando, registroEditando } from "./empregados.state.js";
+import {
+    definirRegistroEditando,
+    registroEditando
+} from "./empregados.state.js";
 
 import {
     tratarErro
 } from "../../utils/erros.js";
 
 // ============================================================================
-// EDITAR
+// NOVO EMPREGADO
 // ============================================================================
 
 export function novoEmpregado() {
-  definirRegistroEditando(null);
-  limparFormulario();
-  document.getElementById("tituloModal").textContent = "Novo empregado";
-  abrirModal({
+
+    definirRegistroEditando(null);
+
+    limparFormulario();
+
+    limparErro();
+
+
+    const titulo =
+        document.getElementById(
+            "tituloModal"
+        );
+
+
+    if (titulo) {
+
+        titulo.textContent =
+            "Novo empregado";
+
+    }
+
+
+    abrirModal({
         focus: "empregado"
     });
+
 }
 
 
-export async function editarEmpregado(id) {
+// ============================================================================
+// EDITAR EMPREGADO
+// ============================================================================
+
+export async function editarEmpregado(
+    id
+) {
 
     try {
 
         mostrarLoading();
 
-        const registro = await obterEmpregado(id);
-        const dados = registro?.dados ?? registro;
+        const registro =
+            await obterEmpregado(id);
 
-        if (!dados || Array.isArray(dados)) {
+
+        const dados =
+            registro?.dados ??
+            registro;
+
+
+        if (
+            !dados ||
+            Array.isArray(dados)
+        ) {
 
             throw new Error(
                 "Empregado não encontrado."
             );
+
         }
-        definirRegistroEditando(dados.ID ?? id);
-    preencherFormulario(dados);
-    limparErro();
-    document.getElementById("tituloModal").textContent = "Editar empregado";
-    abrirModal({ focus: "empregado" });
-  } catch (error) {
-    tratarErro(error);
-  } finally {
-    esconderLoading();
-  }
+
+
+        definirRegistroEditando(
+            dados.ID ?? id
+        );
+
+
+        preencherFormulario(
+            dados
+        );
+
+
+        limparErro();
+
+
+        const titulo =
+            document.getElementById(
+                "tituloModal"
+            );
+
+
+        if (titulo) {
+
+            titulo.textContent =
+                "Editar empregado";
+
+        }
+
+
+        abrirModal({
+            focus: "empregado"
+        });
+
+
+    } catch (error) {
+
+        tratarErro(error);
+
+    } finally {
+
+        esconderLoading();
+
+    }
+
 }
 
+
 // ============================================================================
-// SALVAR
+// SALVAR EMPREGADO
 // ============================================================================
 
 export async function salvar() {
@@ -84,11 +162,13 @@ export async function salvar() {
     try {
 
         mostrarLoading();
+
         limparErro();
 
 
         const dados =
             obterDadosFormulario();
+
 
         if (registroEditando) {
 
@@ -105,36 +185,69 @@ export async function salvar() {
 
         }
 
-       definirRegistroEditando(null);
-    fecharModal();
-    await carregarTabela();
-  } catch (error) {
-    mostrarErro(error?.message || "Não foi possível salvar.");
-  } finally {
-    esconderLoading();
-  }
+
+        definirRegistroEditando(
+            null
+        );
+
+
+        fecharModal();
+
+
+        await carregarTabela();
+
+
+    } catch (error) {
+
+        mostrarErro(
+            error?.message ??
+            "Não foi possível salvar o empregado."
+        );
+
+    } finally {
+
+        esconderLoading();
+
+    }
+
 }
 
 
 // ============================================================================
-// EXCLUIR
+// EXCLUIR EMPREGADO
 // ============================================================================
 
-export async function remover(id) {
+export async function remover(
+    id
+) {
 
-    if (!confirm("Excluir este empregado?")) return;
+    if (
+        !confirm(
+            "Excluir este empregado?"
+        )
+    ) {
+
+        return;
+
+    }
+
 
     try {
 
         mostrarLoading();
 
-        await excluirEmpregado(id);
+
+        await excluirEmpregado(
+            id
+        );
+
 
         await carregarTabela();
 
-    } catch (erro) {
 
-        tratarErro(erro);
+    } catch (error) {
+
+        tratarErro(error);
 
     } finally {
 
