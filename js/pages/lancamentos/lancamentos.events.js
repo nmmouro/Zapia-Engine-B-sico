@@ -1,36 +1,171 @@
 // ============================================================================
-// LANCAMENTOS
+// LANÇAMENTOS EVENTS
 // Arquivo: js/pages/lancamentos/lancamentos.events.js
 // ============================================================================
 
-import { novoLancamento, editarLancamento, salvar, remover } from "./lancamentos.form.js";
+import {
+    novoLancamento,
+    editarLancamento,
+    salvar,
+    remover
+} from "./lancamentos.form.js";
 
 import { carregarTabela } from "./lancamentos.helpers.js";
 
 import { tratarErro } from "../../utils/erros.js";
 
+// ============================================================================
+// REGISTRAR EVENTOS
+// ============================================================================
+
 export function registrarEventos() {
-  document.getElementById("btnNovo").addEventListener("click", novoLancamento);
 
-  document.getElementById("btnAtualizar").addEventListener("click", async () => {
-    try {
-      await carregarTabela();
-    } catch (error) {
-      tratarErro(error);
+    const btnNovo =
+        document.getElementById("btnNovo");
+
+    const btnAtualizar =
+        document.getElementById("btnAtualizar");
+
+    const formulario =
+        document.getElementById("formLancamento");
+
+    const tabela =
+        document.getElementById("tabelaLancamentos");
+
+
+    // ========================================================================
+    // VALIDAÇÃO DOS ELEMENTOS
+    // ========================================================================
+
+    if (!btnNovo) {
+        throw new Error(
+            "Elemento #btnNovo não encontrado."
+        );
     }
-  });
 
-  document.getElementById("formLancamento").addEventListener("submit", async event => {
-    event.preventDefault();
-    await salvar();
-  });
+    if (!btnAtualizar) {
+        throw new Error(
+            "Elemento #btnAtualizar não encontrado."
+        );
+    }
 
-  document.getElementById("tabelaLancamentos").addEventListener("click", async event => {
-    const button = event.target.closest("[data-action]");
-    if (!button) return;
+    if (!formulario) {
+        throw new Error(
+            "Elemento #formLancamento não encontrado."
+        );
+    }
 
-    const id = button.dataset.id;
-    if (button.dataset.action === "edit") await editarLancamento(id);
-    if (button.dataset.action === "remove") await remover(id);
-  });
+    if (!tabela) {
+        throw new Error(
+            "Elemento #tabelaLancamentos não encontrado."
+        );
+    }
+
+
+    // ========================================================================
+    // NOVO
+    // ========================================================================
+
+    btnNovo.addEventListener(
+        "click",
+        novoLancamento
+    );
+
+
+    // ========================================================================
+    // ATUALIZAR
+    // ========================================================================
+
+    btnAtualizar.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await carregarTabela();
+
+            } catch (erro) {
+
+                tratarErro(erro);
+
+            }
+
+        }
+    );
+
+
+    // ========================================================================
+    // FORMULÁRIO
+    // ========================================================================
+
+    formulario.addEventListener(
+        "submit",
+        async evento => {
+
+            evento.preventDefault();
+
+            try {
+
+                await salvar();
+
+            } catch (erro) {
+
+                tratarErro(erro);
+
+            }
+
+        }
+    );
+
+
+    // ========================================================================
+    // AÇÕES DA TABELA
+    // ========================================================================
+
+    tabela.addEventListener(
+        "click",
+        async evento => {
+
+            const botao =
+                evento.target.closest(
+                    "[data-action]"
+                );
+
+
+            if (!botao) {
+                return;
+            }
+
+
+            const id =
+                botao.dataset.id;
+
+            const acao =
+                botao.dataset.action;
+
+
+            try {
+
+                if (acao === "edit") {
+
+                    await editarLancamento(id);
+
+                }
+
+
+                if (acao === "remove") {
+
+                    await remover(id);
+
+                }
+
+            } catch (erro) {
+
+                tratarErro(erro);
+
+            }
+
+        }
+    );
+
 }
