@@ -62,6 +62,18 @@ export function obterDadosFormulario() {
         );
     }
 
+    if (!dados.Usuario) {
+        throw new Error(
+            "Informe o usuário."
+        );
+    }
+
+    if (!dados.Condicao) {
+        throw new Error(
+            "Informe o condição."
+        );
+    }
+
     if (!dados.Status) {
         throw new Error(
             "Informe o status."
