@@ -1,5 +1,5 @@
 // ============================================================================
-// LANCAMENTOS FORM
+// LANÇAMENTOS FORM
 // Arquivo: js/pages/lancamentos/lancamentos.form.js
 // ============================================================================
 
@@ -15,7 +15,10 @@ import {
     esconderLoading
 } from "../../ui/loading.js";
 
-import { abrirModal, fecharModal } from "../../ui/modal.js";
+import {
+    abrirModal,
+    fecharModal
+} from "../../ui/modal.js";
 
 import {
     obterDadosFormulario,
@@ -23,12 +26,16 @@ import {
     limparFormulario,
     mostrarErro,
     limparErro
-    
 } from "./lancamentos.fields.js";
 
-import { carregarTabela } from "./lancamentos.helpers.js";
+import {
+    carregarTabela
+} from "./lancamentos.helpers.js";
 
-import { definirRegistroEditando, registroEditando } from "./lancamentos.state.js";
+import {
+    definirRegistroEditando,
+    registroEditando
+} from "./lancamentos.state.js";
 
 import {
     tratarErro
@@ -39,63 +46,119 @@ import {
 // ============================================================================
 
 export function novoLancamento() {
-    definirRegistroEditando(null);
-    limparFormulario(); const titulo =
-        document.getElementById("tituloModal");
-    
+
+    definirRegistroEditando(
+        null
+    );
+
+
+    limparFormulario();
+
+    limparErro();
+
+
+    const titulo =
+        document.getElementById(
+            "tituloModal"
+        );
+
+
     if (titulo) {
+
         titulo.textContent =
             "Novo lançamento";
+
     }
-    abrirModal();
-}
 
 
-/*
-export function novoLancamento() {
-  definirRegistroEditando(null);
-  limparFormulario();
-    
-  document.getElementById("tituloModal").textContent = "Novo lancamento";
-  abrirModal({
-        focus: "lancamento"
+    abrirModal({
+        focus: "data"
     });
+
 }
-*/
+
 
 // ============================================================================
 // EDITAR LANÇAMENTO
 // ============================================================================
 
-export async function editarLancamento(id) {
+export async function editarLancamento(
+    id
+) {
 
     try {
 
         mostrarLoading();
 
-        const registro = await obterLancamento(id);
-        const dados = registro?.dados ?? registro;
 
-        if (!dados || Array.isArray(dados)) {
+        const registro =
+            await obterLancamento(id);
+
+
+        const dados =
+            registro?.dados ??
+            registro;
+
+
+        if (
+            !dados ||
+            Array.isArray(dados)
+        ) {
 
             throw new Error(
-                "Lancamento não encontrado."
+                "Lançamento não encontrado."
             );
+
         }
-        definirRegistroEditando(dados.ID ?? id);
-    preencherFormulario(dados);
-    limparErro();
-    document.getElementById("tituloModal").textContent = "Editar lancamento";
-    abrirModal({ focus: "lancamento" });
-  } catch (error) {
-    tratarErro(error);
-  } finally {
-    esconderLoading();
-  }
+
+
+        definirRegistroEditando(
+            dados.ID ?? id
+        );
+
+
+        preencherFormulario(
+            dados
+        );
+
+
+        limparErro();
+
+
+        const titulo =
+            document.getElementById(
+                "tituloModal"
+            );
+
+
+        if (titulo) {
+
+            titulo.textContent =
+                "Editar lançamento";
+
+        }
+
+
+        abrirModal({
+            focus: "data"
+        });
+
+
+    } catch (error) {
+
+        tratarErro(error);
+
+    } finally {
+
+        esconderLoading();
+
+    }
+
 }
 
+
 // ============================================================================
-// SALVAR
+// SALVAR LANÇAMENTO
 // ============================================================================
 
 export async function salvar() {
@@ -103,11 +166,13 @@ export async function salvar() {
     try {
 
         mostrarLoading();
+
         limparErro();
 
 
         const dados =
             obterDadosFormulario();
+
 
         if (registroEditando) {
 
@@ -124,36 +189,69 @@ export async function salvar() {
 
         }
 
-       definirRegistroEditando(null);
-    fecharModal();
-    await carregarTabela();
-  } catch (error) {
-    mostrarErro(error?.message || "Não foi possível salvar.");
-  } finally {
-    esconderLoading();
-  }
+
+        definirRegistroEditando(
+            null
+        );
+
+
+        fecharModal();
+
+
+        await carregarTabela();
+
+
+    } catch (error) {
+
+        mostrarErro(
+            error?.message ??
+            "Não foi possível salvar o lançamento."
+        );
+
+    } finally {
+
+        esconderLoading();
+
+    }
+
 }
 
 
 // ============================================================================
-// EXCLUIR
+// EXCLUIR LANÇAMENTO
 // ============================================================================
 
-export async function remover(id) {
+export async function remover(
+    id
+) {
 
-    if (!confirm("Excluir este lançamento?")) return;
+    if (
+        !confirm(
+            "Excluir este lançamento?"
+        )
+    ) {
+
+        return;
+
+    }
+
 
     try {
 
         mostrarLoading();
 
-        await excluirLancamento(id);
+
+        await excluirLancamento(
+            id
+        );
+
 
         await carregarTabela();
 
-    } catch (erro) {
 
-        tratarErro(erro);
+    } catch (error) {
+
+        tratarErro(error);
 
     } finally {
 
