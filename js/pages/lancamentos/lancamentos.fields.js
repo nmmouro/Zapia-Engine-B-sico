@@ -1,9 +1,12 @@
 // ============================================================================
-// LANCAMENTOS FIELDS
+// LANÇAMENTOS FIELDS
 // Arquivo: js/pages/lancamentos/lancamentos.fields.js
 // ============================================================================
 
-import { preencher, valor} from "../../utils/formulario.js";
+import {
+    preencher,
+    valor
+} from "../../utils/formulario.js";
 
 // ============================================================================
 // OBTER DADOS DO FORMULÁRIO
@@ -13,20 +16,26 @@ export function obterDadosFormulario() {
 
     const dados = {
 
-        Data: valor("data"),
+        Data:
+            valor("data"),
 
-        Hora: valor("hora"),
+        Hora:
+            valor("hora"),
 
-        "Empregado / Matrícula": valor("empregado"),
+        "Empregado / Matrícula":
+            valor("empregado"),
 
-        Veículo: valor("veiculo"),
+        Veículo:
+            valor("veiculo"),
 
-        "Passageiro / Setor / Motivo": valor("passageiro"),
+        "Passageiro / Setor / Motivo":
+            valor("passageiro"),
 
-        
-        Itinerário: valor("itinerario"),
+        Itinerário:
+            valor("itinerario"),
 
-        Status: valor("status")
+        Status:
+            valor("status")
 
     };
 
@@ -35,43 +44,69 @@ export function obterDadosFormulario() {
     // VALIDAÇÕES
     // ========================================================================
 
-    if (!dados["Empregado / Matrícula"]) {
+    if (
+        !dados["Empregado / Matrícula"]
+    ) {
 
         throw new Error(
             "Informe o empregado."
         );
-}
 
-    if (!dados.Veículo) {
-        
+    }
+
+
+    if (
+        !dados.Veículo
+    ) {
+
         throw new Error(
             "Informe o veículo."
-    );
-}
+        );
 
-        if (!dados["Passageiro / Setor / Motivo"]) {
+    }
 
-        throw new Error( "Informe o passageiro, setor ou motivo."
-);
-}
 
-        if (!dados.Itinerário) {
-            throw new Error( "Informe o itinerário."
-);
-}
+    if (
+        !dados["Passageiro / Setor / Motivo"]
+    ) {
 
-        if (!dados.Status) {
-            throw new Error( "Informe o status."
-);
-}
+        throw new Error(
+            "Informe o passageiro, setor ou motivo."
+        );
+
+    }
+
+
+    if (
+        !dados.Itinerário
+    ) {
+
+        throw new Error(
+            "Informe o itinerário."
+        );
+
+    }
+
+
+    if (
+        !dados.Status
+    ) {
+
+        throw new Error(
+            "Informe o status."
+        );
+
+    }
+
 
     console.log(
-        "DADOS LANCAMENTO →",
+        "DADOS LANÇAMENTO →",
         dados
     );
 
 
     return dados;
+
 }
 
 
@@ -88,28 +123,58 @@ export function preencherFormulario(
         registro.ID ?? ""
     );
 
+
     preencher(
         "data",
-        normalizarData(registro.Data)
+        normalizarData(
+            registro.Data
+        )
     );
+
 
     preencher(
         "hora",
-        registro.Hora ?? ""
+        normalizarHora(
+            registro.Hora
+        )
     );
 
-   preencher( "empregado", registro["Empregado / Matrícula"] ?? registro.Empregado ?? "" );
 
-   preencher( "veiculo", registro.Veículo ?? registro.Veiculo ?? "" );
+    preencher(
+        "empregado",
+        registro["Empregado / Matrícula"] ??
+        registro.Empregado ??
+        ""
+    );
 
-   
-   preencher( "passageiro", registro["Passageiro / Setor / Motivo"] ?? registro.Passageiro ?? "" );
 
-   preencher( "itinerario", registro.Itinerário ?? registro.Itinerario ?? "" );
+    preencher(
+        "veiculo",
+        registro.Veículo ??
+        registro.Veiculo ??
+        ""
+    );
+
+
+    preencher(
+        "passageiro",
+        registro["Passageiro / Setor / Motivo"] ??
+        registro.Passageiro ??
+        ""
+    );
+
+
+    preencher(
+        "itinerario",
+        registro.Itinerário ??
+        registro.Itinerario ??
+        ""
+    );
+
 
     preencher(
         "status",
-       registro.Status ?? "ATIVO"
+        registro.Status ?? "ATIVO"
     );
 
 }
@@ -120,12 +185,27 @@ export function preencherFormulario(
 // ============================================================================
 
 export function limparFormulario() {
-  document.getElementById("formLancamento")?.reset();
-  preencher("id", "");
-  preencher("status", "ATIVO");
-  limparErro();
-}
 
+    document
+        .getElementById("formLancamento")
+        ?.reset();
+
+
+    preencher(
+        "id",
+        ""
+    );
+
+
+    preencher(
+        "status",
+        "ATIVO"
+    );
+
+
+    limparErro();
+
+}
 
 
 // ============================================================================
@@ -141,10 +221,15 @@ export function mostrarErro(
             "formErro"
         );
 
-    if (!box) { return; }
+
+    if (!box) {
+        return;
+    }
+
 
     box.textContent =
         mensagem;
+
 
     box.classList.remove(
         "hidden"
@@ -161,7 +246,9 @@ export function limparErro() {
 
     document
         .getElementById("formErro")
-        ?.classList.add("hidden");
+        ?.classList.add(
+            "hidden"
+        );
 
 }
 
@@ -170,41 +257,106 @@ export function limparErro() {
 // NORMALIZAR DATA
 // ============================================================================
 
-function normalizarData(value) {
+function normalizarData(
+    value
+) {
 
     if (!value) {
         return "";
     }
 
+
     const text =
         String(value).trim();
 
 
+    // ========================================================================
     // DD/MM/AAAA
+    // ========================================================================
+
     if (
-        /^\d{2}\/\d{2}\/\d{4}$/.test(text)
+        /^\d{2}\/\d{2}\/\d{4}$/.test(
+            text
+        )
     ) {
 
         const [
             dia,
             mes,
             ano
-        ] = text.split("/");
+        ] =
+            text.split("/");
+
 
         return `${ano}-${mes}-${dia}`;
 
     }
 
 
-    // AAAA-MM-DD ou AAAA-MM-DD HH...
+    // ========================================================================
+    // AAAA-MM-DD
+    // AAAA-MM-DD HH...
+    // ========================================================================
+
     if (
-        /^\d{4}-\d{2}-\d{2}/.test(text)
+        /^\d{4}-\d{2}-\d{2}/.test(
+            text
+        )
     ) {
 
         return text.slice(
             0,
             10
         );
+
+    }
+
+
+    return "";
+
+}
+
+
+// ============================================================================
+// NORMALIZAR HORA
+// ============================================================================
+
+function normalizarHora(
+    value
+) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    const text =
+        String(value).trim();
+
+
+    // HH:MM:SS → HH:MM
+    if (
+        /^\d{2}:\d{2}:\d{2}$/.test(
+            text
+        )
+    ) {
+
+        return text.slice(
+            0,
+            5
+        );
+
+    }
+
+
+    // HH:MM
+    if (
+        /^\d{2}:\d{2}$/.test(
+            text
+        )
+    ) {
+
+        return text;
 
     }
 
