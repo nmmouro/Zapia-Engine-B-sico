@@ -1,29 +1,171 @@
-import { novoVeiculo, editarVeiculo, salvar, remover } from "./veiculos.form.js";
+// ============================================================================
+// VEÍCULOS EVENTS
+// Arquivo: js/pages/veiculos/veiculos.events.js
+// ============================================================================
+
+import {
+    novoVeiculo,
+    editarVeiculo,
+    salvar,
+    remover
+} from "./veiculos.form.js";
+
 import { carregarTabela } from "./veiculos.helpers.js";
+
 import { tratarErro } from "../../utils/erros.js";
 
+// ============================================================================
+// REGISTRAR EVENTOS
+// ============================================================================
+
 export function registrarEventos() {
-  document.getElementById("btnNovo").addEventListener("click", novoVeiculo);
 
-  document.getElementById("btnAtualizar").addEventListener("click", async () => {
-    try {
-      await carregarTabela();
-    } catch (error) {
-      tratarErro(error);
+    const btnNovo =
+        document.getElementById("btnNovo");
+
+    const btnAtualizar =
+        document.getElementById("btnAtualizar");
+
+    const formulario =
+        document.getElementById("formVeiculo");
+
+    const tabela =
+        document.getElementById("tabelaVeiculos");
+
+
+    // ========================================================================
+    // VALIDAÇÃO DOS ELEMENTOS
+    // ========================================================================
+
+    if (!btnNovo) {
+        throw new Error(
+            "Elemento #btnNovo não encontrado."
+        );
     }
-  });
 
-  document.getElementById("formVeiculo").addEventListener("submit", async event => {
-    event.preventDefault();
-    await salvar();
-  });
+    if (!btnAtualizar) {
+        throw new Error(
+            "Elemento #btnAtualizar não encontrado."
+        );
+    }
 
-  document.getElementById("tabelaVeiculos").addEventListener("click", async event => {
-    const button = event.target.closest("[data-action]");
-    if (!button) return;
+    if (!formulario) {
+        throw new Error(
+            "Elemento #formVeiculo não encontrado."
+        );
+    }
 
-    const id = button.dataset.id;
-    if (button.dataset.action === "edit") await editarVeiculo(id);
-    if (button.dataset.action === "remove") await remover(id);
-  });
+    if (!tabela) {
+        throw new Error(
+            "Elemento #tabelaVeiculos não encontrado."
+        );
+    }
+
+
+    // ========================================================================
+    // NOVO
+    // ========================================================================
+
+    btnNovo.addEventListener(
+        "click",
+        novoVeiculo
+    );
+
+
+    // ========================================================================
+    // ATUALIZAR
+    // ========================================================================
+
+    btnAtualizar.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await carregarTabela();
+
+            } catch (erro) {
+
+                tratarErro(erro);
+
+            }
+
+        }
+    );
+
+
+    // ========================================================================
+    // FORMULÁRIO
+    // ========================================================================
+
+    formulario.addEventListener(
+        "submit",
+        async evento => {
+
+            evento.preventDefault();
+
+            try {
+
+                await salvar();
+
+            } catch (erro) {
+
+                tratarErro(erro);
+
+            }
+
+        }
+    );
+
+
+    // ========================================================================
+    // AÇÕES DA TABELA
+    // ========================================================================
+
+    tabela.addEventListener(
+        "click",
+        async evento => {
+
+            const botao =
+                evento.target.closest(
+                    "[data-action]"
+                );
+
+
+            if (!botao) {
+                return;
+            }
+
+
+            const id =
+                botao.dataset.id;
+
+            const acao =
+                botao.dataset.action;
+
+
+            try {
+
+                if (acao === "edit") {
+
+                    await editarVeiculo(id);
+
+                }
+
+
+                if (acao === "remove") {
+
+                    await remover(id);
+
+                }
+
+            } catch (erro) {
+
+                tratarErro(erro);
+
+            }
+
+        }
+    );
+
 }
