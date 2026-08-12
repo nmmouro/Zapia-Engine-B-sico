@@ -1,22 +1,17 @@
 // ============================================================================
-// LANCAMENTOS HELPERS
+// ENGINE
+// LANÇAMENTOS HELPERS
 // Arquivo: js/pages/lancamentos/lancamentos.helpers.js
 // ============================================================================
 
-import {
-    obterLancamentos
-} from "../../services/lancamentos.service.js";
+import { obterLancamentos } from "../../services/lancamentos.service.js";
 
-import {
-    renderTable
-} from "../../ui/table.js";
+import { renderTable } from "../../ui/table.js";
 
-import {
-    definirRegistros
-} from "./lancamentos.state.js";
+import { definirRegistros } from "./lancamentos.state.js";
 
 // ============================================================================
-// COLUNAS
+// COLUNAS DA TABELA
 // ============================================================================
 
 export const COLUNAS_LANCAMENTOS = [
@@ -38,7 +33,7 @@ export const COLUNAS_LANCAMENTOS = [
 
     {
         key: "Veículo",
-        label: "Veiculo"
+        label: "Veículo"
     },
 
     {
@@ -64,8 +59,7 @@ export const COLUNAS_LANCAMENTOS = [
 
 export async function carregarTabela() {
 
-    const lista =
-        await obterLancamentos();
+    const lista = await obterLancamentos();
 
     if (!Array.isArray(lista)) {
 
@@ -75,37 +69,85 @@ export async function carregarTabela() {
 
     }
 
-                                                    console.log(
-                                                                "ENGINE → LANCAMENTOS:",
-                                                                                            lista
+    console.log(
+        "ENGINE → LANÇAMENTOS:",
+        lista
     );
 
+    // Atualiza o estado
     definirRegistros(lista);
 
-    const tabela =
-        document.querySelector("#tabelaLancamentos");
+    // Localiza a tabela
+    const tabela = document.getElementById(
+        "tabelaLancamentos"
+    );
 
     if (!tabela) {
 
-        console.error(
-            "Tabela #tabelaLançamentos não encontrada."
+        throw new Error(
+            "Tabela #tabelaLancamentos não encontrada."
         );
 
-        return;
     }
 
+    // Renderiza a tabela
     renderTable(
         tabela,
         COLUNAS_LANCAMENTOS,
         lista,
         {
-
-      edit: true,
-
-      remove: true
-
-    }
-
+            edit: true,
+            remove: true
+        }
     );
 
+    // Atualiza contador
+    atualizarContador(lista.length);
+
+    // Atualiza estado vazio
+    atualizarVazio(lista.length);
+
+    return lista;
+}
+
+// ============================================================================
+// CONTADOR
+// ============================================================================
+
+function atualizarContador(total) {
+
+    const contador = document.getElementById(
+        "contador"
+    );
+
+    if (!contador) {
+        return;
+    }
+
+    contador.textContent =
+        `${total} ${
+            total === 1
+                ? "registro"
+                : "registros"
+        }`;
+}
+
+// ============================================================================
+// ESTADO VAZIO
+// ============================================================================
+
+function atualizarVazio(total) {
+
+    const vazio = document.getElementById(
+        "vazio"
+    );
+
+    if (!vazio) {
+        return;
+    }
+
+    vazio.classList.toggle(
+        "hidden",
+        total > 0
+    );
 }
