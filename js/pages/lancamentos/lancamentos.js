@@ -1,19 +1,10 @@
 // ============================================================================
-// LANCAMENTOS
+// LANÇAMENTOS
 // Arquivo: js/pages/lancamentos/lancamentos.js
 // ============================================================================
 
-import {
-
-    iniciarRelogio
-
-} from "../../utils/relogio.js";
-
-import {
-
-    iniciarFullscreen
-
-} from "../../utils/fullscreen.js";
+import { iniciarRelogio } from "../../utils/relogio.js";
+import { iniciarFullscreen } from "../../utils/fullscreen.js";
 
 import {
     mostrarLoading,
@@ -22,13 +13,8 @@ import {
 
 import { configurarModal } from "../../ui/modal.js";
 
-import {
-    registrarEventos
-} from "./lancamentos.events.js";
-
-import {
-    carregarTabela
-} from "./lancamentos.helpers.js";
+import { registrarEventos } from "./lancamentos.events.js";
+import { carregarTabela } from "./lancamentos.helpers.js";
 
 import { tratarErro } from "../../utils/erros.js";
 
@@ -38,30 +24,35 @@ import { tratarErro } from "../../utils/erros.js";
 
 export async function initLancamentos() {
 
-                                    console.log("ENGINE → INIT LANÇAMENTOS");
+    console.log("ENGINE → INIT LANÇAMENTOS");
+
     try {
 
         mostrarLoading();
 
-                    iniciarRelogio();
+        iniciarRelogio();
 
-                    iniciarFullscreen();
+        iniciarFullscreen();
 
         configurarModal();
-        
+
         registrarEventos();
 
         await carregarTabela();
 
     } catch (erro) {
 
-                                    console.error( "ENGINE → Erro em Lançamentos:", erro );
+        console.error(
+            "ENGINE → Erro em Lançamentos:",
+            erro
+        );
 
-    tratarErro(erro);
+        tratarErro(erro);
 
-} finally {
+    } finally {
 
         esconderLoading();
 
     }
+
 }
