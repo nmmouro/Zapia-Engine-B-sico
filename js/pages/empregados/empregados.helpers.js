@@ -1,22 +1,17 @@
 // ============================================================================
+// ENGINE
 // EMPREGADOS HELPERS
 // Arquivo: js/pages/empregados/empregados.helpers.js
 // ============================================================================
 
-import {
-    obterEmpregados
-} from "../../services/empregados.service.js";
+import { obterEmpregados } from "../../services/empregados.service.js";
 
-import {
-    renderTable
-} from "../../ui/table.js";
+import { renderTable } from "../../ui/table.js";
 
-import {
-    definirRegistros
-} from "./empregados.state.js";
+import { definirRegistros } from "./empregados.state.js";
 
 // ============================================================================
-// COLUNAS
+// COLUNAS DA TABELA
 // ============================================================================
 
 export const COLUNAS_EMPREGADOS = [
@@ -64,8 +59,7 @@ export const COLUNAS_EMPREGADOS = [
 
 export async function carregarTabela() {
 
-    const lista =
-        await obterEmpregados();
+    const lista = await obterEmpregados();
 
     if (!Array.isArray(lista)) {
 
@@ -75,37 +69,85 @@ export async function carregarTabela() {
 
     }
 
-                                                    console.log(
-                                                                "ENGINE → EMPREGADOS:",
-                                                                                            lista
+    console.log(
+        "ENGINE → EMPREGADOS:",
+        lista
     );
 
+    // Atualiza o estado
     definirRegistros(lista);
 
-    const tabela =
-        document.querySelector("#tabelaEmpregados");
+    // Localiza a tabela
+    const tabela = document.getElementById(
+        "tabelaEmpregados"
+    );
 
     if (!tabela) {
 
-        console.error(
+        throw new Error(
             "Tabela #tabelaEmpregados não encontrada."
         );
 
-        return;
     }
 
+    // Renderiza a tabela
     renderTable(
         tabela,
         COLUNAS_EMPREGADOS,
         lista,
         {
-
-      edit: true,
-
-      remove: true
-
-    }
-
+            edit: true,
+            remove: true
+        }
     );
 
+    // Atualiza contador
+    atualizarContador(lista.length);
+
+    // Atualiza estado vazio
+    atualizarVazio(lista.length);
+
+    return lista;
+}
+
+// ============================================================================
+// CONTADOR
+// ============================================================================
+
+function atualizarContador(total) {
+
+    const contador = document.getElementById(
+        "contador"
+    );
+
+    if (!contador) {
+        return;
+    }
+
+    contador.textContent =
+        `${total} ${
+            total === 1
+                ? "registro"
+                : "registros"
+        }`;
+}
+
+// ============================================================================
+// ESTADO VAZIO
+// ============================================================================
+
+function atualizarVazio(total) {
+
+    const vazio = document.getElementById(
+        "vazio"
+    );
+
+    if (!vazio) {
+        return;
+    }
+
+    vazio.classList.toggle(
+        "hidden",
+        total > 0
+    );
 }
