@@ -3,7 +3,10 @@
 // Arquivo: js/pages/empregados/empregados.fields.js
 // ============================================================================
 
-import { preencher, valor} from "../../utils/formulario.js";
+import {
+    preencher,
+    valor
+} from "../../utils/formulario.js";
 
 // ============================================================================
 // OBTER DADOS DO FORMULÁRIO
@@ -13,23 +16,32 @@ export function obterDadosFormulario() {
 
     const dados = {
 
-        Data: valor("data"),
+        Data:
+            valor("data"),
 
-        Foto: valor("foto"),
+        Foto:
+            valor("foto"),
 
-        Empregado: valor("empregado"),
+        Empregado:
+            valor("empregado"),
 
-        Matrícula: valor("matricula"),
+        Matrícula:
+            valor("matricula"),
 
-        Diretoria: valor("diretoria"),
+        Diretoria:
+            valor("diretoria"),
 
-        Setor: valor("setor"),
+        Setor:
+            valor("setor"),
 
-        Usuário: valor("usuario"),
+        Usuário:
+            valor("usuario"),
 
-        Condição: valor("condicao"),
+        Condição:
+            valor("condicao"),
 
-        Status: valor("status")
+        Status:
+            valor("status")
 
     };
 
@@ -39,45 +51,65 @@ export function obterDadosFormulario() {
     // ========================================================================
 
     if (!dados.Empregado) {
+
         throw new Error(
             "Informe o nome do empregado."
         );
+
     }
 
+
     if (!dados["Matrícula"]) {
+
         throw new Error(
             "Informe a matrícula."
         );
+
     }
 
+
     if (!dados.Diretoria) {
+
         throw new Error(
             "Informe a diretoria."
         );
+
     }
 
+
     if (!dados.Setor) {
+
         throw new Error(
             "Informe o setor."
         );
+
     }
 
-    if (!dados.Usuario) {
+
+    if (!dados["Usuário"]) {
+
         throw new Error(
             "Informe o usuário."
         );
+
     }
 
-    if (!dados.Condicao) {
+
+    if (!dados["Condição"]) {
+
         throw new Error(
-            "Informe o condição."
+            "Informe a condição."
         );
+
     }
+
 
     if (!dados.Status) {
+
         throw new Error(
             "Informe o status."
         );
+
     }
 
 
@@ -88,6 +120,7 @@ export function obterDadosFormulario() {
 
 
     return dados;
+
 }
 
 
@@ -101,52 +134,69 @@ export function preencherFormulario(
 
     preencher(
         "id",
-        registro.ID
+        registro.ID ?? ""
     );
+
 
     preencher(
         "data",
-        normalizarData(registro.Data)
+        normalizarData(
+            registro.Data
+        )
     );
+
 
     preencher(
         "foto",
-        registro.Foto
+        registro.Foto ?? ""
     );
+
 
     preencher(
         "empregado",
-        registro.Empregado
+        registro.Empregado ?? ""
     );
+
 
     preencher(
         "matricula",
-        registro["Matrícula"]
+        registro["Matrícula"] ??
+        registro.Matricula ??
+        ""
     );
+
 
     preencher(
         "diretoria",
-        registro.Diretoria
+        registro.Diretoria ?? ""
     );
+
 
     preencher(
         "setor",
-        registro.Setor
+        registro.Setor ?? ""
     );
+
 
     preencher(
         "usuario",
-        registro["Usuário"]
+        registro["Usuário"] ??
+        registro.Usuario ??
+        ""
     );
+
 
     preencher(
         "condicao",
-        registro["Condição"]
+        registro["Condição"] ??
+        registro.Condicao ??
+        ""
     );
+
 
     preencher(
         "status",
-        registro.Status || "ATIVO"
+        registro.Status ?? "ATIVO"
     );
 
 }
@@ -157,12 +207,27 @@ export function preencherFormulario(
 // ============================================================================
 
 export function limparFormulario() {
-  document.getElementById("formEmpregado").reset();
-  preencher("id", "");
-  preencher("status", "ATIVO");
-  limparErro();
-}
 
+    document
+        .getElementById("formEmpregado")
+        ?.reset();
+
+
+    preencher(
+        "id",
+        ""
+    );
+
+
+    preencher(
+        "status",
+        "ATIVO"
+    );
+
+
+    limparErro();
+
+}
 
 
 // ============================================================================
@@ -178,8 +243,15 @@ export function mostrarErro(
             "formErro"
         );
 
+
+    if (!box) {
+        return;
+    }
+
+
     box.textContent =
         mensagem;
+
 
     box.classList.remove(
         "hidden"
@@ -196,7 +268,9 @@ export function limparErro() {
 
     document
         .getElementById("formErro")
-        ?.classList.add("hidden");
+        ?.classList.add(
+            "hidden"
+        );
 
 }
 
@@ -205,35 +279,51 @@ export function limparErro() {
 // NORMALIZAR DATA
 // ============================================================================
 
-function normalizarData(value) {
+function normalizarData(
+    value
+) {
 
     if (!value) {
         return "";
     }
 
+
     const text =
         String(value).trim();
 
 
+    // ========================================================================
     // DD/MM/AAAA
+    // ========================================================================
+
     if (
-        /^\d{2}\/\d{2}\/\d{4}$/.test(text)
+        /^\d{2}\/\d{2}\/\d{4}$/.test(
+            text
+        )
     ) {
 
         const [
             dia,
             mes,
             ano
-        ] = text.split("/");
+        ] =
+            text.split("/");
+
 
         return `${ano}-${mes}-${dia}`;
 
     }
 
 
-    // AAAA-MM-DD ou AAAA-MM-DD HH...
+    // ========================================================================
+    // AAAA-MM-DD
+    // AAAA-MM-DD HH...
+    // ========================================================================
+
     if (
-        /^\d{4}-\d{2}-\d{2}/.test(text)
+        /^\d{4}-\d{2}-\d{2}/.test(
+            text
+        )
     ) {
 
         return text.slice(
@@ -247,4 +337,3 @@ function normalizarData(value) {
     return "";
 
 }
-
