@@ -1,919 +1,507 @@
+```css
 /* ==========================================================================
    PAINEL FROTA
-   COMPONENTES GLOBAIS
+   COMPONENTES
    Arquivo: css/components.css
-========================================================================== */
+   ========================================================================== */
+
+
+/* ==========================================================================
+   BOTÕES
+   ========================================================================== */
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 40px;
+
+    padding: 10px 16px;
+
+    border: 0;
+
+    border-radius:
+        var(--radius-sm);
+
+    font-weight: 600;
+
+    transition:
+        transform var(--transition),
+        filter var(--transition),
+        background var(--transition);
+}
+
+
+.btn:hover {
+    filter: brightness(1.05);
+}
+
+
+.btn:active {
+    transform:
+        translateY(1px);
+}
+
+
+.btn-primary {
+    background: var(--primary);
+
+    color: #052e16;
+}
+
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+
+    color: #ffffff;
+}
+
+
+.btn-secondary {
+    background: #334155;
+
+    color: #ffffff;
+}
+
+
+.btn-secondary:hover {
+    background: #475569;
+}
+
+
+.btn-danger {
+    background: var(--danger);
+
+    color: #ffffff;
+}
+
+
+.btn-danger:hover {
+    background: var(--danger-dark);
+}
+
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+
+    padding: 0;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--bg-card);
+
+    color: var(--text-primary);
+
+    font-size: 18px;
+
+    transition:
+        background var(--transition),
+        color var(--transition);
+}
+
+
+.btn-icon:hover {
+    background: var(--primary);
+
+    color: #052e16;
+}
+
+
+.icon-button {
+    width: 38px;
+    height: 38px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--text-muted);
+
+    font-size: 26px;
+
+    line-height: 1;
+
+    border-radius: 50%;
+}
+
+
+.icon-button:hover {
+    background: rgba(255, 255, 255, 0.06);
+
+    color: #ffffff;
+}
 
 
 /* ==========================================================================
    MENU HOME
-========================================================================== */
-
+   ========================================================================== */
 
 .menu-grid {
+    width: 100%;
 
+    max-width: 1200px;
 
-    width:
-
-        100%;
-
-
-    max-width:
-
-        1200px;
-
-
-    display:
-
-        grid;
-
+    display: grid;
 
     grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
 
-        repeat(auto-fit,minmax(220px,1fr));
-
-
-    gap:
-
-        20px;
-
-
+    gap: 20px;
 }
-
 
 
 .menu-card {
+    min-height: 180px;
 
+    padding: 25px;
 
-    background:
+    display: flex;
 
-        var(--bg-card);
+    flex-direction: column;
 
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    background: var(--bg-card);
 
     border:
-
         1px solid var(--border);
 
-
     border-radius:
+        var(--radius-lg);
 
-        var(--radius);
+    color: var(--text);
 
-
-    padding:
-
-        25px;
-
-
-    text-decoration:
-
-        none;
-
-
-    color:
-
-        var(--text);
-
-
-    display:
-
-        flex;
-
-
-    flex-direction:
-
-        column;
-
-
-    align-items:
-
-        center;
-
-
-    justify-content:
-
-        center;
-
-
-    text-align:
-
-        center;
-
-
-    min-height:
-
-        180px;
-
+    box-shadow:
+        var(--shadow-sm);
 
     transition:
-
-        .25s;
-
-
+        transform var(--transition),
+        border-color var(--transition),
+        background var(--transition);
 }
-
-
-
-.menu-card span {
-
-
-    font-size:
-
-        45px;
-
-
-    margin-bottom:
-
-        15px;
-
-
-}
-
-
-
-.menu-card h2 {
-
-
-    margin:
-
-        0;
-
-
-    color:
-
-        white;
-
-
-}
-
-
-
-.menu-card p {
-
-
-    margin-top:
-
-        10px;
-
-
-    color:
-
-        var(--text-muted);
-
-
-    font-size:
-
-        .9rem;
-
-
-}
-
 
 
 .menu-card:hover {
-
-
     transform:
-
         translateY(-5px);
 
+    background:
+        var(--bg-card-hover);
 
     border-color:
-
         var(--primary);
-
-
 }
 
 
+.menu-card span {
+    margin-bottom: 15px;
 
+    font-size: 42px;
+}
+
+
+.menu-card h2 {
+    margin: 0;
+
+    color: #ffffff;
+}
+
+
+.menu-card p {
+    margin: 10px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 0.9rem;
+}
 
 
 /* ==========================================================================
-   TABELAS
-========================================================================== */
-
-
-.table-container {
-
-
-    width:
-
-        100%;
-
-
-    overflow:
-
-        auto;
-
-
-}
-
-
-
-table {
-
-
-    width:
-
-        100%;
-
-
-    border-collapse:
-
-        collapse;
-
-
-    background:
-
-        var(--bg-secondary);
-
-
-}
-
-
-
-thead {
-
-
-    background:
-
-        #020617;
-
-
-}
-
-
-
-thead th {
-
-
-    color:
-
-        var(--primary);
-
-
-    font-weight:
-
-        700;
-
-
-    text-align:
-
-        center;
-
-
-    padding:
-
-        12px;
-
-
-    border-bottom:
-
-        2px solid var(--primary);
-
-
-    white-space:
-
-        nowrap;
-
-
-}
-
-
-
-
-tbody td {
-
-
-    padding:
-
-        10px;
-
-
-    text-align:
-
-        center;
-
-
-    border-bottom:
-
-        1px solid var(--border);
-
-
-    color:
-
-        var(--text);
-
-
-}
-
-
-
-
-tbody tr:hover {
-
-
-    background:
-
-        rgba(255,255,255,.04);
-
-
-}
-
-
-
-
-/* tabela painel */
-
-
-.painel-table tbody tr {
-
-
-    background:
-
-        #0b3b66;
-
-
-}
-
-
-
-
-/* ==========================================================================
-   BADGES DE STATUS
-========================================================================== */
-
+   STATUS
+   ========================================================================== */
 
 .status {
+    display: inline-flex;
 
+    align-items: center;
+    justify-content: center;
 
-    display:
+    gap: 6px;
 
-        inline-flex;
+    padding: 5px 12px;
 
+    border-radius: 20px;
 
-    align-items:
+    font-size: 0.8rem;
 
-        center;
+    font-weight: 700;
 
-
-    justify-content:
-
-        center;
-
-
-    gap:
-
-        5px;
-
-
-    padding:
-
-        5px 12px;
-
-
-    border-radius:
-
-        20px;
-
-
-    font-size:
-
-        .8rem;
-
-
-    font-weight:
-
-        700;
-
-
-    white-space:
-
-        nowrap;
-
-
+    white-space: nowrap;
 }
 
 
+.status::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
 
 
 .status-livre {
-
-
-    background:
-
-        rgba(34,197,94,.15);
-
-
-    color:
-
-        #22c55e;
-
-
+    background: var(--primary-soft);
+    color: #4ade80;
 }
-
 
 
 .status-ocupado {
-
-
-    background:
-
-        rgba(239,68,68,.15);
-
-
-    color:
-
-        #ef4444;
-
-
+    background: var(--danger-soft);
+    color: #f87171;
 }
-
 
 
 .status-viagem {
-
-
-    background:
-
-        rgba(56,189,248,.15);
-
-
-    color:
-
-        #38bdf8;
-
-
+    background: var(--info-soft);
+    color: #38bdf8;
 }
-
 
 
 .status-manutencao {
-
-
-    background:
-
-        rgba(245,158,11,.15);
-
-
-    color:
-
-        #f59e0b;
-
-
+    background: var(--warning-soft);
+    color: #fbbf24;
 }
-
 
 
 .status-andamento {
-
-
-    background:
-
-        rgba(168,85,247,.15);
-
-
-    color:
-
-        #a855f7;
-
-
-}
-/*
-.status{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:6px;
-
-    padding:4px 10px;
-
-    border-radius:20px;
-
-    font-size:.82rem;
-
-    font-weight:600;
-
+    background: rgba(168, 85, 247, 0.12);
+    color: #c084fc;
 }
 
-.status-agendado{
 
-    background:#0d6efd22;
-
-    color:#0d6efd;
-
+.status-agendado {
+    background: var(--info-soft);
+    color: #38bdf8;
 }
 
-.status-andamento{
 
-    background:#ffc10722;
-
-    color:#ffc107;
-
+.status-concluido {
+    background: var(--primary-soft);
+    color: #4ade80;
 }
 
-.status-concluido{
 
-    background:#19875422;
-
-    color:#198754;
-
+.status-cancelado {
+    background: var(--danger-soft);
+    color: #f87171;
 }
 
-.status-cancelado{
 
-    background:#dc354522;
-
-    color:#dc3545;
-
+.status-default {
+    background: rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
 }
-
-.status-manutencao{
-
-    background:#6f42c122;
-
-    color:#6f42c1;
-
-}
-
-.status-livre{
-
-    background:#20c99722;
-
-    color:#20c997;
-
-}
-
-.status-ocupado{
-
-    background:#fd7e1422;
-
-    color:#fd7e14;
-
-}
-
-.status-default{
-
-    background:#6c757d22;
-
-    color:#6c757d;
-
-}
-*/
 
 
 /* ==========================================================================
    CARDS DE RESUMO
-========================================================================== */
-
+   ========================================================================== */
 
 .resumo-grid {
-
-
-    display:
-
-        grid;
-
+    display: grid;
 
     grid-template-columns:
+        repeat(2, 1fr);
 
-        repeat(2,1fr);
+    gap: 20px;
 
-
-    gap:
-
-        20px;
-
-
-    margin-bottom:
-
-        20px;
-
-
+    margin-bottom: 20px;
 }
-
-
 
 
 .cards-container {
+    display: flex;
 
+    flex-direction: column;
 
-    display:
-
-        flex;
-
-
-    flex-direction:
-
-        column;
-
-
-    gap:
-
-        8px;
-
-
+    gap: 8px;
 }
-
 
 
 .resumo-item {
+    display: flex;
 
+    align-items: center;
+    justify-content: space-between;
 
-    display:
+    padding: 12px;
 
-        flex;
-
-
-    justify-content:
-
-        space-between;
-
-
-    align-items:
-
-        center;
-
-
-    background:
-
-        #020617;
-
-
-    padding:
-
-        12px;
-
-
-    border-radius:
-
-        8px;
-
+    background: #020617;
 
     border:
-
         1px solid var(--border);
 
-
+    border-radius:
+        var(--radius-sm);
 }
-
-
-
 
 
 /* ==========================================================================
    LOADING
-========================================================================== */
-
+   ========================================================================== */
 
 .loading-overlay {
+    position: fixed;
 
+    inset: 0;
 
-    position:
+    z-index: 9999;
 
-        fixed;
+    display: none;
 
+    align-items: center;
+    justify-content: center;
 
-    inset:
-
-        0;
-
+    gap: 12px;
 
     background:
+        rgba(2, 6, 23, 0.86);
 
-        rgba(2,6,23,.85);
+    color: #ffffff;
 
+    font-size: 1rem;
 
-    display:
+    font-weight: 600;
 
-        none;
-
-
-    align-items:
-
-        center;
-
-
-    justify-content:
-
-        center;
-
-
-    z-index:
-
-        9999;
-
-
-    color:
-
-        white;
-
-
-    font-size:
-
-        1.2rem;
-
-
-    font-weight:
-
-        700;
-
-
+    backdrop-filter:
+        blur(3px);
 }
-
 
 
 .loading-overlay.ativo {
-
-
-    display:
-
-        flex;
-
-
+    display: flex;
 }
-
-
 
 
 .loading-overlay::after {
+    content: "";
 
-
-    content:
-
-        "";
-
-
-    width:
-
-        40px;
-
-
-    height:
-
-        40px;
-
+    width: 38px;
+    height: 38px;
 
     border:
-
-        4px solid rgba(255,255,255,.3);
-
+        4px solid rgba(255, 255, 255, 0.18);
 
     border-top-color:
-
         var(--primary);
 
-
-    border-radius:
-
-        50%;
-
+    border-radius: 50%;
 
     animation:
-
-        loading 1s linear infinite;
-
-
+        loading 0.8s linear infinite;
 }
 
+
+.spinner {
+    width: 24px;
+    height: 24px;
+
+    border:
+        3px solid rgba(255, 255, 255, 0.2);
+
+    border-top-color:
+        var(--primary);
+
+    border-radius: 50%;
+
+    animation:
+        loading 0.8s linear infinite;
+}
 
 
 @keyframes loading {
 
-
     to {
-
-
         transform:
-
             rotate(360deg);
-
-
     }
 
-
 }
-
-
-
 
 
 /* ==========================================================================
-   ALERTAS / TOAST
-========================================================================== */
-
+   TOAST
+   ========================================================================== */
 
 .toast {
+    position: fixed;
 
+    right: 20px;
+    bottom: 20px;
 
-    position:
+    z-index: 9999;
 
-        fixed;
+    max-width: 380px;
 
+    padding: 14px 18px;
 
-    right:
+    background: #020617;
 
-        20px;
+    color: #ffffff;
 
-
-    bottom:
-
-        20px;
-
-
-    padding:
-
-        15px 20px;
-
+    border:
+        1px solid var(--border);
 
     border-radius:
-
-        10px;
-
-
-    background:
-
-        #020617;
-
-
-    color:
-
-        white;
-
+        var(--radius);
 
     box-shadow:
-
-        var(--shadow);
-
-
-    z-index:
-
-        9999;
-
-
+        var(--shadow-lg);
 }
-
 
 
 .toast.success {
-
-
     border-left:
-
-        5px solid var(--primary);
-
-
+        4px solid var(--primary);
 }
-
 
 
 .toast.error {
-
-
     border-left:
-
-        5px solid var(--danger);
-
-
+        4px solid var(--danger);
 }
-
-
-
 
 
 /* ==========================================================================
    RESPONSIVO
-========================================================================== */
+   ========================================================================== */
 
-
-@media(max-width:900px){
-
+@media (max-width: 900px) {
 
     .resumo-grid {
-
-
-        grid-template-columns:
-
-            1fr;
-
-
+        grid-template-columns: 1fr;
     }
-
-
-
-    .table-container {
-
-
-        overflow-x:
-
-            auto;
-
-
-    }
-
-
 
 }
+```
