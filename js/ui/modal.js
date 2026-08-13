@@ -17,15 +17,22 @@
 
 
 // ============================================================================
+// ESTADO
+// ============================================================================
+
+let elementoAnteriorAoModal = null;
+
+let escapeRegistrado = false;
+
+
+// ============================================================================
 // OBTER MODAL
 // ============================================================================
 
 function obterModal() {
 
     const modal =
-        document.getElementById(
-            "modal"
-        );
+        document.getElementById("modal");
 
 
     if (!modal) {
@@ -46,18 +53,27 @@ function obterModal() {
 // ABRIR MODAL
 // ============================================================================
 
-export function abrirModal(
-    options = {}
-) {
+export function abrirModal(options = {}) {
 
     const modal =
         obterModal();
 
 
-    modal.classList.remove(
-        "hidden"
-    );
+    // ------------------------------------------------------------------------
+    // GUARDAR ELEMENTO QUE POSSUÍA FOCO
+    // ------------------------------------------------------------------------
 
+    elementoAnteriorAoModal =
+        document.activeElement;
+
+
+    // ------------------------------------------------------------------------
+    // MOSTRAR MODAL
+    // ------------------------------------------------------------------------
+
+    modal.classList.remove("hidden");
+
+    modal.hidden = false;
 
     modal.setAttribute(
         "aria-hidden",
@@ -73,24 +89,48 @@ export function abrirModal(
     // FOCO OPCIONAL
     // ------------------------------------------------------------------------
 
-    if (
-        options.focus
-    ) {
+    if (options.focus) {
 
-        setTimeout(
-            () => {
+        setTimeout(() => {
 
-                document
-                    .getElementById(
-                        options.focus
-                    )
-                    ?.focus();
+            const elemento =
+                document.getElementById(
+                    options.focus
+                );
 
-            },
-            0
-        );
+
+            if (elemento) {
+
+                elemento.focus();
+
+            }
+
+        }, 0);
+
+        return;
 
     }
+
+
+    // ------------------------------------------------------------------------
+    // FOCO NO PRIMEIRO ELEMENTO
+    // ------------------------------------------------------------------------
+
+    setTimeout(() => {
+
+        const primeiroElemento =
+            modal.querySelector(
+                "input, select, textarea, button"
+            );
+
+
+        if (primeiroElemento) {
+
+            primeiroElemento.focus();
+
+        }
+
+    }, 0);
 
 }
 
@@ -102,9 +142,7 @@ export function abrirModal(
 export function fecharModal() {
 
     const modal =
-        document.getElementById(
-            "modal"
-        );
+        document.getElementById("modal");
 
 
     if (!modal) {
@@ -114,19 +152,58 @@ export function fecharModal() {
     }
 
 
-    modal.classList.add(
-        "hidden"
-    );
+    // ------------------------------------------------------------------------
+    // REMOVER FOCO DO MODAL ANTES DE OCULTÁ-LO
+    // ------------------------------------------------------------------------
 
+    if (
+        document.activeElement &&
+        modal.contains(
+            document.activeElement
+        )
+    ) {
+
+        document.activeElement.blur();
+
+    }
+
+
+    // ------------------------------------------------------------------------
+    // OCULTAR MODAL
+    // ------------------------------------------------------------------------
 
     modal.setAttribute(
         "aria-hidden",
         "true"
     );
 
+    modal.classList.add("hidden");
+
+    modal.hidden = true;
+
 
     document.body.style.overflow =
         "";
+
+
+    // ------------------------------------------------------------------------
+    // DEVOLVER FOCO
+    // ------------------------------------------------------------------------
+
+    if (
+        elementoAnteriorAoModal &&
+        document.contains(
+            elementoAnteriorAoModal
+        )
+    ) {
+
+        elementoAnteriorAoModal.focus();
+
+    }
+
+
+    elementoAnteriorAoModal =
+        null;
 
 }
 
@@ -138,9 +215,7 @@ export function fecharModal() {
 export function configurarModal() {
 
     const modal =
-        document.getElementById(
-            "modal"
-        );
+        document.getElementById("modal");
 
 
     if (!modal) {
@@ -152,6 +227,20 @@ export function configurarModal() {
         return;
 
     }
+
+
+    // ------------------------------------------------------------------------
+    // ESTADO INICIAL
+    // ------------------------------------------------------------------------
+
+    modal.hidden = true;
+
+    modal.classList.add("hidden");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
 
     // ------------------------------------------------------------------------
@@ -206,22 +295,27 @@ export function configurarModal() {
     // ESC
     // ------------------------------------------------------------------------
 
-    document.addEventListener(
-        "keydown",
-        evento => {
+    if (!escapeRegistrado) {
 
-            if (
-                evento.key === "Escape" &&
-                !modal.classList.contains(
-                    "hidden"
-                )
-            ) {
+        document.addEventListener(
+            "keydown",
+            evento => {
 
-                fecharModal();
+                if (
+                    evento.key === "Escape" &&
+                    !modal.hidden
+                ) {
+
+                    fecharModal();
+
+                }
 
             }
+        );
 
-        }
-    );
+
+        escapeRegistrado = true;
+
+    }
 
 }
