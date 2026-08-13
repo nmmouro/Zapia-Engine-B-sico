@@ -46,17 +46,18 @@ function obterModal() {
 // ABRIR MODAL
 // ============================================================================
 
-export function abrirModal(opcoes = {}) {
+export function abrirModal(
+    options = {}
+) {
 
     const modal =
-        document.getElementById("modal");
-
-    if (!modal) {
-        return;
-    }
+        obterModal();
 
 
-    modal.hidden = false;
+    modal.classList.remove(
+        "hidden"
+    );
+
 
     modal.setAttribute(
         "aria-hidden",
@@ -64,35 +65,30 @@ export function abrirModal(opcoes = {}) {
     );
 
 
+    document.body.style.overflow =
+        "hidden";
+
+
     // ------------------------------------------------------------------------
-    // FOCO
+    // FOCO OPCIONAL
     // ------------------------------------------------------------------------
 
-    if (opcoes.focus) {
+    if (
+        options.focus
+    ) {
 
-        const campo =
-            document.getElementById(
-                opcoes.focus
-            );
+        setTimeout(
+            () => {
 
-        if (campo) {
+                document
+                    .getElementById(
+                        options.focus
+                    )
+                    ?.focus();
 
-            campo.focus();
-
-            return;
-
-        }
-
-    }
-
-    const primeiroCampo =
-        modal.querySelector(
-            "input, select, textarea, button"
+            },
+            0
         );
-
-    if (primeiroCampo) {
-
-        primeiroCampo.focus();
 
     }
 
