@@ -27,7 +27,7 @@ export function registrarEventos() {
         document.getElementById("btnAtualizar");
 
     const formulario =
-        document.getElementById("formVeiculo");
+        document.getElementById("formularioVeiculo");
 
     const tabela =
         document.getElementById("tabelaVeiculos");
