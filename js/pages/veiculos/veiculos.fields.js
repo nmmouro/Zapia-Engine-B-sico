@@ -19,8 +19,8 @@ export function obterDadosFormulario() {
         Data:
             valor("data"),
 
-        Hora:
-            valor("hora"),
+        //Hora:
+        //    valor("hora"),
 
         Foto:
             valor("foto"),
@@ -131,7 +131,7 @@ export function preencherFormulario(
         registro.ID ?? ""
     );
 
-
+/*
     preencher(
         "data",
         normalizarData(
@@ -147,7 +147,7 @@ export function preencherFormulario(
         )
     );
 
-
+*/
     preencher(
         "foto",
         registro.Foto ?? ""
