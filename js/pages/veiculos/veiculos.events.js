@@ -48,7 +48,7 @@ export function registrarEventos() {
 
     console.log(
         "formVeiculo:",
-        form
+        formulario
     );
 
     console.log(
