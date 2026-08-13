@@ -46,18 +46,17 @@ function obterModal() {
 // ABRIR MODAL
 // ============================================================================
 
-export function abrirModal(
-    options = {}
-) {
+export function abrirModal(opcoes = {}) {
 
     const modal =
-        obterModal();
+        document.getElementById("modal");
+
+    if (!modal) {
+        return;
+    }
 
 
-    modal.classList.remove(
-        "hidden"
-    );
-
+    modal.hidden = false;
 
     modal.setAttribute(
         "aria-hidden",
@@ -65,30 +64,35 @@ export function abrirModal(
     );
 
 
-    document.body.style.overflow =
-        "hidden";
-
-
     // ------------------------------------------------------------------------
-    // FOCO OPCIONAL
+    // FOCO
     // ------------------------------------------------------------------------
 
-    if (
-        options.focus
-    ) {
+    if (opcoes.focus) {
 
-        setTimeout(
-            () => {
+        const campo =
+            document.getElementById(
+                opcoes.focus
+            );
 
-                document
-                    .getElementById(
-                        options.focus
-                    )
-                    ?.focus();
+        if (campo) {
 
-            },
-            0
+            campo.focus();
+
+            return;
+
+        }
+
+    }
+
+    const primeiroCampo =
+        modal.querySelector(
+            "input, select, textarea, button"
         );
+
+    if (primeiroCampo) {
+
+        primeiroCampo.focus();
 
     }
 
@@ -102,31 +106,51 @@ export function abrirModal(
 export function fecharModal() {
 
     const modal =
-        document.getElementById(
-            "modal"
-        );
-
+        document.getElementById("modal");
 
     if (!modal) {
-
         return;
+    }
+
+
+    // ------------------------------------------------------------------------
+    // REMOVER FOCO ANTES DE OCULTAR O MODAL
+    // ------------------------------------------------------------------------
+
+    if (
+        document.activeElement &&
+        modal.contains(document.activeElement)
+    ) {
+
+        document.activeElement.blur();
 
     }
 
 
-    modal.classList.add(
-        "hidden"
-    );
-
+    // ------------------------------------------------------------------------
+    // OCULTAR MODAL
+    // ------------------------------------------------------------------------
 
     modal.setAttribute(
         "aria-hidden",
         "true"
     );
 
+    modal.hidden = true;
 
-    document.body.style.overflow =
-        "";
+
+    // ------------------------------------------------------------------------
+    // DEVOLVER FOCO AO BOTÃO NOVO
+    // ------------------------------------------------------------------------
+
+    const btnNovo =
+        document.getElementById("btnNovo");
+
+    if (btnNovo) {
+
+        btnNovo.focus();
+
+    }
 
 }
 
