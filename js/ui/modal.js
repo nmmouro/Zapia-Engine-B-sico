@@ -102,51 +102,31 @@ export function abrirModal(
 export function fecharModal() {
 
     const modal =
-        document.getElementById("modal");
+        document.getElementById(
+            "modal"
+        );
+
 
     if (!modal) {
+
         return;
-    }
-
-
-    // ------------------------------------------------------------------------
-    // REMOVER FOCO ANTES DE OCULTAR O MODAL
-    // ------------------------------------------------------------------------
-
-    if (
-        document.activeElement &&
-        modal.contains(document.activeElement)
-    ) {
-
-        document.activeElement.blur();
 
     }
 
 
-    // ------------------------------------------------------------------------
-    // OCULTAR MODAL
-    // ------------------------------------------------------------------------
+    modal.classList.add(
+        "hidden"
+    );
+
 
     modal.setAttribute(
         "aria-hidden",
         "true"
     );
 
-    modal.hidden = true;
 
-
-    // ------------------------------------------------------------------------
-    // DEVOLVER FOCO AO BOTÃO NOVO
-    // ------------------------------------------------------------------------
-
-    const btnNovo =
-        document.getElementById("btnNovo");
-
-    if (btnNovo) {
-
-        btnNovo.focus();
-
-    }
+    document.body.style.overflow =
+        "";
 
 }
 
