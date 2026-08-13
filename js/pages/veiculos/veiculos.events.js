@@ -26,7 +26,7 @@ export function registrarEventos() {
     const btnAtualizar =
         document.getElementById("btnAtualizar");
 
-    const formulario =
+    const form =
         document.getElementById("formVeiculo");
 
     const tabela =
@@ -48,7 +48,7 @@ export function registrarEventos() {
         );
     }
 
-    if (!formulario) {
+    if (!form) {
         throw new Error(
             "Elemento #formVeiculo não encontrado."
         );
@@ -97,7 +97,7 @@ export function registrarEventos() {
     // FORMULÁRIO
     // ========================================================================
 
-    formulario.addEventListener(
+    form.addEventListener(
         "submit",
         async evento => {
 
