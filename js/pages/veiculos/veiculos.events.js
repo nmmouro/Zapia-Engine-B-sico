@@ -26,11 +26,12 @@ export function registrarEventos() {
     const btnAtualizar =
         document.getElementById("btnAtualizar");
 
-    const form =
+    const formulario =
         document.getElementById("formVeiculo");
 
     const tabela =
         document.getElementById("tabelaVeiculos");
+
 
     // ========================================================================
     // VALIDAÇÃO DOS ELEMENTOS
@@ -48,7 +49,7 @@ export function registrarEventos() {
         );
     }
 
-    if (!form) {
+    if (!formulario) {
         throw new Error(
             "Elemento #formVeiculo não encontrado."
         );
@@ -97,7 +98,7 @@ export function registrarEventos() {
     // FORMULÁRIO
     // ========================================================================
 
-    form.addEventListener(
+    formulario.addEventListener(
         "submit",
         async evento => {
 
