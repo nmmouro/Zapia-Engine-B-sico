@@ -4,14 +4,21 @@
 // Arquivo: js/pages/veiculos/veiculos.helpers.js
 // ============================================================================
 
-import { obterVeiculos } from "../../services/veiculos.service.js";
+import {
+    obterVeiculos
+} from "../../services/veiculos.service.js";
 
-import { renderTable } from "../../ui/table.js";
+import {
+    renderTable
+} from "../../ui/table.js";
 
-import { definirRegistros } from "./veiculos.state.js";
+import {
+    definirRegistros
+} from "./veiculos.state.js";
+
 
 // ============================================================================
-// COLUNAS DA TABELA
+// COLUNAS
 // ============================================================================
 
 export const COLUNAS_VEICULOS = [
@@ -53,13 +60,20 @@ export const COLUNAS_VEICULOS = [
 
 ];
 
+
 // ============================================================================
 // CARREGAR TABELA
 // ============================================================================
 
 export async function carregarTabela() {
 
-    const lista = await obterVeiculos();
+    const lista =
+        await obterVeiculos();
+
+
+    // ------------------------------------------------------------------------
+    // VALIDAR RESPOSTA
+    // ------------------------------------------------------------------------
 
     if (!Array.isArray(lista)) {
 
@@ -69,18 +83,33 @@ export async function carregarTabela() {
 
     }
 
+
+    // ------------------------------------------------------------------------
+    // LOG
+    // ------------------------------------------------------------------------
+
     console.log(
         "ENGINE → VEÍCULOS:",
         lista
     );
 
-    // Atualiza o estado
+
+    // ------------------------------------------------------------------------
+    // ATUALIZAR STATE
+    // ------------------------------------------------------------------------
+
     definirRegistros(lista);
 
-    // Localiza a tabela
-    const tabela = document.getElementById(
-        "tabelaVeiculos"
-    );
+
+    // ------------------------------------------------------------------------
+    // OBTER TABELA
+    // ------------------------------------------------------------------------
+
+    const tabela =
+        document.getElementById(
+            "tabelaVeiculos"
+        );
+
 
     if (!tabela) {
 
@@ -90,7 +119,11 @@ export async function carregarTabela() {
 
     }
 
-    // Renderiza a tabela
+
+    // ------------------------------------------------------------------------
+    // RENDERIZAR
+    // ------------------------------------------------------------------------
+
     renderTable(
         tabela,
         COLUNAS_VEICULOS,
@@ -101,53 +134,49 @@ export async function carregarTabela() {
         }
     );
 
-    // Atualiza contador
-    atualizarContador(lista.length);
 
-    // Atualiza estado vazio
-    atualizarVazio(lista.length);
+    // ------------------------------------------------------------------------
+    // CONTADOR
+    // ------------------------------------------------------------------------
+
+    const contador =
+        document.getElementById(
+            "contador"
+        );
+
+
+    if (contador) {
+
+        contador.textContent =
+            `${lista.length} ${
+                lista.length === 1
+                    ? "registro"
+                    : "registros"
+            }`;
+
+    }
+
+
+    // ------------------------------------------------------------------------
+    // ESTADO VAZIO
+    // ------------------------------------------------------------------------
+
+    const vazio =
+        document.getElementById(
+            "vazio"
+        );
+
+
+    if (vazio) {
+
+        vazio.classList.toggle(
+            "hidden",
+            lista.length > 0
+        );
+
+    }
+
 
     return lista;
-}
 
-// ============================================================================
-// CONTADOR
-// ============================================================================
-
-function atualizarContador(total) {
-
-    const contador = document.getElementById(
-        "contador"
-    );
-
-    if (!contador) {
-        return;
-    }
-
-    contador.textContent =
-        `${total} ${
-            total === 1
-                ? "registro"
-                : "registros"
-        }`;
-}
-
-// ============================================================================
-// ESTADO VAZIO
-// ============================================================================
-
-function atualizarVazio(total) {
-
-    const vazio = document.getElementById(
-        "vazio"
-    );
-
-    if (!vazio) {
-        return;
-    }
-
-    vazio.classList.toggle(
-        "hidden",
-        total > 0
-    );
 }
