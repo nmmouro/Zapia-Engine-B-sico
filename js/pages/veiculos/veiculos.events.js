@@ -27,34 +27,10 @@ export function registrarEventos() {
         document.getElementById("btnAtualizar");
 
     const formulario =
-        document.getElementById("formularioVeiculo");
+        document.getElementById("formVeiculo");
 
     const tabela =
         document.getElementById("tabelaVeiculos");
-
-    console.log(
-        "ENGINE → EVENTOS VEÍCULOS"
-    );
-
-    console.log(
-        "btnNovo:",
-        btnNovo
-    );
-
-    console.log(
-        "btnAtualizar:",
-        btnAtualizar
-    );
-
-    console.log(
-        "formularioVeiculo:",
-        formulario
-    );
-
-    console.log(
-        "tabelaVeiculos:",
-    );
-
 
     // ========================================================================
     // VALIDAÇÃO DOS ELEMENTOS
