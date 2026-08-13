@@ -32,6 +32,29 @@ export function registrarEventos() {
     const tabela =
         document.getElementById("tabelaVeiculos");
 
+    console.log(
+        "ENGINE → EVENTOS VEÍCULOS"
+    );
+
+    console.log(
+        "btnNovo:",
+        btnNovo
+    );
+
+    console.log(
+        "btnAtualizar:",
+        btnAtualizar
+    );
+
+    console.log(
+        "formVeiculo:",
+        form
+    );
+
+    console.log(
+        "tabelaVeiculos:",
+    );
+
 
     // ========================================================================
     // VALIDAÇÃO DOS ELEMENTOS
