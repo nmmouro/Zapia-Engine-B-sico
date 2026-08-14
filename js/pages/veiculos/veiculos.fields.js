@@ -19,9 +19,7 @@ export function obterDadosFormulario() {
         Data:
             valor("data"),
 
-        //Hora:
-        //    valor("hora"),
-
+        
         Foto:
             valor("foto"),
 
