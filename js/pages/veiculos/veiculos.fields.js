@@ -94,8 +94,8 @@ export function obterDadosFormulario() {
 
         if (
             Number.isNaN(ano) ||
-            ano < 1900 ||
-            ano > 2100
+            ano < 2026 ||
+            ano > 2030
         ) {
 
             throw new Error(
