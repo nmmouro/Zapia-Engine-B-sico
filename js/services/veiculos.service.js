@@ -260,7 +260,7 @@ export async function obterVeiculos() {
     const resposta =
         await jsonp({
             acao: "listar",
-            aba: "VEÍCULOS"
+            aba: "VEICULOS"
         });
 
     const lista =
@@ -297,7 +297,7 @@ export async function obterVeiculo(id) {
     const resposta =
         await jsonp({
             acao: "buscar",
-            aba: "VEÍCULOS",
+            aba: "VEICULOS",
             id
         });
 
@@ -312,7 +312,7 @@ export async function salvarVeiculo(dados) {
 
     return post({
         acao: "criar",
-        aba: "VEÍCULOS",
+        aba: "VEICULOS",
         dados
     });
 }
@@ -332,7 +332,7 @@ export async function atualizarVeiculo(id, dados) {
 
     return post({
         acao: "atualizar",
-        aba: "VEÍCULOS",
+        aba: "VEICULOS",
         id,
         dados
     });
@@ -353,7 +353,7 @@ export async function excluirVeiculo(id) {
 
     return post({
         acao: "excluir",
-        aba: "VEÍCULOS",
+        aba: "VEICULOS",
         id
     });
 }
