@@ -137,15 +137,6 @@ export function preencherFormulario(
         )
     );
 
-
-    preencher(
-        "hora",
-        normalizarHora(
-            registro.Hora
-        )
-    );
-
-*/
     preencher(
         "foto",
         registro.Foto ?? ""
