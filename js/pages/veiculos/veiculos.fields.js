@@ -129,7 +129,7 @@ export function preencherFormulario(
         registro.ID ?? ""
     );
 
-/*
+
     preencher(
         "data",
         normalizarData(
