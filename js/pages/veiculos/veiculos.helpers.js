@@ -24,6 +24,12 @@ import {
 export const COLUNAS_VEICULOS = [
 
     {
+        key: "Data",
+        label: "Data",
+        type: "date"
+    },
+    
+    {
         key: "Placa",
         label: "Placa"
     },
