@@ -77,6 +77,33 @@ export async function carregarTabela() {
         await obterVeiculos();
 
 
+    console.log("========================================");
+console.log("ENGINE → VEÍCULOS");
+console.log("LISTA:", lista);
+
+if (lista.length > 0) {
+
+    console.log("PRIMEIRO:", lista[0]);
+
+    console.log(
+        'row["Combustível"]:',
+        lista[0]["Combustível"]
+    );
+
+    console.log(
+        'row["Combustivel"]:',
+        lista[0]["Combustivel"]
+    );
+
+    console.log(
+        "CHAVES DO REGISTRO:",
+        Object.keys(lista[0])
+    );
+}
+
+console.log("========================================");
+
+
     // ------------------------------------------------------------------------
     // VALIDAR RESPOSTA
     // ------------------------------------------------------------------------
