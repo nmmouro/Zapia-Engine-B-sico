@@ -55,7 +55,7 @@ export const COLUNAS_VEICULOS = [
     },
 
    {
-        key: "Combustível",
+        key: "Combustivel",
         label: "Combustível"
     },
 
@@ -75,27 +75,6 @@ export async function carregarTabela() {
 
     const lista =
         await obterVeiculos();
-
-
-    console.log("ENGINE → VEÍCULOS:", lista);
-
-if (lista.length > 0) {
-    console.log(
-        "ENGINE → CHAVES VEÍCULO:",
-        Object.keys(lista[0])
-    );
-
-    console.log(
-        'ENGINE → row["Combustível"]:',
-        lista[0]["Combustível"]
-    );
-
-    console.log(
-        'ENGINE → row["Combustivel"]:',
-        lista[0]["Combustivel"]
-    );
-}
-
 
     // ------------------------------------------------------------------------
     // VALIDAR RESPOSTA
