@@ -34,7 +34,7 @@ import {
 
 import {
     definirRegistroEditando,
-    obterRegistroEditando
+    registroEditando
 } from "./veiculos.state.js";
 
 import {
@@ -196,56 +196,36 @@ export async function salvar() {
     try {
 
         mostrarLoading();
-
         limparErro();
-
 
         const dados =
             obterDadosFormulario();
 
-
-        const id =
-            obterRegistroEditando();
-
-
         console.log(
             "ENGINE → SALVAR VEÍCULO:",
             {
-                id,
+                registroEditando,
                 dados
             }
         );
 
-
-        // --------------------------------------------------------------------
-        // EDIÇÃO
-        // --------------------------------------------------------------------
-
-        if (id) {
+        if (registroEditando) {
 
             console.log(
-                "ENGINE → ATUALIZANDO VEÍCULO:",
-                id
+                "ENGINE → ATUALIZAR VEÍCULO:",
+                registroEditando
             );
 
-
             await atualizarVeiculo(
-                id,
+                registroEditando,
                 dados
             );
 
-        }
-
-        // --------------------------------------------------------------------
-        // NOVO
-        // --------------------------------------------------------------------
-
-        else {
+        } else {
 
             console.log(
-                "ENGINE → CRIANDO VEÍCULO"
+                "ENGINE → NOVO VEÍCULO"
             );
-
 
             await salvarVeiculo(
                 dados
@@ -253,21 +233,11 @@ export async function salvar() {
 
         }
 
-
-        // --------------------------------------------------------------------
-        // FINALIZAÇÃO
-        // --------------------------------------------------------------------
-
-        definirRegistroEditando(
-            null
-        );
-
+        definirRegistroEditando(null);
 
         fecharModal();
 
-
         await carregarTabela();
-
 
     } catch (erro) {
 
@@ -276,19 +246,16 @@ export async function salvar() {
             erro
         );
 
-
         mostrarErro(
             erro?.message ||
             "Não foi possível salvar o veículo."
         );
-
 
     } finally {
 
         esconderLoading();
 
     }
-
 }
 
 
