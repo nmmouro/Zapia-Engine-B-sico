@@ -280,75 +280,44 @@ export function limparErro() {
 // SELECIONAR EMPREGADO
 // ============================================================================
 
-function selecionarEmpregado(
-    id,
-    texto
-) {
+export function carregarEmpregados(lista = []) {
 
     const select =
-        document.getElementById(
-            "empregado"
-        );
+        document.getElementById("empregado");
 
-    if (!select) {
+    if (!select) return;
 
-        console.error(
-            "ENGINE → #empregado não encontrado."
-        );
+    select.innerHTML = `
+        <option value="">
+            Selecione o empregado...
+        </option>
+    `;
 
-        return;
-    }
-
-    // ------------------------------------------------------------------------
-    // Primeiro tenta pelo ID
-    // ------------------------------------------------------------------------
-
-    if (id) {
+    lista.forEach(empregado => {
 
         const option =
-            Array.from(
-                select.options
-            ).find(
-                option =>
-                    option.value === String(id)
-            );
+            document.createElement("option");
 
-        if (option) {
+        option.value =
+            empregado.ID || "";
 
-            select.value =
-                option.value;
+        option.textContent =
+            `${empregado.Empregado || ""} / ${
+                empregado.Matrícula || ""
+            }`;
 
-            return;
-        }
-    }
+        select.appendChild(option);
+    });
+}
 
-    // ------------------------------------------------------------------------
-    // Compatibilidade: procurar pelo texto
-    // ------------------------------------------------------------------------
 
-    if (texto) {
+export function selecionarEmpregado(id) {
 
-        const textoNormalizado =
-            String(texto)
-                .trim()
-                .toUpperCase();
+    const select =
+        document.getElementById("empregado");
 
-        const option =
-            Array.from(
-                select.options
-            ).find(
-                option =>
-                    option.textContent
-                        .trim()
-                        .toUpperCase() ===
-                    textoNormalizado
-            );
-
-        if (option) {
-
-            select.value =
-                option.value;
-        }
+    if (select) {
+        select.value = id || "";
     }
 }
 
@@ -356,75 +325,43 @@ function selecionarEmpregado(
 // SELECIONAR VEÍCULO
 // ============================================================================
 
-function selecionarVeiculo(
-    id,
-    texto
-) {
+export function carregarVeiculos(lista = []) {
 
     const select =
-        document.getElementById(
-            "veiculo"
-        );
+        document.getElementById("veiculo");
 
-    if (!select) {
+    if (!select) return;
 
-        console.error(
-            "ENGINE → #veiculo não encontrado."
-        );
+    select.innerHTML = `
+        <option value="">
+            Selecione o veículo...
+        </option>
+    `;
 
-        return;
-    }
-
-    // ------------------------------------------------------------------------
-    // Primeiro tenta pelo ID
-    // ------------------------------------------------------------------------
-
-    if (id) {
+    lista.forEach(veiculo => {
 
         const option =
-            Array.from(
-                select.options
-            ).find(
-                option =>
-                    option.value === String(id)
-            );
+            document.createElement("option");
 
-        if (option) {
+        option.value =
+            veiculo.ID || "";
 
-            select.value =
-                option.value;
+        option.textContent =
+            `${veiculo.Placa || ""} - ${
+                veiculo.Modelo || ""
+            }`;
 
-            return;
-        }
-    }
+        select.appendChild(option);
+    });
+}
 
-    // ------------------------------------------------------------------------
-    // Compatibilidade: procurar pelo texto
-    // ------------------------------------------------------------------------
+export function selecionarVeiculo(id) {
 
-    if (texto) {
+    const select =
+        document.getElementById("veiculo");
 
-        const textoNormalizado =
-            String(texto)
-                .trim()
-                .toUpperCase();
-
-        const option =
-            Array.from(
-                select.options
-            ).find(
-                option =>
-                    option.textContent
-                        .trim()
-                        .toUpperCase() ===
-                    textoNormalizado
-            );
-
-        if (option) {
-
-            select.value =
-                option.value;
-        }
+    if (select) {
+        select.value = id || "";
     }
 }
 
