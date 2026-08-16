@@ -127,6 +127,24 @@ export async function editarVeiculo(
             dados
         );
 
+        console.log(
+    "ENGINE → CAMPOS RECEBIDOS:",
+    {
+        ID: dados.ID,
+        Data: dados.Data,
+        Foto: dados.Foto,
+        Placa: dados.Placa,
+        Modelo: dados.Modelo,
+        Marca: dados.Marca,
+        Ano: dados.Ano,
+        Cor: dados.Cor,
+        Combustivel: dados.Combustivel,
+        "Km Inicial": dados["Km Inicial"],
+        "Km Final": dados["Km Final"],
+        Status: dados.Status
+    }
+);
+
 
         if (
             !dados ||
@@ -148,6 +166,21 @@ export async function editarVeiculo(
         preencherFormulario(
             dados
         );
+
+        console.log(
+    "ENGINE → FORMULÁRIO APÓS PREENCHER:",
+    {
+        placa: document.getElementById("placa")?.value,
+        modelo: document.getElementById("modelo")?.value,
+        marca: document.getElementById("marca")?.value,
+        ano: document.getElementById("ano")?.value,
+        cor: document.getElementById("cor")?.value,
+        combustivel: document.getElementById("combustivel")?.value,
+        kmInicial: document.getElementById("kmInicial")?.value,
+        kmFinal: document.getElementById("kmFinal")?.value,
+        status: document.getElementById("status")?.value
+    }
+);
 
 
         const titulo =
