@@ -147,7 +147,6 @@ export function preencherFormulario(
 
     preencher(
         "empregado",
-        registro["Empregado / Matrícula"] ??
         registro.Empregado ||
         ""
     );
