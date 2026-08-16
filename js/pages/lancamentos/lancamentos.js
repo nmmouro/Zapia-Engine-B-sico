@@ -19,9 +19,12 @@ import { carregarTabela } from "./lancamentos.helpers.js";
 import { tratarErro } from "../../utils/erros.js";
 
 import {
-    obterEmpregados,
+    obterEmpregados
+} from "../../services/empregados.service.js";
+
+import {
     obterVeiculos
-} from "../../services/lancamentos.service.js";
+} from "../../services/veiculos.service.js";
 
 // ============================================================================
 // INIT
