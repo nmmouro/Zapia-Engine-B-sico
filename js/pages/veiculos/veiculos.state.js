@@ -4,25 +4,16 @@
 // Arquivo: js/pages/veiculos/veiculos.state.js
 // ============================================================================
 
-// ============================================================================
-// REGISTROS
-// ============================================================================
-
 export let registros = [];
 
-// ============================================================================
-// REGISTRO EM EDIÇÃO
-// ============================================================================
-
 export let registroEditando = null;
+
 
 // ============================================================================
 // DEFINIR REGISTROS
 // ============================================================================
 
-export function definirRegistros(
-    lista
-) {
+export function definirRegistros(lista) {
 
     registros =
         Array.isArray(lista)
@@ -31,13 +22,12 @@ export function definirRegistros(
 
 }
 
+
 // ============================================================================
 // DEFINIR REGISTRO EM EDIÇÃO
 // ============================================================================
 
-export function definirRegistroEditando(
-    id
-) {
+export function definirRegistroEditando(id) {
 
     registroEditando =
         id || null;
@@ -49,19 +39,8 @@ export function definirRegistroEditando(
 // LIMPAR REGISTRO EM EDIÇÃO
 // ============================================================================
 
-export function obterRegistroEditando() {
-
-    return registroEditando;
-
-}
-
-// ============================================================================
-// LIMPAR
-// ============================================================================
-
 export function limparRegistroEditando() {
 
-    registroEditando =
-        null;
+    registroEditando = null;
 
 }
