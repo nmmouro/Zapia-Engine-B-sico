@@ -1,4 +1,5 @@
 // ============================================================================
+// ENGINE FRAMEWORK
 // LANÇAMENTOS FORM
 // Arquivo: js/pages/lancamentos/lancamentos.form.js
 // ============================================================================
@@ -47,38 +48,21 @@ import {
 
 export function novoLancamento() {
 
-                                                                console.log(
-        "ENGINE → NOVO VEÍCULO"
-    );
-
-    definirRegistroEditando(
-        null
-    );
-
+    definirRegistroEditando(null);
 
     limparFormulario();
 
-   
-
-
     const titulo =
-        document.getElementById(
-            "tituloModal"
-        );
-
+        document.getElementById("tituloModal");
 
     if (titulo) {
-
         titulo.textContent =
             "Novo lançamento";
-
     }
-
 
     limparErro();
 
     abrirModal();
-
 }
 
 
@@ -86,9 +70,7 @@ export function novoLancamento() {
 // EDITAR LANÇAMENTO
 // ============================================================================
 
-export async function editarLancamento(
-    id
-) {
+export async function editarLancamento(id) {
 
     try {
 
@@ -96,7 +78,6 @@ export async function editarLancamento(
 
         const resposta =
             await obterLancamento(id);
-
 
         const registro =
             resposta?.dados ??
@@ -114,12 +95,25 @@ export async function editarLancamento(
 
         }
 
+        console.log(
+            "ENGINE → LANÇAMENTO PARA EDIÇÃO:",
+            registro
+        );
+
+        definirRegistroEditando(
+            registro.ID ?? id
+        );
+
+        preencherFormulario(
+            registro
+        );
+
+        limparErro();
 
         const titulo =
             document.getElementById(
                 "tituloModal"
             );
-
 
         if (titulo) {
 
@@ -128,25 +122,22 @@ export async function editarLancamento(
 
         }
 
+        abrirModal();
 
-       abrirModal();
+    } catch (erro) {
 
-
-    } catch (error) {
-
-                                                                    console.error(
-            "ENGINE → Erro ao editar veículo:",
+        console.error(
+            "ENGINE → Erro ao editar lançamento:",
             erro
         );
 
-        tratarErro(error);
+        tratarErro(erro);
 
     } finally {
 
         esconderLoading();
 
     }
-
 }
 
 
@@ -162,19 +153,23 @@ export async function salvar() {
 
         limparErro();
 
-
         const dados =
             obterDadosFormulario();
 
-                                                            console.log(
-            "ENGINE → SALVAR VEÍCULO:",
-            {
+        console.log(
+            "ENGINE → SALVAR LANÇAMENTO:",
+            dados
+        );
 
+
+        // --------------------------------------------------------------------
+        // EDIÇÃO
+        // --------------------------------------------------------------------
 
         if (registroEditando) {
 
-                                                                    console.log(
-                "ENGINE → ATUALIZAR VEÍCULO:",
+            console.log(
+                "ENGINE → ATUALIZAR LANÇAMENTO:",
                 registroEditando
             );
 
@@ -183,7 +178,17 @@ export async function salvar() {
                 dados
             );
 
-        } else {
+        }
+
+        // --------------------------------------------------------------------
+        // NOVO
+        // --------------------------------------------------------------------
+
+        else {
+
+            console.log(
+                "ENGINE → NOVO LANÇAMENTO"
+            );
 
             await salvarLancamento(
                 dados
@@ -192,21 +197,27 @@ export async function salvar() {
         }
 
 
+        // --------------------------------------------------------------------
+        // FINALIZAÇÃO
+        // --------------------------------------------------------------------
+
         definirRegistroEditando(
             null
         );
 
-
         fecharModal();
-
 
         await carregarTabela();
 
+    } catch (erro) {
 
-    } catch (error) {
+        console.error(
+            "ENGINE → Erro ao salvar lançamento:",
+            erro
+        );
 
         mostrarErro(
-            error?.message ??
+            erro?.message ||
             "Não foi possível salvar o lançamento."
         );
 
@@ -215,7 +226,6 @@ export async function salvar() {
         esconderLoading();
 
     }
-
 }
 
 
@@ -223,18 +233,27 @@ export async function salvar() {
 // EXCLUIR LANÇAMENTO
 // ============================================================================
 
-export async function remover(
-    id
-) {
+export async function remover(id) {
 
-    if (
-        !confirm(
-            "Excluir este lançamento?"
-        )
-    ) {
+    if (!id) {
+
+        tratarErro(
+            new Error(
+                "ID do lançamento não informado."
+            )
+        );
 
         return;
+    }
 
+
+    const confirmar =
+        window.confirm(
+            "Excluir este lançamento?"
+        );
+
+    if (!confirmar) {
+        return;
     }
 
 
@@ -242,23 +261,30 @@ export async function remover(
 
         mostrarLoading();
 
-
         await excluirLancamento(
             id
         );
 
+        definirRegistroEditando(
+            null
+        );
 
         await carregarTabela();
 
+    } catch (erro) {
 
-    } catch (error) {
+        console.error(
+            "ENGINE → Erro ao excluir lançamento:",
+            erro
+        );
 
-        tratarErro(error);
+        tratarErro(
+            erro
+        );
 
     } finally {
 
         esconderLoading();
 
     }
-
 }
