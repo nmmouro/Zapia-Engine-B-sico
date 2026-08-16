@@ -1,4 +1,5 @@
 // ============================================================================
+// ENGINE FRAMEWORK
 // VEÍCULOS FIELDS
 // Arquivo: js/pages/veiculos/veiculos.fields.js
 // ============================================================================
@@ -19,7 +20,6 @@ export function obterDadosFormulario() {
         Data:
             valor("data"),
 
-        
         Foto:
             valor("foto"),
 
@@ -29,26 +29,30 @@ export function obterDadosFormulario() {
                 .toUpperCase(),
 
         Modelo:
-            valor("modelo"),
+            (valor("modelo") || "")
+                .trim(),
 
         Marca:
-            valor("marca"),
+            (valor("marca") || "")
+                .trim(),
 
         Ano:
-            valor("ano"),
+            (valor("ano") || "")
+                .trim(),
 
         Cor:
-            valor("cor"),
+            (valor("cor") || "")
+                .trim(),
 
         Combustivel:
             valor("combustivel"),
 
         Status:
-            valor("status")
-
+            valor("status") || "ATIVO"
     };
 
-                                                                console.log(
+
+    console.log(
         "ENGINE → DADOS VEÍCULO:",
         dados
     );
@@ -59,70 +63,35 @@ export function obterDadosFormulario() {
     // ========================================================================
 
     if (!dados.Placa) {
-
         throw new Error(
             "Informe a placa do veículo."
         );
-
     }
 
     if (!dados.Modelo) {
-
         throw new Error(
             "Informe o modelo do veículo."
         );
-
     }
 
     if (!dados.Marca) {
-
         throw new Error(
             "Informe a marca do veículo."
         );
-
-    }
-
-
-    // ========================================================================
-    // VALIDAR ANO
-    // ========================================================================
-
-    if (!dados.Placa) {
-
-        throw new Error(
-            "Informe a placa do veículo."
-        );
-
-    }
-
-    if (!dados.Modelo) {
-
-        throw new Error(
-            "Informe o modelo do veículo."
-        );
-
-    }
-
-    if (!dados.Marca) {
-
-        throw new Error(
-            "Informe a marca do veículo."
-        );
-
     }
 
     if (!dados.Status) {
-
         throw new Error(
             "Informe o status do veículo."
         );
-
     }
 
 
+    // ========================================================================
+    // RETORNO
+    // ========================================================================
 
     return dados;
-
 }
 
 
@@ -133,6 +102,12 @@ export function obterDadosFormulario() {
 export function preencherFormulario(
     registro = {}
 ) {
+
+    console.log(
+        "ENGINE → PREENCHER VEÍCULO:",
+        registro
+    );
+
 
     preencher(
         "id",
@@ -146,6 +121,7 @@ export function preencherFormulario(
             registro.Data
         )
     );
+
 
     preencher(
         "foto",
@@ -183,6 +159,8 @@ export function preencherFormulario(
     );
 
 
+    // IMPORTANTE:
+    // A API retorna "Combustivel" sem acento.
     preencher(
         "combustivel",
         registro.Combustivel || ""
@@ -193,7 +171,6 @@ export function preencherFormulario(
         "status",
         registro.Status || "ATIVO"
     );
-
 }
 
 
@@ -203,45 +180,34 @@ export function preencherFormulario(
 
 export function limparFormulario() {
 
-    if (!dados.Placa) {
-
-        throw new Error(
-            "Informe a placa do veículo."
+    const formulario =
+        document.getElementById(
+            "formVeiculo"
         );
 
-    }
 
-    if (!dados.Modelo) {
+    if (!formulario) {
 
-        throw new Error(
-            "Informe o modelo do veículo."
+        console.error(
+            "ENGINE → #formVeiculo não encontrado."
         );
 
-    }
-
-    if (!dados.Marca) {
-
-        throw new Error(
-            "Informe a marca do veículo."
-        );
-
-    }
-
-    if (!dados.Status) {
-
-        throw new Error(
-            "Informe o status do veículo."
-        );
-
+        return;
     }
 
 
+    // Limpa todos os campos
+    formulario.reset();
+
+
+    // ID deve ficar vazio em novo cadastro
     preencher(
         "id",
         ""
     );
 
 
+    // Status padrão
     preencher(
         "status",
         "ATIVO"
@@ -249,7 +215,6 @@ export function limparFormulario() {
 
 
     limparErro();
-
 }
 
 
@@ -268,13 +233,12 @@ export function mostrarErro(
 
 
     if (!box) {
-        
-                                                        console.error(
+
+        console.error(
             "ENGINE → #formErro não encontrado."
         );
 
         return;
-
     }
 
 
@@ -285,7 +249,6 @@ export function mostrarErro(
     box.classList.remove(
         "hidden"
     );
-
 }
 
 
@@ -296,11 +259,12 @@ export function mostrarErro(
 export function limparErro() {
 
     document
-        .getElementById("formErro")
+        .getElementById(
+            "formErro"
+        )
         ?.classList.add(
             "hidden"
         );
-
 }
 
 
@@ -321,9 +285,9 @@ function normalizarData(
         String(value).trim();
 
 
-    // ========================================================================
+    // ------------------------------------------------------------------------
     // DD/MM/AAAA
-    // ========================================================================
+    // ------------------------------------------------------------------------
 
     if (
         /^\d{2}\/\d{2}\/\d{4}$/.test(
@@ -340,14 +304,13 @@ function normalizarData(
 
 
         return `${ano}-${mes}-${dia}`;
-
     }
 
 
-    // ========================================================================
+    // ------------------------------------------------------------------------
     // AAAA-MM-DD
     // AAAA-MM-DD HH...
-    // ========================================================================
+    // ------------------------------------------------------------------------
 
     if (
         /^\d{4}-\d{2}-\d{2}/.test(
@@ -359,59 +322,8 @@ function normalizarData(
             0,
             10
         );
-
     }
 
 
     return "";
-
-}
-
-
-// ============================================================================
-// NORMALIZAR HORA
-// ============================================================================
-
-function normalizarHora(
-    value
-) {
-
-    if (!value) {
-        return "";
-    }
-
-
-    const text =
-        String(value).trim();
-
-
-    // HH:MM:SS → HH:MM
-    if (
-        /^\d{2}:\d{2}:\d{2}$/.test(
-            text
-        )
-    ) {
-
-        return text.slice(
-            0,
-            5
-        );
-
-    }
-
-
-    // HH:MM
-    if (
-        /^\d{2}:\d{2}$/.test(
-            text
-        )
-    ) {
-
-        return text;
-
-    }
-
-
-    return "";
-
 }
