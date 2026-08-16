@@ -8,11 +8,19 @@ import {
     valor
 } from "../../utils/formulario.js";
 
+
 // ============================================================================
 // OBTER DADOS DO FORMULÁRIO
 // ============================================================================
 
 export function obterDadosFormulario() {
+
+    const empregadoSelect =
+        document.getElementById("empregado");
+
+    const veiculoSelect =
+        document.getElementById("veiculo");
+
 
     const dados = {
 
@@ -22,11 +30,21 @@ export function obterDadosFormulario() {
         Hora:
             valor("hora"),
 
-        "Empregado / Matrícula":
-            valor("empregado"),
+        // ID do empregado
+        "ID Empregado":
+            empregadoSelect?.value || "",
 
-        Veículo:
-            valor("veiculo"),
+        // Texto exibido
+        "Empregado / Matrícula":
+            empregadoSelect?.selectedOptions[0]?.textContent.trim() || "",
+
+        // ID do veículo
+        "ID Veículo":
+            veiculoSelect?.value || "",
+
+        // Texto exibido
+        "Veículo":
+            veiculoSelect?.selectedOptions[0]?.textContent.trim() || "",
 
         "Passageiro / Setor / Motivo":
             valor("passageiro"),
@@ -35,46 +53,40 @@ export function obterDadosFormulario() {
             valor("itinerario"),
 
         Status:
-            valor("status")
+            valor("status") || "ATIVO"
 
     };
 
-                                         console.log(
-        "DADOS LANÇAMENTO →",
+
+    console.log(
+        "ENGINE → DADOS LANÇAMENTO:",
         dados
     );
-
 
 
     // ========================================================================
     // VALIDAÇÕES
     // ========================================================================
 
-    if (
-        !dados["Empregado / Matrícula"]
-    ) {
+    if (!dados["ID Empregado"]) {
 
         throw new Error(
-            "Informe o empregado."
+            "Selecione o empregado."
         );
 
     }
 
 
-    if (
-        !dados.Veículo
-    ) {
+    if (!dados["ID Veículo"]) {
 
         throw new Error(
-            "Informe o veículo."
+            "Selecione o veículo."
         );
 
     }
 
 
-    if (
-        !dados["Passageiro / Setor / Motivo"]
-    ) {
+    if (!dados["Passageiro / Setor / Motivo"]) {
 
         throw new Error(
             "Informe o passageiro, setor ou motivo."
@@ -83,9 +95,7 @@ export function obterDadosFormulario() {
     }
 
 
-    if (
-        !dados.Itinerário
-    ) {
+    if (!dados.Itinerário) {
 
         throw new Error(
             "Informe o itinerário."
@@ -94,9 +104,7 @@ export function obterDadosFormulario() {
     }
 
 
-    if (
-        !dados.Status
-    ) {
+    if (!dados.Status) {
 
         throw new Error(
             "Informe o status."
@@ -104,9 +112,8 @@ export function obterDadosFormulario() {
 
     }
 
-   
-    return dados;
 
+    return dados;
 }
 
 
