@@ -170,22 +170,62 @@ export async function editarLancamento(id) {
 // SALVAR LANÇAMENTO
 // ============================================================================
 
-export async function salvar() {
+let salvando = false;
+
+export async function salvar(evento) {
+
+    // Evita o submit padrão do navegador
+    if (evento) {
+        evento.preventDefault();
+        evento.stopPropagation();
+    }
+
+    // Evita múltiplos cliques
+    if (salvando) {
+        console.warn(
+            "ENGINE → SALVAMENTO JÁ EM ANDAMENTO."
+        );
+        return;
+    }
+
+    const botaoSalvar =
+        document.querySelector(
+            '#formLancamento button[type="submit"]'
+        );
 
     try {
 
-        mostrarLoading();
+        salvando = true;
 
+        mostrarLoading();
         limparErro();
+
+        // --------------------------------------------------------------------
+        // BLOQUEAR BOTÃO
+        // --------------------------------------------------------------------
+
+        if (botaoSalvar) {
+
+            botaoSalvar.disabled = true;
+
+            botaoSalvar.dataset.textoOriginal =
+                botaoSalvar.textContent;
+
+            botaoSalvar.textContent =
+                "Salvando...";
+        }
+
+        // --------------------------------------------------------------------
+        // OBTER DADOS
+        // --------------------------------------------------------------------
 
         const dados =
             obterDadosFormulario();
 
         console.log(
-            "ENGINE → SALVAR LANÇAMENTO:",
+            "ENGINE → DADOS PARA SALVAR:",
             dados
         );
-
 
         // --------------------------------------------------------------------
         // EDIÇÃO
@@ -194,7 +234,7 @@ export async function salvar() {
         if (registroEditando) {
 
             console.log(
-                "ENGINE → ATUALIZAR LANÇAMENTO:",
+                "ENGINE → ATUALIZANDO:",
                 registroEditando
             );
 
@@ -212,23 +252,24 @@ export async function salvar() {
         else {
 
             console.log(
-                "ENGINE → NOVO LANÇAMENTO"
+                "ENGINE → CRIANDO NOVO LANÇAMENTO:",
+                dados
             );
 
             await salvarLancamento(
                 dados
             );
-
         }
 
-
         // --------------------------------------------------------------------
-        // FINALIZAÇÃO
+        // SUCESSO
         // --------------------------------------------------------------------
 
-        definirRegistroEditando(
-            null
+        console.log(
+            "ENGINE → LANÇAMENTO SALVO COM SUCESSO."
         );
+
+        definirRegistroEditando(null);
 
         fecharModal();
 
@@ -237,7 +278,7 @@ export async function salvar() {
     } catch (erro) {
 
         console.error(
-            "ENGINE → Erro ao salvar lançamento:",
+            "ENGINE → ERRO AO SALVAR:",
             erro
         );
 
@@ -248,8 +289,22 @@ export async function salvar() {
 
     } finally {
 
-        esconderLoading();
+        // --------------------------------------------------------------------
+        // LIBERAR NOVAMENTE
+        // --------------------------------------------------------------------
 
+        salvando = false;
+
+        if (botaoSalvar) {
+
+            botaoSalvar.disabled = false;
+
+            botaoSalvar.textContent =
+                botaoSalvar.dataset.textoOriginal ||
+                "Salvar";
+        }
+
+        esconderLoading();
     }
 }
 
