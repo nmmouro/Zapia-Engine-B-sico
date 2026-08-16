@@ -14,7 +14,8 @@ import {
 import { configurarModal } from "../../ui/modal.js";
 
 import { registrarEventos } from "./lancamentos.events.js";
-import { carregarTabela } from "./lancamentos.helpers.js";
+import { carregarTabela, carregarEmpregados, carregarVeiculos} from "./lancamentos.helpers.js";
+
 
 import { tratarErro } from "../../utils/erros.js";
 
@@ -44,7 +45,12 @@ export async function initLancamentos() {
 
         configurarModal();
 
-        registrarEventos();
+        await Promise.all([
+            carregarEmpregados(),
+            carregarVeiculos()
+        ]);
+
+         registrarEventos();
 
         await carregarTabela();
 
