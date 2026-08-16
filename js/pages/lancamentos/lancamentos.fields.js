@@ -9,72 +9,66 @@ import {
     valor
 } from "../../utils/formulario.js";
 
+
 // ============================================================================
 // OBTER DADOS DO FORMULÁRIO
 // ============================================================================
 
 export function obterDadosFormulario() {
 
-    const empregadoSelect =
+    const empregado =
         document.getElementById("empregado");
 
-    const veiculoSelect =
+    const veiculo =
         document.getElementById("veiculo");
 
-    const empregadoOption =
-        empregadoSelect?.selectedOptions?.[0];
-
-    const veiculoOption =
-        veiculoSelect?.selectedOptions?.[0];
-
     const dados = {
+        ID: valor("id"),
+        Data: valor("data"),
+        Hora: valor("hora"),
 
-        ID:
-            valor("id"),
+        Empregado:
+            empregado
+                ? empregado.options[empregado.selectedIndex]?.text || ""
+                : "",
 
-        Data:
-            valor("data"),
-
-        Hora:
-            valor("hora"),
-
-        // ID do empregado
         "ID Empregado":
-            empregadoOption?.dataset?.id || "",
+            empregado
+                ? empregado.value || ""
+                : "",
 
-        // Texto exibido no select
-        "Empregado / Matrícula":
-            empregadoOption?.textContent?.trim() || "",
+        Veículo:
+            veiculo
+                ? veiculo.options[veiculo.selectedIndex]?.text || ""
+                : "",
 
-        // ID do veículo
         "ID Veículo":
-            veiculoOption?.dataset?.id || "",
-
-        // Texto exibido no select
-        "Veículo":
-            veiculoOption?.textContent?.trim() || "",
+            veiculo
+                ? veiculo.value || ""
+                : "",
 
         "Passageiro / Setor / Motivo":
             valor("passageiro"),
 
-        "Itinerário":
+        Itinerário:
             valor("itinerario"),
 
         Status:
             valor("status") || "ATIVO"
-
     };
+
 
     console.log(
         "ENGINE → DADOS LANÇAMENTO:",
         dados
     );
 
+
     // ========================================================================
     // VALIDAÇÕES
     // ========================================================================
 
-    if (!dados["Empregado / Matrícula"]) {
+    if (!dados["ID Empregado"]) {
 
         throw new Error(
             "Informe o empregado."
@@ -82,13 +76,15 @@ export function obterDadosFormulario() {
 
     }
 
-    if (!dados["Veículo"]) {
+
+    if (!dados["ID Veículo"]) {
 
         throw new Error(
             "Informe o veículo."
         );
 
     }
+
 
     if (!dados["Passageiro / Setor / Motivo"]) {
 
@@ -98,13 +94,15 @@ export function obterDadosFormulario() {
 
     }
 
-    if (!dados["Itinerário"]) {
+
+    if (!dados.Itinerário) {
 
         throw new Error(
             "Informe o itinerário."
         );
 
     }
+
 
     if (!dados.Status) {
 
@@ -114,26 +112,28 @@ export function obterDadosFormulario() {
 
     }
 
+
     return dados;
 }
+
 
 // ============================================================================
 // PREENCHER FORMULÁRIO
 // ============================================================================
 
-export function preencherFormulario(
-    registro = {}
-) {
+export function preencherFormulario(registro = {}) {
 
     console.log(
         "ENGINE → PREENCHER LANÇAMENTO:",
         registro
     );
 
+
     preencher(
         "id",
         registro.ID || ""
     );
+
 
     preencher(
         "data",
@@ -142,6 +142,7 @@ export function preencherFormulario(
         )
     );
 
+
     preencher(
         "hora",
         normalizarHora(
@@ -149,129 +150,148 @@ export function preencherFormulario(
         )
     );
 
-    // ------------------------------------------------------------------------
-    // EMPREGADO
-    // ------------------------------------------------------------------------
 
-    const empregadoSelect =
+    // ========================================================================
+    // EMPREGADO
+    // ========================================================================
+
+    const empregado =
         document.getElementById("empregado");
 
-    if (empregadoSelect) {
+    if (empregado) {
 
         const idEmpregado =
             registro["ID Empregado"] ||
             "";
 
-        const textoEmpregado =
+        const nomeEmpregado =
             registro["Empregado / Matrícula"] ||
             registro.Empregado ||
             "";
 
         let encontrado = false;
 
-        Array.from(
-            empregadoSelect.options
-        ).forEach(option => {
+
+        for (
+            let i = 0;
+            i < empregado.options.length;
+            i++
+        ) {
+
+            const option =
+                empregado.options[i];
 
             if (
                 idEmpregado &&
-                option.dataset.id === idEmpregado
+                option.value === idEmpregado
             ) {
 
-                empregadoSelect.value =
-                    option.value;
+                empregado.selectedIndex = i;
 
                 encontrado = true;
 
+                break;
             }
-
-        });
-
-        if (!encontrado && textoEmpregado) {
-
-            Array.from(
-                empregadoSelect.options
-            ).forEach(option => {
-
-                if (
-                    option.textContent.trim() ===
-                    textoEmpregado
-                ) {
-
-                    empregadoSelect.value =
-                        option.value;
-
-                }
-
-            });
-
         }
 
+
+        if (!encontrado && nomeEmpregado) {
+
+            for (
+                let i = 0;
+                i < empregado.options.length;
+                i++
+            ) {
+
+                const option =
+                    empregado.options[i];
+
+                if (
+                    option.text.trim() ===
+                    nomeEmpregado.trim()
+                ) {
+
+                    empregado.selectedIndex = i;
+
+                    break;
+                }
+            }
+        }
     }
 
-    // ------------------------------------------------------------------------
-    // VEÍCULO
-    // ------------------------------------------------------------------------
 
-    const veiculoSelect =
+    // ========================================================================
+    // VEÍCULO
+    // ========================================================================
+
+    const veiculo =
         document.getElementById("veiculo");
 
-    if (veiculoSelect) {
+    if (veiculo) {
 
         const idVeiculo =
             registro["ID Veículo"] ||
             "";
 
-        const textoVeiculo =
+        const nomeVeiculo =
             registro["Veículo"] ||
             registro.Veiculo ||
             "";
 
         let encontrado = false;
 
-        Array.from(
-            veiculoSelect.options
-        ).forEach(option => {
+
+        for (
+            let i = 0;
+            i < veiculo.options.length;
+            i++
+        ) {
+
+            const option =
+                veiculo.options[i];
 
             if (
                 idVeiculo &&
-                option.dataset.id === idVeiculo
+                option.value === idVeiculo
             ) {
 
-                veiculoSelect.value =
-                    option.value;
+                veiculo.selectedIndex = i;
 
                 encontrado = true;
 
+                break;
             }
-
-        });
-
-        if (!encontrado && textoVeiculo) {
-
-            Array.from(
-                veiculoSelect.options
-            ).forEach(option => {
-
-                if (
-                    option.textContent.trim() ===
-                    textoVeiculo
-                ) {
-
-                    veiculoSelect.value =
-                        option.value;
-
-                }
-
-            });
-
         }
 
+
+        if (!encontrado && nomeVeiculo) {
+
+            for (
+                let i = 0;
+                i < veiculo.options.length;
+                i++
+            ) {
+
+                const option =
+                    veiculo.options[i];
+
+                if (
+                    option.text.trim() ===
+                    nomeVeiculo.trim()
+                ) {
+
+                    veiculo.selectedIndex = i;
+
+                    break;
+                }
+            }
+        }
     }
 
-    // ------------------------------------------------------------------------
+
+    // ========================================================================
     // DEMAIS CAMPOS
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     preencher(
         "passageiro",
@@ -280,20 +300,22 @@ export function preencherFormulario(
         ""
     );
 
+
     preencher(
         "itinerario",
-        registro["Itinerário"] ||
+        registro.Itinerário ||
         registro.Itinerario ||
         ""
     );
+
 
     preencher(
         "status",
         registro.Status ||
         "ATIVO"
     );
-
 }
+
 
 // ============================================================================
 // LIMPAR FORMULÁRIO
@@ -302,13 +324,15 @@ export function preencherFormulario(
 export function limparFormulario() {
 
     console.log(
-        "ENGINE → NOVO LANÇAMENTO → limparFormulario"
+        "ENGINE → LANÇAMENTOS → limparFormulario"
     );
+
 
     const formulario =
         document.getElementById(
             "formLancamento"
         );
+
 
     if (!formulario) {
 
@@ -317,37 +341,39 @@ export function limparFormulario() {
         );
 
         return;
-
     }
 
+
     formulario.reset();
+
 
     preencher(
         "id",
         ""
     );
 
+
     preencher(
         "status",
         "ATIVO"
     );
 
-    limparErro();
 
+    limparErro();
 }
+
 
 // ============================================================================
 // MOSTRAR ERRO
 // ============================================================================
 
-export function mostrarErro(
-    mensagem
-) {
+export function mostrarErro(mensagem) {
 
     const box =
         document.getElementById(
             "formErro"
         );
+
 
     if (!box) {
 
@@ -356,17 +382,18 @@ export function mostrarErro(
         );
 
         return;
-
     }
+
 
     box.textContent =
         mensagem;
 
+
     box.classList.remove(
         "hidden"
     );
-
 }
+
 
 // ============================================================================
 // LIMPAR ERRO
@@ -374,28 +401,35 @@ export function mostrarErro(
 
 export function limparErro() {
 
-    document
-        .getElementById("formErro")
-        ?.classList.add(
-            "hidden"
+    const box =
+        document.getElementById(
+            "formErro"
         );
 
+
+    if (box) {
+
+        box.classList.add(
+            "hidden"
+        );
+    }
 }
+
 
 // ============================================================================
 // NORMALIZAR DATA
 // ============================================================================
 
-function normalizarData(
-    value
-) {
+function normalizarData(value) {
 
     if (!value) {
         return "";
     }
 
+
     const text =
         String(value).trim();
+
 
     // DD/MM/AAAA
     if (
@@ -404,49 +438,94 @@ function normalizarData(
         )
     ) {
 
-        const [
-            dia,
-            mes,
-            ano
-        ] = text.split("/");
+        const partes =
+            text.split("/");
 
-        return `${ano}-${mes}-${dia}`;
+        const dia =
+            partes[0];
 
+        const mes =
+            partes[1];
+
+        const ano =
+            partes[2];
+
+        return (
+            ano +
+            "-" +
+            mes +
+            "-" +
+            dia
+        );
     }
 
+
     // AAAA-MM-DD
-    // AAAA-MM-DD HH...
     if (
         /^\d{4}-\d{2}-\d{2}/.test(
             text
         )
     ) {
 
-        return text.slice(
+        return text.substring(
             0,
             10
         );
-
     }
 
-    return "";
 
+    return "";
 }
+
 
 // ============================================================================
 // NORMALIZAR HORA
 // ============================================================================
 
-function normalizarHora(
-    value
-) {
+function normalizarHora(value) {
 
     if (!value) {
         return "";
     }
 
+
     const text =
         String(value).trim();
+
+
+    // Data + hora
+    if (
+        text.indexOf(" ") !== -1
+    ) {
+
+        const partes =
+            text.split(" ");
+
+        const hora =
+            partes[partes.length - 1];
+
+        if (
+            /^\d{2}:\d{2}:\d{2}$/.test(
+                hora
+            )
+        ) {
+
+            return hora.substring(
+                0,
+                5
+            );
+        }
+
+        if (
+            /^\d{2}:\d{2}$/.test(
+                hora
+            )
+        ) {
+
+            return hora;
+        }
+    }
+
 
     // HH:MM:SS
     if (
@@ -455,27 +534,12 @@ function normalizarHora(
         )
     ) {
 
-        return text.slice(
+        return text.substring(
             0,
             5
         );
-
     }
 
-    // AAAA-MM-DD HH:MM:SS
-    const dataHora =
-        text.match(
-            /\d{2}:\d{2}(?::\d{2})?/
-        );
-
-    if (dataHora) {
-
-        return dataHora[0].slice(
-            0,
-            5
-        );
-
-    }
 
     // HH:MM
     if (
@@ -485,9 +549,8 @@ function normalizarHora(
     ) {
 
         return text;
-
     }
 
-    return "";
 
+    return "";
 }
