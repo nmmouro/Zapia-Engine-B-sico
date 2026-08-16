@@ -47,6 +47,10 @@ import {
 
 export function novoLancamento() {
 
+                                                                console.log(
+        "ENGINE → NOVO VEÍCULO"
+    );
+
     definirRegistroEditando(
         null
     );
@@ -90,39 +94,38 @@ export async function editarLancamento(
 
         mostrarLoading();
 
-
-        const registro =
-            await obterLancamento(id);
+        limparErro();
 
 
-        const dados =
-            registro?.dados ??
-            registro;
-
-
-        if (
-            !dados ||
-            Array.isArray(dados)
-        ) {
+        if (!id) {
 
             throw new Error(
-                "Lançamento não encontrado."
+                "ID do lancamento não informado."
             );
 
         }
 
 
-        definirRegistroEditando(
-            dados.ID ?? id
+                                                                console.log(
+            "ENGINE → EDITAR lancamento:",
+            id
         );
 
 
-        preencherFormulario(
+        const resposta =
+            await obterLancamento(id);
+
+
+        const dados =
+            resposta?.dados ??
+            resposta?.data ??
+            resposta;
+
+
+                                                                console.log(
+            "ENGINE → lancametno PARA EDIÇÃO:",
             dados
         );
-
-
-        limparErro();
 
 
         const titulo =
@@ -139,12 +142,15 @@ export async function editarLancamento(
         }
 
 
-        abrirModal({
-            focus: "data"
-        });
+       abrirModal();
 
 
     } catch (error) {
+
+                                                                    console.error(
+            "ENGINE → Erro ao editar veículo:",
+            erro
+        );
 
         tratarErro(error);
 
@@ -173,8 +179,17 @@ export async function salvar() {
         const dados =
             obterDadosFormulario();
 
+                                                            console.log(
+            "ENGINE → SALVAR VEÍCULO:",
+            {
+
 
         if (registroEditando) {
+
+                                                                    console.log(
+                "ENGINE → ATUALIZAR VEÍCULO:",
+                registroEditando
+            );
 
             await atualizarLancamento(
                 registroEditando,
