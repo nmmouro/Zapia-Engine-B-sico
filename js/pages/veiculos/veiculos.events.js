@@ -1,19 +1,19 @@
 // ============================================================================
 // ENGINE FRAMEWORK
-// LANÇAMENTOS EVENTS
-// Arquivo: js/pages/lancamentos/lancamentos.events.js
+// VEÍCULOS EVENTS
+// Arquivo: js/pages/veiculos/veiculos.events.js
 // ============================================================================
 
 import {
-    novoLancamento,
-    editarLancamento,
+    novoVeiculo,
+    editarVeiculo,
     salvar,
     remover
-} from "./lancamentos.form.js";
+} from "./veiculos.form.js";
 
 import {
     carregarTabela
-} from "./lancamentos.helpers.js";
+} from "./veiculos.helpers.js";
 
 import {
     tratarErro
@@ -27,7 +27,7 @@ import {
 export function registrarEventos() {
 
     console.log(
-        "ENGINE → REGISTRANDO EVENTOS LANÇAMENTOS"
+        "ENGINE → REGISTRANDO EVENTOS VEÍCULOS"
     );
 
 
@@ -47,17 +47,17 @@ export function registrarEventos() {
 
     const formulario =
         document.getElementById(
-            "formLancamento"
+            "formVeiculo"
         );
 
     const tabela =
         document.getElementById(
-            "tabelaLancamentos"
+            "tabelaVeiculos"
         );
 
 
     // =========================================================================
-    // VALIDAÇÃO
+    // VALIDAÇÃO DOS ELEMENTOS
     // =========================================================================
 
     if (!btnNovo) {
@@ -83,7 +83,7 @@ export function registrarEventos() {
     if (!formulario) {
 
         console.error(
-            "ENGINE → #formLancamento não encontrado."
+            "ENGINE → #formVeiculo não encontrado."
         );
 
         return;
@@ -93,7 +93,7 @@ export function registrarEventos() {
     if (!tabela) {
 
         console.error(
-            "ENGINE → #tabelaLancamentos não encontrada."
+            "ENGINE → #tabelaVeiculos não encontrado."
         );
 
         return;
@@ -101,16 +101,16 @@ export function registrarEventos() {
 
 
     // =========================================================================
-    // NOVO LANÇAMENTO
+    // NOVO VEÍCULO
     // =========================================================================
 
     btnNovo.onclick = () => {
 
         console.log(
-            "ENGINE → NOVO LANÇAMENTO"
+            "ENGINE → NOVO VEÍCULO"
         );
 
-        novoLancamento();
+        novoVeiculo();
 
     };
 
@@ -124,7 +124,7 @@ export function registrarEventos() {
         try {
 
             console.log(
-                "ENGINE → ATUALIZAR LANÇAMENTOS"
+                "ENGINE → ATUALIZAR VEÍCULOS"
             );
 
             await carregarTabela();
@@ -132,7 +132,7 @@ export function registrarEventos() {
         } catch (erro) {
 
             console.error(
-                "ENGINE → ERRO AO ATUALIZAR:",
+                "ENGINE → ERRO AO ATUALIZAR VEÍCULOS:",
                 erro
             );
 
@@ -149,11 +149,8 @@ export function registrarEventos() {
     // SUBMIT DO FORMULÁRIO
     // =========================================================================
     //
-    // IMPORTANTE:
-    // Usamos ONsubmit em vez de addEventListener.
-    //
-    // Isso impede que o mesmo formulário receba vários handlers caso
-    // o Router/Engine inicialize a página novamente.
+    // Usamos "onsubmit" para evitar que o Router/Engine registre múltiplos
+    // listeners caso a página seja inicializada novamente.
     // =========================================================================
 
     formulario.onsubmit = async evento => {
@@ -162,7 +159,7 @@ export function registrarEventos() {
         evento.stopPropagation();
 
         console.log(
-            "ENGINE → SUBMIT LANÇAMENTO"
+            "ENGINE → SUBMIT VEÍCULO"
         );
 
         try {
@@ -174,7 +171,7 @@ export function registrarEventos() {
         } catch (erro) {
 
             console.error(
-                "ENGINE → ERRO NO SUBMIT:",
+                "ENGINE → ERRO AO SALVAR VEÍCULO:",
                 erro
             );
 
@@ -211,10 +208,14 @@ export function registrarEventos() {
             botao.dataset.id;
 
 
+        // ---------------------------------------------------------------------
+        // VALIDAR ID
+        // ---------------------------------------------------------------------
+
         if (!id) {
 
             console.error(
-                "ENGINE → ID DO LANÇAMENTO NÃO INFORMADO."
+                "ENGINE → ID DO VEÍCULO NÃO INFORMADO."
             );
 
             return;
@@ -232,11 +233,11 @@ export function registrarEventos() {
             ) {
 
                 console.log(
-                    "ENGINE → EDITAR:",
+                    "ENGINE → EDITAR VEÍCULO:",
                     id
                 );
 
-                await editarLancamento(
+                await editarVeiculo(
                     id
                 );
 
@@ -253,7 +254,7 @@ export function registrarEventos() {
             ) {
 
                 console.log(
-                    "ENGINE → EXCLUIR:",
+                    "ENGINE → EXCLUIR VEÍCULO:",
                     id
                 );
 
@@ -267,7 +268,7 @@ export function registrarEventos() {
         } catch (erro) {
 
             console.error(
-                "ENGINE → ERRO AÇÃO:",
+                "ENGINE → ERRO AÇÃO VEÍCULO:",
                 erro
             );
 
@@ -285,6 +286,7 @@ export function registrarEventos() {
     // =========================================================================
 
     console.log(
-        "ENGINE → EVENTOS LANÇAMENTOS REGISTRADOS"
+        "ENGINE → EVENTOS VEÍCULOS REGISTRADOS"
     );
+
 }
