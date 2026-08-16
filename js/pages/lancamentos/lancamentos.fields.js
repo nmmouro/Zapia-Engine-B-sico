@@ -39,6 +39,12 @@ export function obterDadosFormulario() {
 
     };
 
+                                         console.log(
+        "DADOS LANÇAMENTO →",
+        dados
+    );
+
+
 
     // ========================================================================
     // VALIDAÇÕES
@@ -98,13 +104,7 @@ export function obterDadosFormulario() {
 
     }
 
-
-    console.log(
-        "DADOS LANÇAMENTO →",
-        dados
-    );
-
-
+   
     return dados;
 
 }
@@ -118,9 +118,14 @@ export function preencherFormulario(
     registro = {}
 ) {
 
+                                                            console.log(
+        "ENGINE → PREENCHER VEÍCULO:",
+        registro
+    );
+
     preencher(
         "id",
-        registro.ID ?? ""
+        registro.ID || ""
     );
 
 
@@ -143,38 +148,38 @@ export function preencherFormulario(
     preencher(
         "empregado",
         registro["Empregado / Matrícula"] ??
-        registro.Empregado ??
+        registro.Empregado ||
         ""
     );
 
 
     preencher(
         "veiculo",
-        registro.Veículo ??
-        registro.Veiculo ??
+        registro.Veículo ||
+        registro.Veiculo ||
         ""
     );
 
 
     preencher(
         "passageiro",
-        registro["Passageiro / Setor / Motivo"] ??
-        registro.Passageiro ??
+        registro["Passageiro / Setor / Motivo"] ||
+        registro.Passageiro ||
         ""
     );
 
 
     preencher(
         "itinerario",
-        registro.Itinerário ??
-        registro.Itinerario ??
+        registro.Itinerário ||
+        registro.Itinerario ||
         ""
     );
 
 
     preencher(
         "status",
-        registro.Status ?? "ATIVO"
+        registro.Status || "ATIVO"
     );
 
 }
@@ -186,9 +191,24 @@ export function preencherFormulario(
 
 export function limparFormulario() {
 
-    document
-        .getElementById("formLancamento")
-        ?.reset();
+                                                                console.log(
+        "ENGINE → NOVO VEÍCULO → limparFormulario NOVA VERSÃO"
+    );
+
+    const formulario =
+        document.getElementById("formLancamento");
+
+    if (!formulario) {
+
+        console.error(
+            "ENGINE → #formLancamento não encontrado."
+        );
+
+        return;
+    }
+
+    // Limpa todos os campos
+    formulario.reset();
 
 
     preencher(
