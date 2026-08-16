@@ -34,7 +34,7 @@ import {
 
 import {
     definirRegistroEditando,
-    registroEditando
+    obterRegistroEditando
 } from "./veiculos.state.js";
 
 import {
@@ -46,6 +46,10 @@ import {
 // ============================================================================
 
 export function novoVeiculo() {
+
+                                                console.log(
+        "ENGINE → NOVO VEÍCULO"
+    );
 
     definirRegistroEditando(
         null
@@ -90,14 +94,38 @@ export async function editarVeiculo(
 
         mostrarLoading();
 
+        limparErro();
 
-        const registro =
+
+        if (!id) {
+
+            throw new Error(
+                "ID do veículo não informado."
+            );
+
+        }
+
+
+        console.log(
+            "ENGINE → EDITAR VEÍCULO:",
+            id
+        );
+
+
+        const resposta =
             await obterVeiculo(id);
 
 
         const dados =
-            registro?.dados ??
-            registro;
+            resposta?.dados ??
+            resposta?.data ??
+            resposta;
+
+
+        console.log(
+            "ENGINE → VEÍCULO PARA EDIÇÃO:",
+            dados
+        );
 
 
         if (
@@ -113,16 +141,13 @@ export async function editarVeiculo(
 
 
         definirRegistroEditando(
-            dados.ID ?? id
+            dados.ID || id
         );
 
 
         preencherFormulario(
             dados
         );
-
-
-        limparErro();
 
 
         const titulo =
@@ -139,14 +164,19 @@ export async function editarVeiculo(
         }
 
 
-        abrirModal({
-            focus: "placa"
-        });
+        abrirModal();
 
 
-    } catch (error) {
+    } catch (erro) {
 
-        tratarErro(error);
+        console.error(
+            "ENGINE → Erro ao editar veículo:",
+            erro
+        );
+
+        tratarErro(
+            erro
+        );
 
     } finally {
 
@@ -174,14 +204,48 @@ export async function salvar() {
             obterDadosFormulario();
 
 
-        if (registroEditando) {
+        const id =
+            obterRegistroEditando();
+
+
+        console.log(
+            "ENGINE → SALVAR VEÍCULO:",
+            {
+                id,
+                dados
+            }
+        );
+
+
+        // --------------------------------------------------------------------
+        // EDIÇÃO
+        // --------------------------------------------------------------------
+
+        if (id) {
+
+            console.log(
+                "ENGINE → ATUALIZANDO VEÍCULO:",
+                id
+            );
+
 
             await atualizarVeiculo(
-                registroEditando,
+                id,
                 dados
             );
 
-        } else {
+        }
+
+        // --------------------------------------------------------------------
+        // NOVO
+        // --------------------------------------------------------------------
+
+        else {
+
+            console.log(
+                "ENGINE → CRIANDO VEÍCULO"
+            );
+
 
             await salvarVeiculo(
                 dados
@@ -189,6 +253,10 @@ export async function salvar() {
 
         }
 
+
+        // --------------------------------------------------------------------
+        // FINALIZAÇÃO
+        // --------------------------------------------------------------------
 
         definirRegistroEditando(
             null
@@ -201,12 +269,19 @@ export async function salvar() {
         await carregarTabela();
 
 
-    } catch (error) {
+    } catch (erro) {
+
+        console.error(
+            "ENGINE → Erro ao salvar veículo:",
+            erro
+        );
+
 
         mostrarErro(
-            error?.message ??
+            erro?.message ||
             "Não foi possível salvar o veículo."
         );
+
 
     } finally {
 
