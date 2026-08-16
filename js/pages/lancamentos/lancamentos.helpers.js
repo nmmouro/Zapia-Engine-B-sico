@@ -69,7 +69,7 @@ export async function carregarTabela() {
 
     }
 
-    console.log(
+                                                            console.log(
         "ENGINE → LANÇAMENTOS:",
         lista
     );
@@ -100,54 +100,49 @@ export async function carregarTabela() {
             remove: true
         }
     );
-
-    // Atualiza contador
-    atualizarContador(lista.length);
-
-    // Atualiza estado vazio
-    atualizarVazio(lista.length);
-
-    return lista;
-}
-
+    
 // ============================================================================
 // CONTADOR
 // ============================================================================
 
-function atualizarContador(total) {
+const contador =
+        document.getElementById(
+            "contador"
+        );
 
-    const contador = document.getElementById(
-        "contador"
-    );
 
-    if (!contador) {
-        return;
+    if (contador) {
+
+        contador.textContent =
+            `${lista.length} ${
+                lista.length === 1
+                    ? "registro"
+                    : "registros"
+            }`;
+
     }
 
-    contador.textContent =
-        `${total} ${
-            total === 1
-                ? "registro"
-                : "registros"
-        }`;
-}
 
 // ============================================================================
 // ESTADO VAZIO
 // ============================================================================
 
-function atualizarVazio(total) {
+const vazio =
+        document.getElementById(
+            "vazio"
+        );
 
-    const vazio = document.getElementById(
-        "vazio"
-    );
 
-    if (!vazio) {
-        return;
+    if (vazio) {
+
+        vazio.classList.toggle(
+            "hidden",
+            lista.length > 0
+        );
+
     }
 
-    vazio.classList.toggle(
-        "hidden",
-        total > 0
-    );
+
+    return lista;
+
 }
