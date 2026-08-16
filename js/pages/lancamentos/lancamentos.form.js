@@ -72,9 +72,25 @@ export function novoLancamento() {
 
 export async function editarLancamento(id) {
 
+    if (!id) {
+
+        tratarErro(
+            new Error(
+                "ID do lançamento não informado."
+            )
+        );
+
+        return;
+    }
+
     try {
 
         mostrarLoading();
+
+        console.log(
+            "ENGINE → EDITAR LANÇAMENTO:",
+            id
+        );
 
         const resposta =
             await obterLancamento(id);
@@ -92,7 +108,6 @@ export async function editarLancamento(id) {
             throw new Error(
                 "Lançamento não encontrado."
             );
-
         }
 
         console.log(
@@ -100,9 +115,17 @@ export async function editarLancamento(id) {
             registro
         );
 
+        // --------------------------------------------------------------------
+        // GUARDA O ID DO LANÇAMENTO
+        // --------------------------------------------------------------------
+
         definirRegistroEditando(
-            registro.ID ?? id
+            registro.ID || id
         );
+
+        // --------------------------------------------------------------------
+        // PREENCHE O FORMULÁRIO
+        // --------------------------------------------------------------------
 
         preencherFormulario(
             registro
@@ -131,7 +154,9 @@ export async function editarLancamento(id) {
             erro
         );
 
-        tratarErro(erro);
+        tratarErro(
+            erro
+        );
 
     } finally {
 
