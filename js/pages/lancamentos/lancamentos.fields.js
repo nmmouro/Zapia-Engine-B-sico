@@ -188,82 +188,51 @@ function selecionarEmpregado(id, texto) {
     const select =
         document.getElementById("empregado");
 
-    if (!select) {
-        return;
-    }
+    const select = document.getElementById("empregado");
 
-    for (
-        let i = 0;
-        i < select.options.length;
-        i++
-    ) {
+select.innerHTML = `
+    <option value="">Selecione o empregado...</option>
+`;
 
-        const option =
-            select.options[i];
+lista.forEach(empregado => {
 
-        if (
-            id &&
-            option.dataset.id === String(id)
-        ) {
+    const option = document.createElement("option");
 
-            select.selectedIndex = i;
-            return;
-        }
+    // ID que será enviado para a planilha
+    option.value = empregado.ID || "";
 
-        if (
-            texto &&
-            option.textContent.trim() ===
-            String(texto).trim()
-        ) {
+    // Texto que o usuário verá
+    option.textContent =
+        `${empregado.Empregado || ""} / ${empregado.Matrícula || ""}`;
 
-            select.selectedIndex = i;
-            return;
-        }
-    }
-}
-
+    select.appendChild(option);
+});
+    
 // ============================================================================
 // Selecionar Veículo
 // ============================================================================
 
 function selecionarVeiculo(id, texto) {
 
-    const select =
-        document.getElementById("veiculo");
+    const select = document.getElementById("veiculo");
 
-    if (!select) {
-        return;
-    }
+select.innerHTML = `
+    <option value="">Selecione o veículo...</option>
+`;
 
-    for (
-        let i = 0;
-        i < select.options.length;
-        i++
-    ) {
+lista.forEach(veiculo => {
 
-        const option =
-            select.options[i];
+    const option = document.createElement("option");
 
-        if (
-            id &&
-            option.dataset.id === String(id)
-        ) {
+    // ID que será enviado para a planilha
+    option.value = veiculo.ID || "";
 
-            select.selectedIndex = i;
-            return;
-        }
+    // Texto que o usuário verá
+    option.textContent =
+        `${veiculo.Placa || ""} - ${veiculo.Modelo || ""}`;
 
-        if (
-            texto &&
-            option.textContent.trim() ===
-            String(texto).trim()
-        ) {
-
-            select.selectedIndex = i;
-            return;
-        }
-    }
-}
+    select.appendChild(option);
+});
 
 // ============================================================================
 // NORMALIZAR DATA
