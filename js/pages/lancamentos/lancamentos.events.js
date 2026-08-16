@@ -1,4 +1,5 @@
 // ============================================================================
+// ENGINE FRAMEWORK
 // LANÇAMENTOS EVENTS
 // Arquivo: js/pages/lancamentos/lancamentos.events.js
 // ============================================================================
@@ -10,9 +11,14 @@ import {
     remover
 } from "./lancamentos.form.js";
 
-import { carregarTabela } from "./lancamentos.helpers.js";
+import {
+    carregarTabela
+} from "./lancamentos.helpers.js";
 
-import { tratarErro } from "../../utils/erros.js";
+import {
+    tratarErro
+} from "../../utils/erros.js";
+
 
 // ============================================================================
 // REGISTRAR EVENTOS
@@ -20,152 +26,287 @@ import { tratarErro } from "../../utils/erros.js";
 
 export function registrarEventos() {
 
+    console.log(
+        "ENGINE → REGISTRANDO EVENTOS LANÇAMENTOS"
+    );
+
+
+    // =========================================================================
+    // ELEMENTOS
+    // =========================================================================
+
     const btnNovo =
-        document.getElementById("btnNovo");
+        document.getElementById(
+            "btnNovo"
+        );
 
     const btnAtualizar =
-        document.getElementById("btnAtualizar");
+        document.getElementById(
+            "btnAtualizar"
+        );
 
     const formulario =
-        document.getElementById("formLancamento");
+        document.getElementById(
+            "formLancamento"
+        );
 
     const tabela =
-        document.getElementById("tabelaLancamentos");
+        document.getElementById(
+            "tabelaLancamentos"
+        );
 
 
-    // ========================================================================
+    // =========================================================================
     // VALIDAÇÃO DOS ELEMENTOS
-    // ========================================================================
+    // =========================================================================
 
     if (!btnNovo) {
-        throw new Error(
-            "Elemento #btnNovo não encontrado."
+
+        console.error(
+            "ENGINE → #btnNovo não encontrado."
         );
+
+        return;
     }
+
 
     if (!btnAtualizar) {
-        throw new Error(
-            "Elemento #btnAtualizar não encontrado."
+
+        console.error(
+            "ENGINE → #btnAtualizar não encontrado."
         );
+
+        return;
     }
+
 
     if (!formulario) {
-        throw new Error(
-            "Elemento #formLancamento não encontrado."
+
+        console.error(
+            "ENGINE → #formLancamento não encontrado."
         );
+
+        return;
     }
+
 
     if (!tabela) {
-        throw new Error(
-            "Elemento #tabelaLancamentos não encontrado."
+
+        console.error(
+            "ENGINE → #tabelaLancamentos não encontrada."
         );
+
+        return;
     }
 
 
-    // ========================================================================
-    // NOVO
-    // ========================================================================
+    // =========================================================================
+    // NOVO LANÇAMENTO
+    // =========================================================================
 
-    btnNovo.addEventListener(
-        "click",
-        novoLancamento
-    );
+    btnNovo.onclick = () => {
 
+        console.log(
+            "ENGINE → NOVO LANÇAMENTO"
+        );
 
-    // ========================================================================
-    // ATUALIZAR
-    // ========================================================================
+        try {
 
-    btnAtualizar.addEventListener(
-        "click",
-        async () => {
+            novoLancamento();
 
-            try {
+        } catch (erro) {
 
-                await carregarTabela();
+            console.error(
+                "ENGINE → ERRO AO ABRIR NOVO LANÇAMENTO:",
+                erro
+            );
 
-            } catch (erro) {
-
-                tratarErro(erro);
-
-            }
+            tratarErro(
+                erro
+            );
 
         }
-    );
+
+    };
 
 
-    // ========================================================================
-    // FORMULÁRIO
-    // ========================================================================
+    // =========================================================================
+    // ATUALIZAR TABELA
+    // =========================================================================
 
-    formulario.addEventListener(
-        "submit",
-        async evento => {
+    btnAtualizar.onclick = async () => {
 
-            evento.preventDefault();
+        try {
 
-            try {
+            console.log(
+                "ENGINE → ATUALIZAR LANÇAMENTOS"
+            );
 
-                await salvar();
+            await carregarTabela();
 
-            } catch (erro) {
+        } catch (erro) {
 
-                tratarErro(erro);
+            console.error(
+                "ENGINE → ERRO AO ATUALIZAR LANÇAMENTOS:",
+                erro
+            );
 
-            }
+            tratarErro(
+                erro
+            );
 
         }
-    );
+
+    };
 
 
-    // ========================================================================
+    // =========================================================================
+    // SUBMIT DO FORMULÁRIO
+    // =========================================================================
+    //
+    // IMPORTANTE:
+    //
+    // Usamos "onsubmit" em vez de addEventListener("submit").
+    //
+    // O Router/Engine pode inicializar o módulo novamente. O uso de onsubmit
+    // substitui o handler anterior e evita múltiplos salvamentos ou a
+    // necessidade de clicar várias vezes no botão Salvar.
+    // =========================================================================
+
+    formulario.onsubmit = async evento => {
+
+        evento.preventDefault();
+        evento.stopPropagation();
+
+        console.log(
+            "ENGINE → SUBMIT LANÇAMENTO"
+        );
+
+        try {
+
+            await salvar(
+                evento
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "ENGINE → ERRO AO SALVAR LANÇAMENTO:",
+                erro
+            );
+
+            tratarErro(
+                erro
+            );
+
+        }
+
+    };
+
+
+    // =========================================================================
     // AÇÕES DA TABELA
-    // ========================================================================
+    // =========================================================================
 
-    tabela.addEventListener(
-        "click",
-        async evento => {
+    tabela.onclick = async evento => {
 
-            const botao =
-                evento.target.closest(
-                    "[data-action]"
+        const botao =
+            evento.target.closest(
+                "[data-action]"
+            );
+
+
+        if (!botao) {
+            return;
+        }
+
+
+        const acao =
+            botao.dataset.action;
+
+        const id =
+            botao.dataset.id;
+
+
+        // ---------------------------------------------------------------------
+        // VALIDAR ID
+        // ---------------------------------------------------------------------
+
+        if (!id) {
+
+            console.error(
+                "ENGINE → ID DO LANÇAMENTO NÃO INFORMADO."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            // -----------------------------------------------------------------
+            // EDITAR
+            // -----------------------------------------------------------------
+
+            if (
+                acao === "edit"
+            ) {
+
+                console.log(
+                    "ENGINE → EDITAR LANÇAMENTO:",
+                    id
                 );
 
+                await editarLancamento(
+                    id
+                );
 
-            if (!botao) {
                 return;
             }
 
 
-            const id =
-                botao.dataset.id;
+            // -----------------------------------------------------------------
+            // EXCLUIR
+            // -----------------------------------------------------------------
 
-            const acao =
-                botao.dataset.action;
+            if (
+                acao === "remove"
+            ) {
 
+                console.log(
+                    "ENGINE → EXCLUIR LANÇAMENTO:",
+                    id
+                );
 
-            try {
+                await remover(
+                    id
+                );
 
-                if (acao === "edit") {
-
-                    await editarLancamento(id);
-
-                }
-
-
-                if (acao === "remove") {
-
-                    await remover(id);
-
-                }
-
-            } catch (erro) {
-
-                tratarErro(erro);
-
+                return;
             }
 
+        } catch (erro) {
+
+            console.error(
+                "ENGINE → ERRO AÇÃO LANÇAMENTO:",
+                erro
+            );
+
+            tratarErro(
+                erro
+            );
+
         }
+
+    };
+
+
+    // =========================================================================
+    // FINAL
+    // =========================================================================
+
+    console.log(
+        "ENGINE → EVENTOS LANÇAMENTOS REGISTRADOS"
     );
 
 }
