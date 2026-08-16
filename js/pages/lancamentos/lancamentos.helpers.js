@@ -28,7 +28,7 @@ export const COLUNAS_LANCAMENTOS = [
 
     {
         key: "Empregado / Matrícula",
-        label: "Empregado"
+        label: "Empregado / Matrícula"
     },
 
     {
