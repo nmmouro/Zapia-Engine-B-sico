@@ -181,10 +181,7 @@ export function preencherFormulario(
 export function limparFormulario() {
 
     const formulario =
-        document.getElementById(
-            "formVeiculo"
-        );
-
+        document.getElementById("formVeiculo");
 
     if (!formulario) {
 
@@ -195,17 +192,14 @@ export function limparFormulario() {
         return;
     }
 
-
     // Limpa todos os campos
     formulario.reset();
 
-
-    // ID deve ficar vazio em novo cadastro
+    // ID vazio para novo cadastro
     preencher(
         "id",
         ""
     );
-
 
     // Status padrão
     preencher(
@@ -213,7 +207,7 @@ export function limparFormulario() {
         "ATIVO"
     );
 
-
+    // Remove mensagem de erro
     limparErro();
 }
 
