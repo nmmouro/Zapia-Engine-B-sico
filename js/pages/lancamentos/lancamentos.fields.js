@@ -51,10 +51,10 @@ export function obterDadosFormulario() {
             valor("id"),
 
         "ID Empregado":
-            empregadoSelect.value,
+            idEmpregado,
 
         "ID Veículo":
-            veiculoSelect.value,
+            idVeiculo,
 
         Data:
             valor("data"),
@@ -183,7 +183,7 @@ export function preencherFormulario(
 
     selecionarEmpregado(
         registro["ID Empregado"],
-        registro["Empregado / Matrícula"]
+        
     );
 
     // ------------------------------------------------------------------------
@@ -192,7 +192,7 @@ export function preencherFormulario(
 
     selecionarVeiculo(
         registro["ID Veículo"],
-        registro["Veículo"]
+        
     );
 }
 
@@ -227,6 +227,9 @@ export function limparFormulario() {
         "status",
         "ATIVO"
     );
+
+    selecionarEmpregado("");
+    selecionarVeiculo("");
 
     limparErro();
 }
@@ -310,6 +313,9 @@ export function carregarEmpregados(lista = []) {
     });
 }
 
+// ============================================================================
+// SELECIONAR EMPREGADO
+// ============================================================================
 
 export function selecionarEmpregado(id) {
 
@@ -354,6 +360,10 @@ export function carregarVeiculos(lista = []) {
         select.appendChild(option);
     });
 }
+
+// ============================================================================
+// SELECIONAR VEÍCULO
+// ============================================================================
 
 export function selecionarVeiculo(id) {
 
