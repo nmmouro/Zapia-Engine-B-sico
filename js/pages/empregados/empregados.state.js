@@ -34,7 +34,7 @@ export function definirRegistros(lista) {
 
 export function definirRegistroEditando(id) {
 
-    registroEditando = id ?? null;
+    registroEditando = id || null;
 
 }
 
