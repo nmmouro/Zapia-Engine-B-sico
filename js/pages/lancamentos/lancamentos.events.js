@@ -16,6 +16,10 @@ import {
 } from "./lancamentos.helpers.js";
 
 import {
+    fecharModal
+} from "../../ui/modal.js";
+
+import {
     tratarErro
 } from "../../utils/erros.js";
 
@@ -36,72 +40,59 @@ export function registrarEventos() {
     // =========================================================================
 
     const btnNovo =
-        document.getElementById(
-            "btnNovo"
-        );
+        document.getElementById("btnNovo");
 
     const btnAtualizar =
-        document.getElementById(
-            "btnAtualizar"
-        );
+        document.getElementById("btnAtualizar");
+
+    const btnCancelar =
+        document.getElementById("btnCancelar");
+
+    const btnFecharModal =
+        document.getElementById("btnFecharModal");
 
     const formulario =
-        document.getElementById(
-            "formLancamento"
-        );
+        document.getElementById("formLancamento");
 
     const tabela =
-        document.getElementById(
-            "tabelaLancamentos"
-        );
+        document.getElementById("tabelaLancamentos");
 
 
     // =========================================================================
-    // VALIDAÇÃO DOS ELEMENTOS
+    // VALIDAÇÃO
     // =========================================================================
 
     if (!btnNovo) {
-
         console.error(
             "ENGINE → #btnNovo não encontrado."
         );
-
         return;
     }
 
-
     if (!btnAtualizar) {
-
         console.error(
             "ENGINE → #btnAtualizar não encontrado."
         );
-
         return;
     }
 
-
     if (!formulario) {
-
         console.error(
             "ENGINE → #formLancamento não encontrado."
         );
-
         return;
     }
 
-
     if (!tabela) {
-
         console.error(
             "ENGINE → #tabelaLancamentos não encontrada."
         );
-
         return;
     }
 
 
     // =========================================================================
-    // NOVO LANÇAMENTO
+    // NOVO
     // =========================================================================
 
     btnNovo.onclick = () => {
@@ -117,21 +108,17 @@ export function registrarEventos() {
         } catch (erro) {
 
             console.error(
-                "ENGINE → ERRO AO ABRIR NOVO LANÇAMENTO:",
+                "ENGINE → ERRO NOVO LANÇAMENTO:",
                 erro
             );
 
-            tratarErro(
-                erro
-            );
-
+            tratarErro(erro);
         }
-
     };
 
 
     // =========================================================================
-    // ATUALIZAR TABELA
+    // ATUALIZAR
     // =========================================================================
 
     btnAtualizar.onclick = async () => {
@@ -139,7 +126,7 @@ export function registrarEventos() {
         try {
 
             console.log(
-                "ENGINE → ATUALIZAR LANÇAMENTOS"
+                "ENGINE → ATUALIZANDO LANÇAMENTOS"
             );
 
             await carregarTabela();
@@ -147,30 +134,57 @@ export function registrarEventos() {
         } catch (erro) {
 
             console.error(
-                "ENGINE → ERRO AO ATUALIZAR LANÇAMENTOS:",
+                "ENGINE → ERRO ATUALIZAR:",
                 erro
             );
 
-            tratarErro(
-                erro
-            );
-
+            tratarErro(erro);
         }
-
     };
 
 
     // =========================================================================
-    // SUBMIT DO FORMULÁRIO
+    // CANCELAR
+    // =========================================================================
+
+    if (btnCancelar) {
+
+        btnCancelar.onclick = () => {
+
+            console.log(
+                "ENGINE → CANCELAR LANÇAMENTO"
+            );
+
+            fecharModal();
+        };
+    }
+
+
+    // =========================================================================
+    // FECHAR MODAL
+    // =========================================================================
+
+    if (btnFecharModal) {
+
+        btnFecharModal.onclick = () => {
+
+            console.log(
+                "ENGINE → FECHAR MODAL"
+            );
+
+            fecharModal();
+        };
+    }
+
+
+    // =========================================================================
+    // SUBMIT
     // =========================================================================
     //
     // IMPORTANTE:
+    // Usamos "onsubmit", nunca addEventListener aqui.
     //
-    // Usamos "onsubmit" em vez de addEventListener("submit").
-    //
-    // O Router/Engine pode inicializar o módulo novamente. O uso de onsubmit
-    // substitui o handler anterior e evita múltiplos salvamentos ou a
-    // necessidade de clicar várias vezes no botão Salvar.
+    // Isso impede o Router de acumular vários eventos.
     // =========================================================================
 
     formulario.onsubmit = async evento => {
@@ -184,23 +198,17 @@ export function registrarEventos() {
 
         try {
 
-            await salvar(
-                evento
-            );
+            await salvar(evento);
 
         } catch (erro) {
 
             console.error(
-                "ENGINE → ERRO AO SALVAR LANÇAMENTO:",
+                "ENGINE → ERRO SUBMIT LANÇAMENTO:",
                 erro
             );
 
-            tratarErro(
-                erro
-            );
-
+            tratarErro(erro);
         }
-
     };
 
 
@@ -215,11 +223,9 @@ export function registrarEventos() {
                 "[data-action]"
             );
 
-
         if (!botao) {
             return;
         }
-
 
         const acao =
             botao.dataset.action;
@@ -227,10 +233,6 @@ export function registrarEventos() {
         const id =
             botao.dataset.id;
 
-
-        // ---------------------------------------------------------------------
-        // VALIDAR ID
-        // ---------------------------------------------------------------------
 
         if (!id) {
 
@@ -244,43 +246,27 @@ export function registrarEventos() {
 
         try {
 
-            // -----------------------------------------------------------------
-            // EDITAR
-            // -----------------------------------------------------------------
-
-            if (
-                acao === "edit"
-            ) {
+            if (acao === "edit") {
 
                 console.log(
                     "ENGINE → EDITAR LANÇAMENTO:",
                     id
                 );
 
-                await editarLancamento(
-                    id
-                );
+                await editarLancamento(id);
 
                 return;
             }
 
 
-            // -----------------------------------------------------------------
-            // EXCLUIR
-            // -----------------------------------------------------------------
-
-            if (
-                acao === "remove"
-            ) {
+            if (acao === "remove") {
 
                 console.log(
                     "ENGINE → EXCLUIR LANÇAMENTO:",
                     id
                 );
 
-                await remover(
-                    id
-                );
+                await remover(id);
 
                 return;
             }
@@ -288,16 +274,12 @@ export function registrarEventos() {
         } catch (erro) {
 
             console.error(
-                "ENGINE → ERRO AÇÃO LANÇAMENTO:",
+                "ENGINE → ERRO AÇÃO:",
                 erro
             );
 
-            tratarErro(
-                erro
-            );
-
+            tratarErro(erro);
         }
-
     };
 
 
@@ -308,5 +290,4 @@ export function registrarEventos() {
     console.log(
         "ENGINE → EVENTOS LANÇAMENTOS REGISTRADOS"
     );
-
 }
