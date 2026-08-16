@@ -20,11 +20,14 @@ export let registroEditando = null;
 // DEFINIR REGISTROS
 // ============================================================================
 
-export function definirRegistros(lista) {
+export function definirRegistros(
+    lista
+) {
 
-    registros = Array.isArray(lista)
-        ? lista
-        : [];
+    registros =
+        Array.isArray(lista)
+            ? lista
+            : [];
 
 }
 
@@ -32,18 +35,33 @@ export function definirRegistros(lista) {
 // DEFINIR REGISTRO EM EDIÇÃO
 // ============================================================================
 
-export function definirRegistroEditando(id) {
+export function definirRegistroEditando(
+    id
+) {
 
-    registroEditando = id ?? null;
+    registroEditando =
+        id || null;
 
 }
+
 
 // ============================================================================
 // LIMPAR REGISTRO EM EDIÇÃO
 // ============================================================================
 
+export function obterRegistroEditando() {
+
+    return registroEditando;
+
+}
+
+// ============================================================================
+// LIMPAR
+// ============================================================================
+
 export function limparRegistroEditando() {
 
-    registroEditando = null;
+    registroEditando =
+        null;
 
 }
