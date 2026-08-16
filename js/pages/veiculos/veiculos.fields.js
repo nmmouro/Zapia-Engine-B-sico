@@ -40,13 +40,18 @@ export function obterDadosFormulario() {
         Cor:
             valor("cor"),
 
-        Combustível:
+        Combustivel:
             valor("combustivel"),
 
         Status:
             valor("status")
 
     };
+
+                                                                console.log(
+        "ENGINE → DADOS VEÍCULO:",
+        dados
+    );
 
 
     // ========================================================================
@@ -56,25 +61,23 @@ export function obterDadosFormulario() {
     if (!dados.Placa) {
 
         throw new Error(
-            "Informe a placa."
+            "Informe a placa do veículo."
         );
 
     }
-
 
     if (!dados.Modelo) {
 
         throw new Error(
-            "Informe o modelo."
+            "Informe o modelo do veículo."
         );
 
     }
 
-
-    if (!dados.Status) {
+    if (!dados.Marca) {
 
         throw new Error(
-            "Informe o status."
+            "Informe a marca do veículo."
         );
 
     }
@@ -84,31 +87,38 @@ export function obterDadosFormulario() {
     // VALIDAR ANO
     // ========================================================================
 
-    if (dados.Ano) {
+    if (!dados.Placa) {
 
-        const ano =
-            Number(dados.Ano);
-
-
-        if (
-            Number.isNaN(ano) ||
-            ano < 2026 ||
-            ano > 2030
-        ) {
-
-            throw new Error(
-                "Ano do veículo inválido."
-            );
-
-        }
+        throw new Error(
+            "Informe a placa do veículo."
+        );
 
     }
 
+    if (!dados.Modelo) {
 
-    console.log(
-        "DADOS VEÍCULO →",
-        dados
-    );
+        throw new Error(
+            "Informe o modelo do veículo."
+        );
+
+    }
+
+    if (!dados.Marca) {
+
+        throw new Error(
+            "Informe a marca do veículo."
+        );
+
+    }
+
+    if (!dados.Status) {
+
+        throw new Error(
+            "Informe o status do veículo."
+        );
+
+    }
+
 
 
     return dados;
@@ -126,7 +136,7 @@ export function preencherFormulario(
 
     preencher(
         "id",
-        registro.ID ?? ""
+        registro.ID || ""
     );
 
 
@@ -139,51 +149,49 @@ export function preencherFormulario(
 
     preencher(
         "foto",
-        registro.Foto ?? ""
+        registro.Foto || ""
     );
 
 
     preencher(
         "placa",
-        registro.Placa ?? ""
+        registro.Placa || ""
     );
 
 
     preencher(
         "modelo",
-        registro.Modelo ?? ""
+        registro.Modelo || ""
     );
 
 
     preencher(
         "marca",
-        registro.Marca ?? ""
+        registro.Marca || ""
     );
 
 
     preencher(
         "ano",
-        registro.Ano ?? ""
+        registro.Ano || ""
     );
 
 
     preencher(
         "cor",
-        registro.Cor ?? ""
+        registro.Cor || ""
     );
 
 
     preencher(
         "combustivel",
-        registro.Combustível ??
-        registro.Combustivel ??
-        ""
+        registro.Combustivel || ""
     );
 
 
     preencher(
         "status",
-        registro.Status ?? "ATIVO"
+        registro.Status || "ATIVO"
     );
 
 }
@@ -195,9 +203,37 @@ export function preencherFormulario(
 
 export function limparFormulario() {
 
-    document
-        .getElementById("formVeiculo")
-        ?.reset();
+    if (!dados.Placa) {
+
+        throw new Error(
+            "Informe a placa do veículo."
+        );
+
+    }
+
+    if (!dados.Modelo) {
+
+        throw new Error(
+            "Informe o modelo do veículo."
+        );
+
+    }
+
+    if (!dados.Marca) {
+
+        throw new Error(
+            "Informe a marca do veículo."
+        );
+
+    }
+
+    if (!dados.Status) {
+
+        throw new Error(
+            "Informe o status do veículo."
+        );
+
+    }
 
 
     preencher(
@@ -232,7 +268,13 @@ export function mostrarErro(
 
 
     if (!box) {
+        
+                                                        console.error(
+            "ENGINE → #formErro não encontrado."
+        );
+
         return;
+
     }
 
 
