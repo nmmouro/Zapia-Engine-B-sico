@@ -46,7 +46,7 @@ export function obterDadosFormulario() {
         "Veículo":
             veiculoSelect?.selectedOptions[0]?.textContent.trim() || "",
 
-        "Passageiro / Setor / Motivo":
+        "Passageiro / Setor / M":
             valor("passageiro"),
 
         Itinerário:
