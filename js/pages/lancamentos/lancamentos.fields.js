@@ -46,7 +46,7 @@ export function obterDadosFormulario() {
         "Veículo":
             veiculoSelect?.selectedOptions[0]?.textContent.trim() || "",
 
-        "Passageiro / Setor / M":
+        "Passageiro / Setor / Motivo":
             valor("passageiro"),
 
         Itinerário:
@@ -154,7 +154,7 @@ export function preencherFormulario(
 
     preencher(
         "empregado",
-        registro.Empregado ||
+        registro.["Empregado / Matícula"] ||
         ""
     );
 
