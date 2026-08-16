@@ -51,10 +51,10 @@ export function obterDadosFormulario() {
             valor("id"),
 
         "ID Empregado":
-            idEmpregado,
+            empregadoSelect.value,
 
         "ID Veículo":
-            idVeiculo,
+            veiculoSelect.value,
 
         Data:
             valor("data"),
