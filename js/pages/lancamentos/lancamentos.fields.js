@@ -1,11 +1,17 @@
 // ============================================================================
-// LANÇAMENTOS FIELDS - TESTE
+// ENGINE FRAMEWORK
+// LANÇAMENTOS FIELDS
+// Arquivo: js/pages/lancamentos/lancamentos.fields.js
 // ============================================================================
 
 import {
     preencher,
     valor
 } from "../../utils/formulario.js";
+
+// ============================================================================
+// OBTER DADOS DO FORMULÁRIO
+// ============================================================================
 
 export function obterDadosFormulario() {
 
@@ -36,15 +42,43 @@ export function obterDadosFormulario() {
     );
 
     if (!dados["Empregado / Matrícula"]) {
-        throw new Error("Informe o empregado.");
+
+        throw new Error(
+            "Informe o empregado."
+        );
+
     }
 
     if (!dados["Veículo"]) {
-        throw new Error("Informe o veículo.");
+
+        throw new Error(
+            "Informe o veículo."
+        );
+
+    }
+
+    if (!dados["Passageiro / Setor / Motivo"]) {
+
+        throw new Error(
+            "Informe o passageiro, setor ou motivo."
+        );
+
     }
 
     if (!dados["Itinerário"]) {
-        throw new Error("Informe o itinerário.");
+
+        throw new Error(
+            "Informe o itinerário."
+        );
+
+    }
+
+    if (!dados.Status) {
+
+        throw new Error(
+            "Informe o status."
+        );
+
     }
 
     return dados;
@@ -131,6 +165,10 @@ export function mostrarErro(mensagem) {
     box.classList.remove("hidden");
 }
 
+// ============================================================================
+// LIMPAR ERRO
+// ============================================================================
+
 export function limparErro() {
 
     const box =
@@ -140,6 +178,10 @@ export function limparErro() {
         box.classList.add("hidden");
     }
 }
+
+// ============================================================================
+// Selecionar Empregado
+// ============================================================================
 
 function selecionarEmpregado(id, texto) {
 
@@ -180,6 +222,10 @@ function selecionarEmpregado(id, texto) {
     }
 }
 
+// ============================================================================
+// Selecionar Veículo
+// ============================================================================
+
 function selecionarVeiculo(id, texto) {
 
     const select =
@@ -219,6 +265,10 @@ function selecionarVeiculo(id, texto) {
     }
 }
 
+// ============================================================================
+// NORMALIZAR DATA
+// ============================================================================
+
 function normalizarData(value) {
 
     if (!value) {
@@ -253,6 +303,10 @@ function normalizarData(value) {
 
     return "";
 }
+
+// ============================================================================
+// NORMALIZAR HORA
+// ============================================================================
 
 function normalizarHora(value) {
 
