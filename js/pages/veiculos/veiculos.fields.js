@@ -180,6 +180,10 @@ export function preencherFormulario(
 
 export function limparFormulario() {
 
+                                                                console.log(
+        "ENGINE → NOVO VEÍCULO → limparFormulario NOVA VERSÃO"
+    );
+
     const formulario =
         document.getElementById("formVeiculo");
 
