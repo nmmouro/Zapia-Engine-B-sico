@@ -15,16 +15,58 @@ import {
 
 export function obterDadosFormulario() {
 
+    const selectEmpregado =
+        document.getElementById("empregado");
+
+    const selectVeiculo =
+        document.getElementById("veiculo");
+
+    // ------------------------------------------------------------------------
+    // VALORES SELECIONADOS
+    // ------------------------------------------------------------------------
+
+    const idEmpregado =
+        selectEmpregado?.value || "";
+
+    const idVeiculo =
+        selectVeiculo?.value || "";
+
+    // ------------------------------------------------------------------------
+    // TEXTOS EXIBIDOS NOS SELECTS
+    // ------------------------------------------------------------------------
+
+    const textoEmpregado =
+        selectEmpregado?.selectedOptions?.[0]?.textContent?.trim() || "";
+
+    const textoVeiculo =
+        selectVeiculo?.selectedOptions?.[0]?.textContent?.trim() || "";
+
+    // ------------------------------------------------------------------------
+    // DADOS DO LANÇAMENTO
+    // ------------------------------------------------------------------------
+
     const dados = {
-        ID: valor("id"),
-        Data: valor("data"),
-        Hora: valor("hora"),
+
+        ID:
+            valor("id"),
+
+        "ID Empregado":
+            idEmpregado,
+
+        "ID Veículo":
+            idVeiculo,
+
+        Data:
+            valor("data"),
+
+        Hora:
+            valor("hora"),
 
         "Empregado / Matrícula":
-            valor("empregado"),
+            textoEmpregado,
 
         "Veículo":
-            valor("veiculo"),
+            textoVeiculo,
 
         "Passageiro / Setor / Motivo":
             valor("passageiro"),
@@ -41,18 +83,22 @@ export function obterDadosFormulario() {
         dados
     );
 
-    if (!dados["Empregado / Matrícula"]) {
+    // ========================================================================
+    // VALIDAÇÕES
+    // ========================================================================
+
+    if (!dados["ID Empregado"]) {
 
         throw new Error(
-            "Informe o empregado."
+            "Selecione o empregado."
         );
 
     }
 
-    if (!dados["Veículo"]) {
+    if (!dados["ID Veículo"]) {
 
         throw new Error(
-            "Informe o veículo."
+            "Selecione o veículo."
         );
 
     }
@@ -84,7 +130,18 @@ export function obterDadosFormulario() {
     return dados;
 }
 
-export function preencherFormulario(registro = {}) {
+// ============================================================================
+// PREENCHER FORMULÁRIO
+// ============================================================================
+
+export function preencherFormulario(
+    registro = {}
+) {
+
+    console.log(
+        "ENGINE → PREENCHER LANÇAMENTO:",
+        registro
+    );
 
     preencher(
         "id",
@@ -93,12 +150,16 @@ export function preencherFormulario(registro = {}) {
 
     preencher(
         "data",
-        normalizarData(registro.Data)
+        normalizarData(
+            registro.Data
+        )
     );
 
     preencher(
         "hora",
-        normalizarHora(registro.Hora)
+        normalizarHora(
+            registro.Hora
+        )
     );
 
     preencher(
@@ -116,10 +177,18 @@ export function preencherFormulario(registro = {}) {
         registro.Status || "ATIVO"
     );
 
+    // ------------------------------------------------------------------------
+    // SELECIONAR EMPREGADO
+    // ------------------------------------------------------------------------
+
     selecionarEmpregado(
         registro["ID Empregado"],
         registro["Empregado / Matrícula"]
     );
+
+    // ------------------------------------------------------------------------
+    // SELECIONAR VEÍCULO
+    // ------------------------------------------------------------------------
 
     selecionarVeiculo(
         registro["ID Veículo"],
@@ -127,12 +196,23 @@ export function preencherFormulario(registro = {}) {
     );
 }
 
+// ============================================================================
+// LIMPAR FORMULÁRIO
+// ============================================================================
+
 export function limparFormulario() {
 
     const formulario =
-        document.getElementById("formLancamento");
+        document.getElementById(
+            "formLancamento"
+        );
 
     if (!formulario) {
+
+        console.error(
+            "ENGINE → #formLancamento não encontrado."
+        );
+
         return;
     }
 
@@ -151,18 +231,29 @@ export function limparFormulario() {
     limparErro();
 }
 
-export function mostrarErro(mensagem) {
+// ============================================================================
+// MOSTRAR ERRO
+// ============================================================================
+
+export function mostrarErro(
+    mensagem
+) {
 
     const box =
-        document.getElementById("formErro");
+        document.getElementById(
+            "formErro"
+        );
 
     if (!box) {
         return;
     }
 
-    box.textContent = mensagem;
+    box.textContent =
+        mensagem;
 
-    box.classList.remove("hidden");
+    box.classList.remove(
+        "hidden"
+    );
 }
 
 // ============================================================================
@@ -172,73 +263,178 @@ export function mostrarErro(mensagem) {
 export function limparErro() {
 
     const box =
-        document.getElementById("formErro");
+        document.getElementById(
+            "formErro"
+        );
 
     if (box) {
-        box.classList.add("hidden");
+
+        box.classList.add(
+            "hidden"
+        );
+
     }
 }
 
 // ============================================================================
-// Selecionar Empregado
+// SELECIONAR EMPREGADO
 // ============================================================================
 
-function selecionarEmpregado(id, texto) {
+function selecionarEmpregado(
+    id,
+    texto
+) {
 
     const select =
-        document.getElementById("empregado");
+        document.getElementById(
+            "empregado"
+        );
 
-    const select = document.getElementById("empregado");
+    if (!select) {
 
-select.innerHTML = `
-    <option value="">Selecione o empregado...</option>
-`;
+        console.error(
+            "ENGINE → #empregado não encontrado."
+        );
 
-lista.forEach(empregado => {
+        return;
+    }
 
-    const option = document.createElement("option");
+    // ------------------------------------------------------------------------
+    // Primeiro tenta pelo ID
+    // ------------------------------------------------------------------------
 
-    // ID que será enviado para a planilha
-    option.value = empregado.ID || "";
+    if (id) {
 
-    // Texto que o usuário verá
-    option.textContent =
-        `${empregado.Empregado || ""} / ${empregado.Matrícula || ""}`;
+        const option =
+            Array.from(
+                select.options
+            ).find(
+                option =>
+                    option.value === String(id)
+            );
 
-    select.appendChild(option);
-});
-    
+        if (option) {
+
+            select.value =
+                option.value;
+
+            return;
+        }
+    }
+
+    // ------------------------------------------------------------------------
+    // Compatibilidade: procurar pelo texto
+    // ------------------------------------------------------------------------
+
+    if (texto) {
+
+        const textoNormalizado =
+            String(texto)
+                .trim()
+                .toUpperCase();
+
+        const option =
+            Array.from(
+                select.options
+            ).find(
+                option =>
+                    option.textContent
+                        .trim()
+                        .toUpperCase() ===
+                    textoNormalizado
+            );
+
+        if (option) {
+
+            select.value =
+                option.value;
+        }
+    }
+}
+
 // ============================================================================
-// Selecionar Veículo
+// SELECIONAR VEÍCULO
 // ============================================================================
 
-function selecionarVeiculo(id, texto) {
+function selecionarVeiculo(
+    id,
+    texto
+) {
 
-    const select = document.getElementById("veiculo");
+    const select =
+        document.getElementById(
+            "veiculo"
+        );
 
-select.innerHTML = `
-    <option value="">Selecione o veículo...</option>
-`;
+    if (!select) {
 
-lista.forEach(veiculo => {
+        console.error(
+            "ENGINE → #veiculo não encontrado."
+        );
 
-    const option = document.createElement("option");
+        return;
+    }
 
-    // ID que será enviado para a planilha
-    option.value = veiculo.ID || "";
+    // ------------------------------------------------------------------------
+    // Primeiro tenta pelo ID
+    // ------------------------------------------------------------------------
 
-    // Texto que o usuário verá
-    option.textContent =
-        `${veiculo.Placa || ""} - ${veiculo.Modelo || ""}`;
+    if (id) {
 
-    select.appendChild(option);
-});
+        const option =
+            Array.from(
+                select.options
+            ).find(
+                option =>
+                    option.value === String(id)
+            );
+
+        if (option) {
+
+            select.value =
+                option.value;
+
+            return;
+        }
+    }
+
+    // ------------------------------------------------------------------------
+    // Compatibilidade: procurar pelo texto
+    // ------------------------------------------------------------------------
+
+    if (texto) {
+
+        const textoNormalizado =
+            String(texto)
+                .trim()
+                .toUpperCase();
+
+        const option =
+            Array.from(
+                select.options
+            ).find(
+                option =>
+                    option.textContent
+                        .trim()
+                        .toUpperCase() ===
+                    textoNormalizado
+            );
+
+        if (option) {
+
+            select.value =
+                option.value;
+        }
+    }
+}
 
 // ============================================================================
 // NORMALIZAR DATA
 // ============================================================================
 
-function normalizarData(value) {
+function normalizarData(
+    value
+) {
 
     if (!value) {
         return "";
@@ -247,8 +443,14 @@ function normalizarData(value) {
     const text =
         String(value).trim();
 
+    // ------------------------------------------------------------------------
+    // DD/MM/AAAA
+    // ------------------------------------------------------------------------
+
     if (
-        /^\d{2}\/\d{2}\/\d{4}$/.test(text)
+        /^\d{2}\/\d{2}\/\d{4}$/.test(
+            text
+        )
     ) {
 
         const partes =
@@ -263,11 +465,21 @@ function normalizarData(value) {
         );
     }
 
+    // ------------------------------------------------------------------------
+    // AAAA-MM-DD
+    // AAAA-MM-DD HH...
+    // ------------------------------------------------------------------------
+
     if (
-        /^\d{4}-\d{2}-\d{2}/.test(text)
+        /^\d{4}-\d{2}-\d{2}/.test(
+            text
+        )
     ) {
 
-        return text.substring(0, 10);
+        return text.substring(
+            0,
+            10
+        );
     }
 
     return "";
@@ -277,7 +489,9 @@ function normalizarData(value) {
 // NORMALIZAR HORA
 // ============================================================================
 
-function normalizarHora(value) {
+function normalizarHora(
+    value
+) {
 
     if (!value) {
         return "";
@@ -286,28 +500,51 @@ function normalizarHora(value) {
     const text =
         String(value).trim();
 
+    // ------------------------------------------------------------------------
+    // HH:MM:SS
+    // ------------------------------------------------------------------------
+
     if (
-        /^\d{2}:\d{2}:\d{2}$/.test(text)
+        /^\d{2}:\d{2}:\d{2}$/.test(
+            text
+        )
     ) {
 
-        return text.substring(0, 5);
+        return text.substring(
+            0,
+            5
+        );
     }
 
+    // ------------------------------------------------------------------------
+    // HH:MM
+    // ------------------------------------------------------------------------
+
     if (
-        /^\d{2}:\d{2}$/.test(text)
+        /^\d{2}:\d{2}$/.test(
+            text
+        )
     ) {
 
         return text;
     }
 
-    const posicao =
-        text.indexOf(":");
+    // ------------------------------------------------------------------------
+    // Data + hora
+    // Exemplo: 16/08/2026 16:15:00
+    // ------------------------------------------------------------------------
 
-    if (posicao >= 2) {
+    const match =
+        text.match(
+            /(\d{2}):(\d{2})(?::\d{2})?$/
+        );
 
-        return text.substring(
-            posicao - 2,
-            posicao + 3
+    if (match) {
+
+        return (
+            match[1] +
+            ":" +
+            match[2]
         );
     }
 
