@@ -58,7 +58,7 @@ export function novoLancamento() {
 
     limparFormulario();
 
-    limparErro();
+   
 
 
     const titulo =
@@ -75,9 +75,9 @@ export function novoLancamento() {
     }
 
 
-    abrirModal({
-        focus: "data"
-    });
+    limparErro();
+
+    abrirModal();
 
 }
 
@@ -94,38 +94,25 @@ export async function editarLancamento(
 
         mostrarLoading();
 
-        limparErro();
-
-
-        if (!id) {
-
-            throw new Error(
-                "ID do lancamento não informado."
-            );
-
-        }
-
-
-                                                                console.log(
-            "ENGINE → EDITAR lancamento:",
-            id
-        );
-
-
         const resposta =
             await obterLancamento(id);
 
 
-        const dados =
+        const registro =
             resposta?.dados ??
             resposta?.data ??
             resposta;
 
+        if (
+            !registro ||
+            Array.isArray(registro)
+        ) {
 
-                                                                console.log(
-            "ENGINE → lancametno PARA EDIÇÃO:",
-            dados
-        );
+            throw new Error(
+                "Lançamento não encontrado."
+            );
+
+        }
 
 
         const titulo =
