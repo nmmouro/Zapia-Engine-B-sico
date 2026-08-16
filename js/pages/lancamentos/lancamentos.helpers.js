@@ -6,6 +6,14 @@
 
 import { obterLancamentos } from "../../services/lancamentos.service.js";
 
+import {
+    obterEmpregados
+} from "../../services/empregados.service.js";
+
+import {
+    obterVeiculos
+} from "../../services/veiculos.service.js";
+
 import { renderTable } from "../../ui/table.js";
 
 import { definirRegistros } from "./lancamentos.state.js";
@@ -52,6 +60,157 @@ export const COLUNAS_LANCAMENTOS = [
     }
 
 ];
+
+// ============================================================================
+// CARREGAR EMPREGADOS
+// ============================================================================
+
+export async function carregarEmpregados() {
+
+    const select =
+        document.getElementById("empregado");
+
+    if (!select) {
+
+        throw new Error(
+            "Select #empregado não encontrado."
+        );
+
+    }
+
+    select.innerHTML = `
+        <option value="">
+            Selecione o empregado...
+        </option>
+    `;
+
+    const lista =
+        await obterEmpregados();
+
+    if (!Array.isArray(lista)) {
+
+        throw new Error(
+            "A API não retornou uma lista de empregados."
+        );
+
+    }
+
+    console.log(
+        "ENGINE → EMPREGADOS PARA SELECT:",
+        lista
+    );
+
+    lista.forEach(empregado => {
+
+        const option =
+            document.createElement("option");
+
+        /*
+         * A API dos empregados utiliza:
+         *
+         * ID
+         * Empregado
+         * Matrícula
+         */
+
+        option.value =
+            empregado["Empregado / Matrícula"] ||
+            empregado.Empregado ||
+            empregado.ID ||
+            "";
+
+        option.textContent =
+            empregado["Empregado / Matrícula"] ||
+            (
+                empregado.Empregado
+                    ? `${empregado.Empregado}${
+                        empregado.Matrícula
+                            ? " / " + empregado.Matrícula
+                            : ""
+                    }`
+                    : empregado.ID
+            );
+
+        option.dataset.id =
+            empregado.ID || "";
+
+        select.appendChild(option);
+
+    });
+
+}
+
+// ============================================================================
+// CARREGAR VEÍCULOS
+// ============================================================================
+
+export async function carregarVeiculos() {
+
+    const select =
+        document.getElementById("veiculo");
+
+    if (!select) {
+
+        throw new Error(
+            "Select #veiculo não encontrado."
+        );
+
+    }
+
+    select.innerHTML = `
+        <option value="">
+            Selecione o veículo...
+        </option>
+    `;
+
+    const lista =
+        await obterVeiculos();
+
+    if (!Array.isArray(lista)) {
+
+        throw new Error(
+            "A API não retornou uma lista de veículos."
+        );
+
+    }
+
+    console.log(
+        "ENGINE → VEÍCULOS PARA SELECT:",
+        lista
+    );
+
+    lista.forEach(veiculo => {
+
+        const option =
+            document.createElement("option");
+
+        /*
+         * IMPORTANTE:
+         * A API retorna Combustivel sem acento.
+         */
+
+        option.value =
+            veiculo.Placa ||
+            veiculo.ID ||
+            "";
+
+        option.textContent =
+            veiculo.Placa
+                ? `${veiculo.Placa} - ${veiculo.Modelo || ""}`
+                : (
+                    veiculo.ID ||
+                    "Veículo"
+                );
+
+        option.dataset.id =
+            veiculo.ID || "";
+
+        select.appendChild(option);
+
+    });
+
+}
+
 
 // ============================================================================
 // CARREGAR TABELA
