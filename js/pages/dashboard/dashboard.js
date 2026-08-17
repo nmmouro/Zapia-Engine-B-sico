@@ -2,7 +2,6 @@
 // DASHBOARD
 // Painel Frota
 // Arquivo: js/pages/dashboard/dashboard.js
-// Responsável pela inicialização da página Dashboard.
 // ============================================================================
 
 import {
@@ -58,7 +57,8 @@ let timerAtualizacao = null;
 
 
 // ============================================================================
-// INIT DASHBOARD
+// INIT
+// Função pública utilizada pelo ENGINE ROUTER.
 // ============================================================================
 
 export async function initDashboard() {
@@ -78,6 +78,9 @@ export async function initDashboard() {
 
 
         registrarEventos();
+
+
+        registrarEventoVisibilidade();
 
 
         iniciarAtualizacaoAutomatica();
@@ -104,7 +107,7 @@ export async function initDashboard() {
 
 
 // ============================================================================
-// ATUALIZAR DASHBOARD
+// ATUALIZAÇÃO
 // ============================================================================
 
 async function atualizarDashboard() {
@@ -138,7 +141,7 @@ async function atualizarDashboard() {
 
 
 // ============================================================================
-// ATUALIZAÇÃO AUTOMÁTICA
+// TIMER
 // ============================================================================
 
 function iniciarAtualizacaoAutomatica() {
@@ -194,10 +197,10 @@ function tratarVisibilidade() {
 
 
 // ============================================================================
-// ENCERRAMENTO
+// DESTRUIR
 // ============================================================================
 
-function destruirDashboard() {
+export function destruirDashboard() {
 
     if (timerAtualizacao) {
 
@@ -221,21 +224,3 @@ function destruirDashboard() {
     );
 
 }
-
-
-// ============================================================================
-// INICIALIZAÇÃO DE EVENTOS DO DASHBOARD
-// ============================================================================
-
-registrarEventoVisibilidade();
-
-
-// ============================================================================
-// EXPORTA DESTRUIÇÃO
-// ============================================================================
-
-export {
-
-    destruirDashboard
-
-};
