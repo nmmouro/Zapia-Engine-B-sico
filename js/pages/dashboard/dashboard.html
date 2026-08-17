@@ -108,65 +108,29 @@
         <!-- PAINEL DE OCORRÊNCIAS -->
         <!-- =========================================================== -->
 
-       <section class="table-panel ocorrencias-panel">
+       <table id="tabela-ocorrencias">
 
-    <div class="table-panel-header">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Veículo</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Status</th>
+        </tr>
+    </thead>
 
-        <h2>
-            Ocorrências em andamento
-        </h2>
+    <tbody id="tabela-ocorrencias-body">
 
-    </div>
+        <tr>
+            <td colspan="5">
+                Carregando...
+            </td>
+        </tr>
 
-    <div class="table-container">
+    </tbody>
 
-        <table id="tabela-ocorrencias">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Data
-                    </th>
-
-                    <th>
-                        Veículo
-                    </th>
-
-                    <th>
-                        Tipo
-                    </th>
-
-                    <th>
-                        Descrição
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="tabela-ocorrencias-body">
-
-                <tr>
-
-                    <td colspan="5">
-                        Carregando...
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
+</table>
 
     </main>
     <!-- =============================================================== -->
