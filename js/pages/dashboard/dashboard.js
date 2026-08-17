@@ -1,12 +1,23 @@
 // ============================================================================
 // DASHBOARD
 // Painel Frota
-// Arquivo: js/pages/dashboard.js
-// Responsável pela inicialização da página.
+// Arquivo: js/pages/dashboard/dashboard.js
+// Responsável pela inicialização da página Dashboard.
 // ============================================================================
 
-import { iniciarRelogio } from "../../utils/relogio.js";
-import { iniciarFullscreen } from "../../utils/fullscreen.js";
+import {
+
+    iniciarRelogio
+
+} from "../../utils/relogio.js";
+
+
+import {
+
+    iniciarFullscreen
+
+} from "../../utils/fullscreen.js";
+
 
 import {
 
@@ -14,11 +25,13 @@ import {
 
 } from "./dashboard.helpers.js";
 
+
 import {
 
     registrarEventos
 
-} from "./dashboard.events.js";
+} from "../../controllers/dashboard.events.js";
+
 
 import {
 
@@ -27,11 +40,13 @@ import {
 
 } from "../../ui/loading.js";
 
+
 import {
 
     tratarErro
 
-} from "../../utils/erros.js";
+} from "../../utils/errors.js";
+
 
 // ============================================================================
 // CONFIGURAÇÕES
@@ -41,35 +56,29 @@ const INTERVALO_ATUALIZACAO = 5000;
 
 let timerAtualizacao = null;
 
-// ============================================================================
-// INIT
-// ============================================================================
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    inicializar
-
-);
 
 // ============================================================================
-// INICIALIZAÇÃO
+// INIT DASHBOARD
 // ============================================================================
 
-async function inicializar() {
+export async function initDashboard() {
 
     try {
 
         mostrarLoading();
 
+
         iniciarRelogio();
+
 
         iniciarFullscreen();
 
+
         await carregarDashboard();
 
+
         registrarEventos();
+
 
         iniciarAtualizacaoAutomatica();
 
@@ -93,6 +102,7 @@ async function inicializar() {
 
 }
 
+
 // ============================================================================
 // ATUALIZAR DASHBOARD
 // ============================================================================
@@ -105,6 +115,7 @@ async function atualizarDashboard() {
 
     }
 
+
     try {
 
         await carregarDashboard();
@@ -113,11 +124,18 @@ async function atualizarDashboard() {
 
     catch (erro) {
 
-        console.error(erro);
+        console.error(
+
+            "ENGINE DASHBOARD → Erro ao atualizar:",
+
+            erro
+
+        );
 
     }
 
 }
+
 
 // ============================================================================
 // ATUALIZAÇÃO AUTOMÁTICA
@@ -127,9 +145,14 @@ function iniciarAtualizacaoAutomatica() {
 
     if (timerAtualizacao) {
 
-        clearInterval(timerAtualizacao);
+        clearInterval(
+
+            timerAtualizacao
+
+        );
 
     }
+
 
     timerAtualizacao = setInterval(
 
@@ -141,48 +164,78 @@ function iniciarAtualizacaoAutomatica() {
 
 }
 
+
 // ============================================================================
-// VISIBILIDADE DA PÁGINA
+// VISIBILIDADE
 // ============================================================================
 
-document.addEventListener(
+function registrarEventoVisibilidade() {
 
-    "visibilitychange",
+    document.addEventListener(
 
-    () => {
+        "visibilitychange",
 
-        if (!document.hidden) {
+        tratarVisibilidade
 
-            atualizarDashboard();
+    );
 
-        }
+}
+
+
+function tratarVisibilidade() {
+
+    if (!document.hidden) {
+
+        atualizarDashboard();
 
     }
 
-);
+}
+
 
 // ============================================================================
 // ENCERRAMENTO
 // ============================================================================
 
-window.addEventListener(
+function destruirDashboard() {
 
-    "beforeunload",
+    if (timerAtualizacao) {
 
-    () => {
+        clearInterval(
 
-        if (timerAtualizacao) {
+            timerAtualizacao
 
-            clearInterval(
+        );
 
-                timerAtualizacao
-
-            );
-
-            timerAtualizacao = null;
-
-        }
+        timerAtualizacao = null;
 
     }
 
-);
+
+    document.removeEventListener(
+
+        "visibilitychange",
+
+        tratarVisibilidade
+
+    );
+
+}
+
+
+// ============================================================================
+// INICIALIZAÇÃO DE EVENTOS DO DASHBOARD
+// ============================================================================
+
+registrarEventoVisibilidade();
+
+
+// ============================================================================
+// EXPORTA DESTRUIÇÃO
+// ============================================================================
+
+export {
+
+    destruirDashboard
+
+};
