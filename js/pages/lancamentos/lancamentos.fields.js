@@ -286,9 +286,9 @@ export function limparErro() {
 export function carregarEmpregados(lista = []) {
 
     console.log(
-        "ENGINE → EMPREGADOS RECEBIDOS:",
-        lista
-    );
+    "ENGINE → LISTA EMPREGADOS:",
+    JSON.stringify(lista, null, 2)
+);
 
     const select =
         document.getElementById("empregado");
@@ -345,10 +345,10 @@ export function selecionarEmpregado(id) {
 
 export function carregarVeiculos(lista = []) {
 
-    console.log(
-        "ENGINE → VEÍCULOS RECEBIDOS:",
-        lista
-    );
+   console.log(
+    "ENGINE → LISTA VEÍCULOS:",
+    JSON.stringify(lista, null, 2)
+);
 
     const select =
         document.getElementById("veiculo");
