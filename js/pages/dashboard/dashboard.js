@@ -31,7 +31,7 @@ import {
 
     tratarErro
 
-} from "../../utils/errors.js";
+} from "../../utils/erros.js";
 
 // ============================================================================
 // CONFIGURAÇÕES
