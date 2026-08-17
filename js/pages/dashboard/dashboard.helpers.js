@@ -34,25 +34,39 @@ export async function carregarDashboard() {
 
         const dados = await obterDadosDashboard();
 
+        console.log(
+            "ENGINE DASHBOARD → Dados:",
+            dados
+        );
+
+        console.log(
+            "ENGINE DASHBOARD → Veículos:",
+            dados.veiculos
+        );
+
+        console.log(
+            "ENGINE DASHBOARD → Empregados:",
+            dados.empregados
+        );
+
+        console.log(
+            "ENGINE DASHBOARD → Ocorrências:",
+            dados.ocorrencias
+        );
+
 
         renderizarVeiculos(
-
             dados.veiculos
-
         );
 
 
         renderizarEmpregados(
-
             dados.empregados
-
         );
 
 
         renderizarOcorrencias(
-
             dados.ocorrencias
-
         );
 
     }
@@ -60,11 +74,8 @@ export async function carregarDashboard() {
     catch (erro) {
 
         console.error(
-
             "ENGINE DASHBOARD → Erro ao carregar dados:",
-
             erro
-
         );
 
         throw erro;
@@ -72,7 +83,6 @@ export async function carregarDashboard() {
     }
 
 }
-
 
 // ============================================================================
 // OBTER DADOS
