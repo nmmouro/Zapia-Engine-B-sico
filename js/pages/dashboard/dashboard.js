@@ -170,3 +170,29 @@ document.addEventListener(
     }
 
 );
+
+// ============================================================================
+// ENCERRAMENTO
+// ============================================================================
+
+window.addEventListener(
+
+    "beforeunload",
+
+    () => {
+
+        if (timerAtualizacao) {
+
+            clearInterval(
+
+                timerAtualizacao
+
+            );
+
+            timerAtualizacao = null;
+
+        }
+
+    }
+
+);
