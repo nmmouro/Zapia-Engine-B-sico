@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -7,268 +8,172 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Painel Frota</title>
+    <title>
+
+        Painel Frota - Dashboard
+
+    </title>
+
+    <!-- =============================================================== -->
+    <!-- CSS -->
+    <!-- =============================================================== -->
 
     <link
         rel="stylesheet"
-        href="./css/dashboard.css"
-    >
+        href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="css/table.css">
+
+    <link
+        rel="stylesheet"
+        href="css/forms.css">
+
+    <link
+        rel="stylesheet"
+        href="css/components.css">
 
 </head>
 
 <body>
 
-    <!-- ============================================================
-         DASHBOARD
-    ============================================================= -->
+    <!-- =============================================================== -->
+    <!-- HEADER -->
+    <!-- =============================================================== -->
+
+    <header class="header">
+
+        <div class="header-logo">
+
+            <img
+                src="assets/img/logo.png"
+                alt="Painel Frota">
+
+        </div>
+
+        <div class="header-title">
+
+            <h1>
+
+                DASHBOARD
+
+            </h1>
+
+        </div>
+
+        <div class="header-info">
+
+            <div
+                id="clock"
+                class="clock">
+
+            </div>
+
+            <button
+                id="btnFullscreen"
+                class="btn-icon">
+
+                ⛶
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- =============================================================== -->
+    <!-- CONTEÚDO -->
+    <!-- =============================================================== -->
 
     <main class="dashboard">
 
+        <!-- =========================================================== -->
+        <!-- LINHA SUPERIOR -->
+        <!-- =========================================================== -->
 
-        <!-- ========================================================
-             CABEÇALHO
-        ========================================================= -->
+        <section class="dashboard-top">
 
-        <header class="dashboard-header">
+            <!-- ======================================================= -->
+            <!-- VEÍCULOS -->
+            <!-- ======================================================= -->
 
-            <div class="logo">
+            <article class="card">
 
-                <img
-                    src="./assets/logo.png"
-                    alt="Logo"
-                >
+                <h2>
 
-            </div>
+                    Veículos
 
-            <h1>
-                Painel Frota
-            </h1>
+                </h2>
 
-        </header>
-
-
-        <!-- ========================================================
-             CONTEÚDO
-        ========================================================= -->
-
-        <section class="dashboard-content">
-
-
-            <!-- ====================================================
-                 VEÍCULOS / EMPREGADOS
-            ===================================================== -->
-
-            <div class="tables-row">
-
-
-                <!-- ==================================================
-                     VEÍCULOS
-                =================================================== -->
-
-                <section class="table-panel">
-
-                    <div class="table-panel-header">
-
-                        <h2>
-                            Veículos
-                        </h2>
-
-                    </div>
-
-                    <div class="table-container">
-
-                        <table id="tabela-veiculos">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Código
-                                    </th>
-
-                                    <th>
-                                        Placa
-                                    </th>
-
-                                    <th>
-                                        Veículo
-                                    </th>
-
-                                    <th>
-                                        Modelo
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="tabela-veiculos-body">
-
-                                <tr>
-
-                                    <td colspan="4">
-                                        Nenhum registro encontrado.
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </section>
-
-
-                <!-- ==================================================
-                     EMPREGADOS
-                =================================================== -->
-
-                <section class="table-panel">
-
-                    <div class="table-panel-header">
-
-                        <h2>
-                            Empregados
-                        </h2>
-
-                    </div>
-
-                    <div class="table-container">
-
-                        <table id="tabela-empregados">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Código
-                                    </th>
-
-                                    <th>
-                                        Nome
-                                    </th>
-
-                                    <th>
-                                        Cargo
-                                    </th>
-
-                                    <th>
-                                        Situação
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="tabela-empregados-body">
-
-                                <tr>
-
-                                    <td colspan="4">
-                                        Nenhum registro encontrado.
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </section>
-
-            </div>
-
-
-            <!-- ====================================================
-                 LANÇAMENTOS
-            ===================================================== -->
-
-            <section class="table-panel lancamentos-panel">
-
-                <div class="table-panel-header">
-
-                    <h2>
-                        Lançamentos
-                    </h2>
+                <div id="tabelaVeiculos">
 
                 </div>
 
-                <div class="table-container">
+            </article>
 
-                    <table id="tabela-lancamentos">
+            <!-- ======================================================= -->
+            <!-- EMPREGADOS -->
+            <!-- ======================================================= -->
 
-                        <thead>
+            <article class="card">
 
-                            <tr>
+                <h2>
 
-                                <th>
-                                    Data
-                                </th>
+                    Empregados
 
-                                <th>
-                                    Veículo
-                                </th>
+                </h2>
 
-                                <th>
-                                    Empregado
-                                </th>
-
-                                <th>
-                                    Tipo
-                                </th>
-
-                                <th>
-                                    Descrição
-                                </th>
-
-                                <th>
-                                    Valor
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="tabela-lancamentos-body">
-
-                            <tr>
-
-                                <td colspan="6">
-                                    Nenhum lançamento encontrado.
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
+                <div id="tabelaEmpregados">
 
                 </div>
 
-            </section>
+            </article>
+
+        </section>
+
+        <!-- =========================================================== -->
+        <!-- PAINEL DE OCORRÊNCIAS -->
+        <!-- =========================================================== -->
+
+       <section class="dashboard-bottom">
+
+        <article class="card">
+
+            <h2>Ocorrências em Andamento</h2>
+
+            <div id="tabelaOcorrencias"></div>
+
+            </article>
 
         </section>
 
     </main>
+    <!-- =============================================================== -->
+    <!-- FOOTER -->
+    <!-- =============================================================== -->
 
+    <footer class="footer">
 
-    <!-- ============================================================
-         JAVASCRIPT
-    ============================================================= -->
+        <p>
+
+            Painel Frota © 2026
+
+        </p>
+
+    </footer>
+
+    <!-- =============================================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- =============================================================== -->
 
     <script
         type="module"
-        src="js/pages/dashboard.js"
-    ></script>
+        src="js/pages/dashboard.js">
+
+    </script>
 
 </body>
 
