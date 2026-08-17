@@ -12,13 +12,13 @@ import {
 
     carregarDashboard
 
-} from "../pages/dashboard/dashboard.helpers.js";
+} from "./dashboard.helpers.js";
 
 import {
 
     registrarEventos
 
-} from "../pages/dashboard/dashboard.events.js";
+} from "./dashboard.events.js";
 
 import {
 
