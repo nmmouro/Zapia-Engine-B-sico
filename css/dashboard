@@ -1,60 +1,410 @@
-/* ==========================================================================
+/* ================================================================
+   PAINEL FROTA
    DASHBOARD
-   ========================================================================== */
+================================================================ */
 
-.dashboard{
 
-    display:flex;
+/* ================================================================
+   RESET
+================================================================ */
 
-    flex-direction:column;
+* {
 
-    gap:20px;
+    margin: 0;
+    padding: 0;
 
-    padding:20px;
-
-}
-
-.dashboard-top{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:20px;
-
-    align-items:start;
+    box-sizing: border-box;
 
 }
 
-.dashboard-bottom{
 
-    width:100%;
+/* ================================================================
+   VARIÁVEIS
+================================================================ */
+
+:root {
+
+    --cor-principal: #1f4e79;
+
+    --cor-titulo: #1f2937;
+
+    --cor-fundo: #f4f6f8;
+
+    --cor-branco: #ffffff;
+
+    --cor-borda: #d9dee3;
+
+    --cor-cabecalho-tabela: #eef2f5;
+
+    --cor-texto: #374151;
+
+    --cor-texto-secundario: #6b7280;
 
 }
 
-.card{
 
-    background:#fff;
+/* ================================================================
+   BODY
+================================================================ */
 
-    border-radius:10px;
+body {
 
-    padding:15px;
+    min-height: 100vh;
 
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        var(--cor-fundo);
+
+    color:
+        var(--cor-texto);
 
 }
 
-.card h2{
 
-    margin-bottom:15px;
+/* ================================================================
+   DASHBOARD
+================================================================ */
+
+.dashboard {
+
+    width: 100%;
+
+    min-height: 100vh;
 
 }
 
-@media(max-width:900px){
 
-    .dashboard-top{
+/* ================================================================
+   HEADER
+================================================================ */
 
-        grid-template-columns:1fr;
+.dashboard-header {
+
+    width: 100%;
+
+    min-height: 110px;
+
+    padding: 15px 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    background:
+        var(--cor-branco);
+
+    border-bottom:
+        1px solid var(--cor-borda);
+
+}
+
+
+.logo {
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.logo img {
+
+    max-height: 45px;
+
+    max-width: 180px;
+
+    object-fit: contain;
+
+}
+
+
+.dashboard-header h1 {
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    color:
+        var(--cor-titulo);
+
+}
+
+
+/* ================================================================
+   CONTEÚDO
+================================================================ */
+
+.dashboard-content {
+
+    width: 100%;
+
+    max-width: 1600px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+}
+
+
+/* ================================================================
+   LINHA VEÍCULOS / EMPREGADOS
+================================================================ */
+
+.tables-row {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* ================================================================
+   PAINEL
+================================================================ */
+
+.table-panel {
+
+    width: 100%;
+
+    background:
+        var(--cor-branco);
+
+    border:
+        1px solid var(--cor-borda);
+
+    border-radius: 4px;
+
+    overflow: hidden;
+
+}
+
+
+/* ================================================================
+   TÍTULO DO PAINEL
+================================================================ */
+
+.table-panel-header {
+
+    height: 48px;
+
+    padding:
+        0 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+        var(--cor-branco);
+
+    border-bottom:
+        1px solid var(--cor-borda);
+
+}
+
+
+.table-panel-header h2 {
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color:
+        var(--cor-principal);
+
+}
+
+
+/* ================================================================
+   TABELA
+================================================================ */
+
+.table-container {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
+
+}
+
+
+thead {
+
+    background:
+        var(--cor-cabecalho-tabela);
+
+}
+
+
+th {
+
+    height: 38px;
+
+    padding:
+        8px 12px;
+
+    text-align: left;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color:
+        var(--cor-titulo);
+
+    border-bottom:
+        1px solid var(--cor-borda);
+
+}
+
+
+td {
+
+    height: 38px;
+
+    padding:
+        8px 12px;
+
+    border-bottom:
+        1px solid #edf0f2;
+
+    color:
+        var(--cor-texto);
+
+}
+
+
+tbody tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+
+tbody tr:hover {
+
+    background:
+        #f8fafc;
+
+}
+
+
+/* ================================================================
+   MENSAGEM SEM REGISTROS
+================================================================ */
+
+tbody td[colspan] {
+
+    height: 55px;
+
+    text-align: center;
+
+    color:
+        var(--cor-texto-secundario);
+
+}
+
+
+/* ================================================================
+   LANÇAMENTOS
+================================================================ */
+
+.lancamentos-panel {
+
+    width: 100%;
+
+}
+
+
+/* ================================================================
+   RESPONSIVO
+================================================================ */
+
+@media (max-width: 900px) {
+
+    .tables-row {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .dashboard-header {
+
+        min-height: 90px;
+
+        padding: 12px 15px;
+
+    }
+
+
+    .dashboard-header h1 {
+
+        font-size: 19px;
+
+    }
+
+
+    .dashboard-content {
+
+        padding: 12px;
+
+    }
+
+
+    .tables-row {
+
+        gap: 12px;
+
+        margin-bottom: 12px;
+
+    }
+
+
+    .table-panel-header {
+
+        height: 44px;
 
     }
 
