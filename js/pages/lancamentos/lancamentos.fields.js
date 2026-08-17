@@ -285,14 +285,11 @@ export function limparErro() {
 
 export function carregarEmpregados(lista = []) {
 
-    console.log(
-        "ENGINE → LISTA EMPREGADOS:",
-        JSON.stringify(lista, null, 2)
-    );
+    console.log("DEBUG EMPREGADOS:", lista);
 
     const select =
         document.getElementById("empregado");
-
+    
     if (!select) return;
 
     select.innerHTML = `
@@ -347,10 +344,7 @@ export function selecionarEmpregado(id) {
 
 export function carregarVeiculos(lista = []) {
 
-    console.log(
-        "ENGINE → LISTA VEÍCULOS:",
-        JSON.stringify(lista, null, 2)
-    );
+    console.log("DEBUG VEICULOS:", lista);
 
     const select =
         document.getElementById("veiculo");
