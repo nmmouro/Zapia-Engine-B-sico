@@ -280,17 +280,30 @@ export function limparErro() {
 }
 
 // ============================================================================
-// SELECIONAR EMPREGADO
+// CARREGAR EMPREGADOS
 // ============================================================================
 
 export function carregarEmpregados(lista = []) {
 
-    console.log("DEBUG EMPREGADOS:", lista);
+    console.group("ENGINE → CARREGAR EMPREGADOS");
+
+    console.log("Lista recebida:", lista);
+    console.log("É array:", Array.isArray(lista));
+    console.log("Quantidade:", lista.length);
 
     const select =
         document.getElementById("empregado");
-    
-    if (!select) return;
+
+    if (!select) {
+
+        console.error(
+            "ENGINE → #empregado não encontrado."
+        );
+
+        console.groupEnd();
+
+        return;
+    }
 
     select.innerHTML = `
         <option value="">
@@ -298,31 +311,54 @@ export function carregarEmpregados(lista = []) {
         </option>
     `;
 
-    lista.forEach(empregado => {
+    lista.forEach((empregado, indice) => {
 
         console.log(
-            "EMPREGADO → ID:",
-            empregado.ID,
-            "| Nome:",
-            empregado.Empregado,
-            "| Matrícula:",
-            empregado.Matrícula
+            `Empregado ${indice}:`,
+            empregado
+        );
+
+        console.log(
+            "  ID:",
+            empregado?.ID
+        );
+
+        console.log(
+            "  Empregado:",
+            empregado?.Empregado
+        );
+
+        console.log(
+            "  Matrícula:",
+            empregado?.Matrícula
         );
 
         const option =
             document.createElement("option");
 
         option.value =
-            empregado.ID || "";
+            empregado?.ID ?? "";
 
         option.textContent =
-            `${empregado.Empregado || ""} / ${
-                empregado.Matrícula || ""
+            `${empregado?.Empregado ?? ""} / ${
+                empregado?.Matrícula ?? ""
             }`;
 
         select.appendChild(option);
     });
+
+    console.log(
+        "OPTIONS GERADAS:",
+        [...select.options].map(option => ({
+            value: option.value,
+            texto: option.textContent.trim()
+        }))
+    );
+
+    console.groupEnd();
 }
+
+
 
 // ============================================================================
 // SELECIONAR EMPREGADO
@@ -339,17 +375,30 @@ export function selecionarEmpregado(id) {
 }
 
 // ============================================================================
-// SELECIONAR VEÍCULO
+// CARREGAR VEÍCULOS
 // ============================================================================
 
 export function carregarVeiculos(lista = []) {
 
-    console.log("DEBUG VEICULOS:", lista);
+    console.group("ENGINE → CARREGAR VEÍCULOS");
+
+    console.log("Lista recebida:", lista);
+    console.log("É array:", Array.isArray(lista));
+    console.log("Quantidade:", lista.length);
 
     const select =
         document.getElementById("veiculo");
 
-    if (!select) return;
+    if (!select) {
+
+        console.error(
+            "ENGINE → #veiculo não encontrado."
+        );
+
+        console.groupEnd();
+
+        return;
+    }
 
     select.innerHTML = `
         <option value="">
@@ -357,31 +406,53 @@ export function carregarVeiculos(lista = []) {
         </option>
     `;
 
-    lista.forEach(veiculo => {
+    lista.forEach((veiculo, indice) => {
 
         console.log(
-            "VEÍCULO → ID:",
-            veiculo.ID,
-            "| Placa:",
-            veiculo.Placa,
-            "| Modelo:",
-            veiculo.Modelo
+            `Veículo ${indice}:`,
+            veiculo
+        );
+
+        console.log(
+            "  ID:",
+            veiculo?.ID
+        );
+
+        console.log(
+            "  Placa:",
+            veiculo?.Placa
+        );
+
+        console.log(
+            "  Modelo:",
+            veiculo?.Modelo
         );
 
         const option =
             document.createElement("option");
 
         option.value =
-            veiculo.ID || "";
+            veiculo?.ID ?? "";
 
         option.textContent =
-            `${veiculo.Placa || ""} - ${
-                veiculo.Modelo || ""
+            `${veiculo?.Placa ?? ""} - ${
+                veiculo?.Modelo ?? ""
             }`;
 
         select.appendChild(option);
     });
+
+    console.log(
+        "OPTIONS GERADAS:",
+        [...select.options].map(option => ({
+            value: option.value,
+            texto: option.textContent.trim()
+        }))
+    );
+
+    console.groupEnd();
 }
+
 
 // ============================================================================
 // SELECIONAR VEÍCULO
