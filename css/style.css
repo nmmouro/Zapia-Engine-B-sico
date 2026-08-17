@@ -1,143 +1,770 @@
 /* ==========================================================================
    PAINEL FROTA
-   CSS GLOBAL / VARIÁVEIS / RESET
+   CSS GLOBAL
    Arquivo: css/style.css
-   ========================================================================== */
-
-:root {
-    /* Cores principais */
-    --primary: #22c55e;
-    --primary-dark: #16a34a;
-    --primary-soft: rgba(34, 197, 94, 0.12);
-
-    --danger: #ef4444;
-    --danger-dark: #dc2626;
-    --danger-soft: rgba(239, 68, 68, 0.12);
-
-    --warning: #f59e0b;
-    --warning-soft: rgba(245, 158, 11, 0.12);
-
-    --info: #38bdf8;
-    --info-soft: rgba(56, 189, 248, 0.12);
-
-    /* Fundo */
-    --bg-primary: #0f172a;
-    --bg-secondary: #111827;
-    --bg-tertiary: #172033;
-    --bg-card: #1e293b;
-    --bg-card-hover: #263449;
-
-    /* Texto */
-    --text: #e5e7eb;
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-
-    /* Bordas */
-    --border: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.14);
-
-    /* Layout */
-    --header-height: 70px;
-    --radius-sm: 8px;
-    --radius: 12px;
-    --radius-lg: 16px;
-
-    /* Sombras */
-    --shadow-sm:
-        0 2px 8px rgba(0, 0, 0, 0.18);
-
-    --shadow:
-        0 10px 30px rgba(0, 0, 0, 0.25);
-
-    --shadow-lg:
-        0 20px 60px rgba(0, 0, 0, 0.35);
-
-    /* Transições */
-    --transition: 0.2s ease;
-}
+========================================================================== */
 
 
 /* ==========================================================================
    RESET
-   ========================================================================== */
+========================================================================== */
 
-*,
-*::before,
-*::after {
+* {
+
+    margin: 0;
+
+    padding: 0;
+
     box-sizing: border-box;
+
 }
 
 
 html {
+
     width: 100%;
-    min-height: 100%;
-    scroll-behavior: smooth;
+
+    height: 100%;
+
 }
 
 
 body {
-    margin: 0;
-    min-width: 320px;
+
     min-height: 100vh;
 
+    width: 100%;
+
     font-family:
-        Inter,
+
+        "Inter",
         "Segoe UI",
         Arial,
-        Helvetica,
         sans-serif;
 
-    font-size: 14px;
-    line-height: 1.5;
+    background:
 
-    background: var(--bg-primary);
-    color: var(--text);
+        #0f172a;
+
+    color:
+
+        #e5e7eb;
 
     overflow-x: hidden;
+
+}
+
+/* ==========================================================================
+   VARIÁVEIS
+========================================================================== */
+
+:root {
+
+    /* Fundo */
+
+    --bg-primary:
+
+        #0f172a;
+
+   
+    --bg-secondary:
+
+        #111827;
+
+
+
+    --bg-card:
+
+        #1e293b;
+
+
+
+    /* Cores */
+
+
+    --primary:
+
+        #22c55e;
+
+
+
+    --primary-dark:
+
+        #16a34a;
+
+
+
+    --danger:
+
+        #ef4444;
+
+
+
+    --warning:
+
+        #f59e0b;
+
+
+
+    --info:
+
+        #38bdf8;
+
+
+
+    --text:
+
+        #e5e7eb;
+
+
+
+    --text-muted:
+
+        #94a3b8;
+
+
+
+    --border:
+
+        rgba(255,255,255,.08);
+
+
+
+    /* Layout */
+
+
+    --header-height:
+
+        70px;
+
+
+
+    --radius:
+
+        12px;
+
+
+    --shadow:
+
+        0 10px 30px rgba(0,0,0,.25);
+
+}
+
+/* ==========================================================================
+   HEADER GLOBAL
+========================================================================== */
+
+.header {
+
+    height:
+
+        var(--header-height);
+
+    width:
+
+        100%;
+
+
+    display:
+
+        grid;
+
+
+    grid-template-columns:
+
+        180px 1fr 260px;
+
+
+    align-items:
+
+        center;
+
+
+    padding:
+
+        0 20px;
+
+
+    background:
+
+        #020617;
+
+
+    border-bottom:
+
+        1px solid var(--border);
+
+
+    position:
+
+        sticky;
+
+
+    top:
+
+        0;
+
+
+    z-index:
+
+        1000;
+
+}
+
+
+/* LOGO */
+
+.header-logo {
+
+    display:
+
+        flex;
+
+
+    align-items:
+
+        center;
+
+}
+
+
+.header-logo img {
+
+    max-height:
+
+        50px;
+
+
+    max-width:
+
+        150px;
+
+
+    object-fit:
+
+        contain;
+
+}
+
+
+/* TÍTULO */
+
+.header-title {
+
+    text-align:
+
+        center;
+
+}
+
+
+.header-title h1 {
+
+    font-size:
+
+        1.6rem;
+
+
+    font-weight:
+
+        700;
+
+
+    letter-spacing:
+
+        1px;
+
+
+    color:
+
+        #ffffff;
+
+}
+
+
+/* INFORMAÇÕES */
+
+.header-info {
+
+
+    display:
+
+        flex;
+
+
+    justify-content:
+
+        flex-end;
+
+
+    align-items:
+
+        center;
+
+   
+    gap:
+
+        12px;
+
+}
+
+
+.clock {
+
+    font-size:
+
+        .95rem;
+
+
+    color:
+
+        var(--primary);
+
+
+    font-weight:
+
+        600;
+
+
+    white-space:
+
+        nowrap;
+
+}
+
+/* ==========================================================================
+   BOTÕES GLOBAIS
+========================================================================== */
+
+button {
+
+    border:
+
+        none;
+
+
+    cursor:
+
+        pointer;
+
+
+    font-family:
+
+        inherit;
+
+}
+
+
+.btn-icon {
+
+    width:
+
+        40px;
+
+
+    height:
+
+        40px;
+
+
+    border-radius:
+
+        50%;
+
+
+    background:
+
+        var(--bg-card);
+
+
+    color:
+
+        white;
+
+
+    font-size:
+
+        18px;
+
+
+    display:
+
+        flex;
+
+
+    align-items:
+
+        center;
+
+
+    justify-content:
+
+        center;
+
+
+    transition:
+
+        .2s;
+
+}
+
+
+.btn-icon:hover {
+
+    background:
+
+        var(--primary);
+
+
+    color:
+
+        #000;
+
 }
 
 
 /* ==========================================================================
-   ELEMENTOS BÁSICOS
-   ========================================================================== */
+   CONTAINERS
+========================================================================== */
 
-button,
+.page-container {
+
+    width:
+
+        100%;
+
+
+    min-height:
+
+        calc(100vh - var(--header-height));
+
+
+    padding:
+
+        20px;
+
+}
+
+
+.home-container {
+
+    min-height:
+
+        calc(100vh - var(--header-height));
+
+
+    display:
+
+        flex;
+
+
+    align-items:
+
+        center;
+
+
+    justify-content:
+
+        center;
+
+
+    padding:
+
+        30px;
+
+}
+
+
+/* ==========================================================================
+   CARD BASE
+========================================================================== */
+
+.card {
+
+    background:
+
+        var(--bg-card);
+
+
+    border:
+
+        1px solid var(--border);
+
+
+    border-radius:
+
+        var(--radius);
+
+
+    box-shadow:
+
+        var(--shadow);
+
+
+    padding:
+
+        20px;
+
+}
+
+
+.card h2 {
+
+    margin-bottom:
+
+        15px;
+
+
+    font-size:
+
+        1.1rem;
+
+
+    color:
+
+        #ffffff;
+
+
+    border-bottom:
+
+        1px solid var(--border);
+
+
+    padding-bottom:
+
+        10px;
+
+}
+
+
+/* ==========================================================================
+   FORMULÁRIOS
+========================================================================== */
+
+.form-grid {
+
+    display:
+
+        grid;
+
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(220px,1fr));
+
+
+    gap:
+
+        15px;
+
+}
+
+
+.form-group {
+
+    display:
+
+        flex;
+
+
+    flex-direction:
+
+        column;
+
+
+    gap:
+
+        6px;
+
+}
+
+
+.form-group label {
+
+    color:
+
+        var(--text-muted);
+
+
+    font-size:
+
+        .85rem;
+
+}
+
+
 input,
 select,
 textarea {
-    font: inherit;
+
+    width:
+
+        100%;
+
+
+    background:
+
+        #020617;
+
+
+    color:
+
+        white;
+
+
+    border:
+
+        1px solid var(--border);
+
+
+    border-radius:
+
+        8px;
+
+
+    padding:
+
+        10px;
+
+
+    outline:
+
+        none;
+
 }
 
 
-button {
-    border: 0;
-    cursor: pointer;
+input:focus,
+select:focus,
+textarea:focus {
+
+    border-color:
+
+        var(--primary);
+
 }
 
 
-img {
-    max-width: 100%;
-    display: block;
+.full {
+
+    grid-column:
+
+        1 / -1;
+
 }
 
 
-a {
-    color: inherit;
+/* ==========================================================================
+   AÇÕES
+========================================================================== */
+
+.form-actions {
+
+    grid-column:
+
+        1 / -1;
+
+
+    display:
+
+        flex;
+
+
+    gap:
+
+        10px;
+
 }
 
 
-h1,
-h2,
-h3,
-h4,
-p {
-    margin-top: 0;
+.btn-primary {
+
+    background:
+
+        var(--primary);
+
+
+    color:
+
+        #052e16;
+
+
+    padding:
+
+        12px 25px;
+
+
+    border-radius:
+
+        8px;
+
+
+    font-weight:
+
+        700;
+
 }
 
 
-::selection {
-    background: var(--primary);
-    color: #052e16;
+.btn-primary:hover {
+
+    background:
+
+        var(--primary-dark);
+
+
+    color:
+
+        white;
+
 }
 
+
+.btn-secondary {
+
+    background:
+
+        #334155;
+
+
+    color:
+
+        white;
+
+
+    padding:
+
+        12px 25px;
+
+
+    border-radius:
+
+        8px;
+
+}
+
+
+/* ==========================================================================
+   RESPONSIVO
+========================================================================== */
+
+@media(max-width:900px){
+
+    .header {
+
+        grid-template-columns:
+
+            80px 1fr 120px;
+
+    }
+
+
+    .header-title h1 {
+
+        font-size:
+
+            1rem;
+
+    }
+
+}
