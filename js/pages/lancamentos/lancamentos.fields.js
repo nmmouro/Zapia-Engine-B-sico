@@ -79,9 +79,41 @@ export function obterDadosFormulario() {
     };
 
     console.log(
-        "ENGINE → DADOS LANÇAMENTO:",
-        dados
-    );
+    "================================================="
+);
+
+console.log(
+    "ENGINE → VALORES DOS SELECTS"
+);
+
+console.log(
+    "EMPREGADO VALUE:",
+    selectEmpregado?.value
+);
+
+console.log(
+    "EMPREGADO TEXTO:",
+    selectEmpregado?.selectedOptions?.[0]?.textContent?.trim()
+);
+
+console.log(
+    "VEÍCULO VALUE:",
+    selectVeiculo?.value
+);
+
+console.log(
+    "VEÍCULO TEXTO:",
+    selectVeiculo?.selectedOptions?.[0]?.textContent?.trim()
+);
+
+console.log(
+    "ENGINE → DADOS LANÇAMENTO:",
+    JSON.stringify(dados, null, 2)
+);
+
+console.log(
+    "================================================="
+);
 
     // ========================================================================
     // VALIDAÇÕES
