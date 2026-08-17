@@ -42,6 +42,7 @@ const routes = {
 
         path: "/",
         page: "dashboard",
+        titulo: "PAINEL FROTA",
         initFunction: "initDashboard"
 
     },
@@ -50,6 +51,7 @@ const routes = {
 
         path: "/lancamentos",
         page: "lancamentos",
+        titulo: "LANÇAMENTOS",
         initFunction: "initLancamentos"
 
     },
@@ -58,6 +60,7 @@ const routes = {
 
         path: "/veiculos",
         page: "veiculos",
+        titulo: "VEÍCULOS",
         initFunction: "initVeiculos"
 
     },
@@ -66,6 +69,7 @@ const routes = {
 
         path: "/empregados",
         page: "empregados",
+        titulo: "EMPREGADOS",
         initFunction: "initEmpregados"
 
     }
@@ -120,11 +124,9 @@ export function getRoute() {
 
     }
 
-
     return DEFAULT_ROUTE;
 
 }
-
 
 // ============================================================================
 // CONFIGURAÇÃO DA ROTA
@@ -137,7 +139,6 @@ export function getRouteConfig(
     return routes[route] || null;
 
 }
-
 
 // ============================================================================
 // NAVEGAÇÃO
@@ -152,17 +153,14 @@ export function navigate(
             .replace(/^#/, "")
             .replace(/^\//, "");
 
-
     const config =
         routes[nome];
-
 
     if (!config) {
 
         console.warn(
             `ENGINE ROUTER: rota "${route}" não encontrada.`
         );
-
 
         window.location.hash =
             "#/";
@@ -171,12 +169,28 @@ export function navigate(
 
     }
 
-
     window.location.hash =
         config.path;
 
 }
 
+// ============================================================================
+// ATUALIZAR TÍTULO DA PÁGINA
+// ============================================================================
+
+function atualizarTitulo(route) {
+
+    const elemento =
+        document.getElementById("pageTitle");
+
+    if (!elemento) {
+        return;
+    }
+
+    elemento.textContent =
+        route?.titulo || "PAINEL FROTA";
+
+}
 
 // ============================================================================
 // GERAR URL DA VIEW
@@ -194,7 +208,6 @@ function obterViewUrl(
 
 }
 
-
 // ============================================================================
 // GERAR URL DO MÓDULO
 // ============================================================================
@@ -211,7 +224,6 @@ function obterModuloUrl(
 
 }
 
-
 // ============================================================================
 // CARREGAR VIEW
 // ============================================================================
@@ -224,12 +236,10 @@ async function carregarView(
     const url =
         obterViewUrl(route);
 
-
     console.log(
         "ENGINE ROUTER → View:",
         url
     );
-
 
     const response =
         await fetch(url);
@@ -243,19 +253,15 @@ async function carregarView(
 
     }
 
-
     const html =
         await response.text();
-
 
     container.innerHTML =
         html;
 
-
     return container;
 
 }
-
 
 // ============================================================================
 // CARREGAR MÓDULO
@@ -268,20 +274,16 @@ async function carregarModulo(
     const url =
         obterModuloUrl(route);
 
-
     console.log(
         "ENGINE ROUTER → Module:",
         url
     );
 
-
     const modulo =
         await import(url);
 
-
     const nomeFuncao =
         route.initFunction;
-
 
     if (!nomeFuncao) {
 
@@ -289,10 +291,8 @@ async function carregarModulo(
 
     }
 
-
     const init =
         modulo[nomeFuncao];
-
 
     if (
         typeof init !==
@@ -305,11 +305,9 @@ async function carregarModulo(
 
     }
 
-
     return init;
 
 }
-
 
 // ============================================================================
 // START ROUTER
@@ -327,12 +325,10 @@ export function startRouter(
 
     };
 
-
     const container =
         document.querySelector(
             config.container
         );
-
 
     if (!container) {
 
@@ -342,18 +338,14 @@ export function startRouter(
 
     }
 
-
     let executando =
         false;
-
 
     let rotaAtual =
         null;
 
-
     let cleanupAtual =
         null;
-
 
     // ========================================================================
     // EXECUTAR ROTA
@@ -368,22 +360,18 @@ export function startRouter(
 
             }
 
-
             executando =
                 true;
-
 
             try {
 
                 const routeName =
                     getRoute();
 
-
                 const route =
                     getRouteConfig(
                         routeName
                     );
-
 
                 if (!route) {
 
@@ -393,6 +381,7 @@ export function startRouter(
 
                 }
 
+                atualizarTitulo(route);
 
                 console.log(
                     "ENGINE ROUTER →",
@@ -412,7 +401,6 @@ export function startRouter(
                     return;
 
                 }
-
 
                 // ------------------------------------------------------------
                 // CLEANUP
@@ -438,14 +426,11 @@ export function startRouter(
 
                 }
 
-
                 cleanupAtual =
                     null;
 
-
                 rotaAtual =
                     routeName;
-
 
                 // ------------------------------------------------------------
                 // CARREGAR VIEW
@@ -456,7 +441,6 @@ export function startRouter(
                     container
                 );
 
-
                 // ------------------------------------------------------------
                 // CARREGAR MÓDULO
                 // ------------------------------------------------------------
@@ -465,7 +449,6 @@ export function startRouter(
                     await carregarModulo(
                         route
                     );
-
 
                 // ------------------------------------------------------------
                 // EXECUTAR INIT
@@ -478,7 +461,6 @@ export function startRouter(
 
                     const resultado =
                         await init();
-
 
                     // --------------------------------------------------------
                     // CLEANUP OPCIONAL
@@ -496,14 +478,12 @@ export function startRouter(
 
                 }
 
-
             } catch (erro) {
 
                 console.error(
                     "ENGINE ROUTER → Erro:",
                     erro
                 );
-
 
                 container.innerHTML = `
 
@@ -535,7 +515,6 @@ export function startRouter(
 
         };
 
-
     // ========================================================================
     // HASHCHANGE
     // ========================================================================
@@ -545,13 +524,11 @@ export function startRouter(
         run
     );
 
-
     // ========================================================================
     // BOOT
     // ========================================================================
 
     run();
-
 
     // ========================================================================
     // DESTROY
@@ -563,7 +540,6 @@ export function startRouter(
             "hashchange",
             run
         );
-
 
         if (
             typeof cleanupAtual ===
@@ -577,7 +553,6 @@ export function startRouter(
     };
 
 }
-
 
 // ============================================================================
 // EXPORTS
