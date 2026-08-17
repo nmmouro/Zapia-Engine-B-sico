@@ -105,31 +105,27 @@ export async function carregarEmpregados() {
         const option =
             document.createElement("option");
 
-        /*
-         * A API dos empregados utiliza:
-         *
-         * ID
-         * Empregado
-         * Matrícula
-         */
+        // ================================================================
+        // ID REAL DO EMPREGADO
+        // ================================================================
 
         option.value =
-            empregado["Empregado / Matrícula"] ||
-            empregado.Empregado ||
-            empregado.ID ||
-            "";
+            empregado.ID || "";
+
+        // ================================================================
+        // TEXTO VISÍVEL
+        // ================================================================
 
         option.textContent =
-            empregado["Empregado / Matrícula"] ||
-            (
-                empregado.Empregado
-                    ? `${empregado.Empregado}${
-                        empregado.Matrícula
-                            ? " / " + empregado.Matrícula
-                            : ""
-                    }`
-                    : empregado.ID
-            );
+            `${empregado.Empregado || ""}${
+                empregado.Matrícula
+                    ? " / " + empregado.Matrícula
+                    : ""
+            }`;
+
+        // ================================================================
+        // ID TAMBÉM DISPONÍVEL NO DATASET
+        // ================================================================
 
         option.dataset.id =
             empregado.ID || "";
@@ -184,23 +180,25 @@ export async function carregarVeiculos() {
         const option =
             document.createElement("option");
 
-        /*
-         * IMPORTANTE:
-         * A API retorna Combustivel sem acento.
-         */
+        // ================================================================
+        // ID REAL DO VEÍCULO
+        // ================================================================
 
         option.value =
-            veiculo.Placa ||
-            veiculo.ID ||
-            "";
+            veiculo.ID || "";
+
+        // ================================================================
+        // TEXTO VISÍVEL
+        // ================================================================
 
         option.textContent =
-            veiculo.Placa
-                ? `${veiculo.Placa} - ${veiculo.Modelo || ""}`
-                : (
-                    veiculo.ID ||
-                    "Veículo"
-                );
+            `${veiculo.Placa || ""} - ${
+                veiculo.Modelo || ""
+            }`;
+
+        // ================================================================
+        // ID TAMBÉM DISPONÍVEL NO DATASET
+        // ================================================================
 
         option.dataset.id =
             veiculo.ID || "";
@@ -210,7 +208,6 @@ export async function carregarVeiculos() {
     });
 
 }
-
 
 // ============================================================================
 // CARREGAR TABELA
