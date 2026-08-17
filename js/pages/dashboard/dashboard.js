@@ -5,18 +5,8 @@
 // Responsável pela inicialização da página.
 // ============================================================================
 
-import {
-
-    iniciarRelogio
-
-} from "../utils/relogio.js";
-
-import {
-
-    iniciarFullscreen
-
-} from "../utils/fullscreen.js";
-
+import { iniciarRelogio } from "../../utils/relogio.js";
+import { iniciarFullscreen } from "../../utils/fullscreen.js";
 
 import {
 
@@ -35,13 +25,13 @@ import {
     mostrarLoading,
     esconderLoading
 
-} from "../ui/loading.js";
+} from "../../ui/loading.js";
 
 import {
 
     tratarErro
 
-} from "../utils/errors.js";
+} from "../../utils/errors.js";
 
 // ============================================================================
 // CONFIGURAÇÕES
