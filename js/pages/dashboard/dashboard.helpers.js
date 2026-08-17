@@ -2,7 +2,7 @@
 // DASHBOARD HELPERS
 // Painel Frota
 // Arquivo: js/pages/dashboard/dashboard.helpers.js
-// Responsável pelo carregamento e renderização dos dados do Dashboard.
+// Responsável pelo carregamento e renderização das tabelas.
 // ============================================================================
 
 
@@ -12,14 +12,14 @@
 
 const ELEMENTOS = {
 
-    tabelaVeiculos:
+    veiculos:
         "tabela-veiculos-body",
 
-    tabelaEmpregados:
+    empregados:
         "tabela-empregados-body",
 
-    tabelaLancamentos:
-        "tabela-lancamentos-body"
+    ocorrencias:
+        "tabela-ocorrencias-body"
 
 };
 
@@ -49,9 +49,9 @@ export async function carregarDashboard() {
         );
 
 
-        renderizarLancamentos(
+        renderizarOcorrencias(
 
-            dados.lancamentos
+            dados.ocorrencias
 
         );
 
@@ -61,7 +61,7 @@ export async function carregarDashboard() {
 
         console.error(
 
-            "Erro ao carregar dashboard:",
+            "ENGINE DASHBOARD → Erro ao carregar dados:",
 
             erro
 
@@ -75,30 +75,16 @@ export async function carregarDashboard() {
 
 
 // ============================================================================
-// OBTER DADOS DO DASHBOARD
+// OBTER DADOS
 // ============================================================================
 
 async function obterDadosDashboard() {
 
     /*
-     * Este método centraliza a origem dos dados.
+     * TEMPORÁRIO
      *
-     * Posteriormente poderá ser substituído por chamadas
-     * para API, banco de dados, serviço ou controller.
-     *
-     * Exemplo:
-     *
-     * const resposta = await fetch("/api/dashboard");
-     *
-     * if (!resposta.ok) {
-     *
-     *     throw new Error(
-     *         "Erro ao consultar dashboard."
-     *     );
-     *
-     * }
-     *
-     * return await resposta.json();
+     * Substitua esta função pela chamada à API,
+     * serviço ou banco de dados do projeto.
      */
 
 
@@ -108,7 +94,7 @@ async function obterDadosDashboard() {
 
         empregados: [],
 
-        lancamentos: []
+        ocorrencias: []
 
     };
 
@@ -116,23 +102,29 @@ async function obterDadosDashboard() {
 
 
 // ============================================================================
-// RENDERIZAR VEÍCULOS
+// VEÍCULOS
 // ============================================================================
 
 function renderizarVeiculos(
 
-    veiculos = []
+    dados = []
 
 ) {
 
-    const tbody = obterElemento(
+    const tbody = document.getElementById(
 
-        ELEMENTOS.tabelaVeiculos
+        ELEMENTOS.veiculos
 
     );
 
 
     if (!tbody) {
+
+        console.error(
+
+            "ENGINE DASHBOARD → Elemento tabela-veiculos-body não encontrado."
+
+        );
 
         return;
 
@@ -142,11 +134,11 @@ function renderizarVeiculos(
     tbody.innerHTML = "";
 
 
-    if (!veiculos.length) {
+    if (!dados.length) {
 
         tbody.appendChild(
 
-            criarMensagemVazia(
+            criarLinhaVazia(
 
                 4,
 
@@ -161,43 +153,35 @@ function renderizarVeiculos(
     }
 
 
-    veiculos.forEach(
+    dados.forEach(
 
         veiculo => {
 
-            const linha = document.createElement(
-
-                "tr"
-
-            );
+            const tr = document.createElement("tr");
 
 
-            linha.innerHTML = `
+            tr.innerHTML = `
 
                 <td>
-                    ${escaparHtml(veiculo.codigo)}
+                    ${texto(veiculo.codigo)}
                 </td>
 
                 <td>
-                    ${escaparHtml(veiculo.placa)}
+                    ${texto(veiculo.placa)}
                 </td>
 
                 <td>
-                    ${escaparHtml(veiculo.veiculo)}
+                    ${texto(veiculo.veiculo)}
                 </td>
 
                 <td>
-                    ${escaparHtml(veiculo.modelo)}
+                    ${texto(veiculo.modelo)}
                 </td>
 
             `;
 
 
-            tbody.appendChild(
-
-                linha
-
-            );
+            tbody.appendChild(tr);
 
         }
 
@@ -207,23 +191,29 @@ function renderizarVeiculos(
 
 
 // ============================================================================
-// RENDERIZAR EMPREGADOS
+// EMPREGADOS
 // ============================================================================
 
 function renderizarEmpregados(
 
-    empregados = []
+    dados = []
 
 ) {
 
-    const tbody = obterElemento(
+    const tbody = document.getElementById(
 
-        ELEMENTOS.tabelaEmpregados
+        ELEMENTOS.empregados
 
     );
 
 
     if (!tbody) {
+
+        console.error(
+
+            "ENGINE DASHBOARD → Elemento tabela-empregados-body não encontrado."
+
+        );
 
         return;
 
@@ -233,11 +223,11 @@ function renderizarEmpregados(
     tbody.innerHTML = "";
 
 
-    if (!empregados.length) {
+    if (!dados.length) {
 
         tbody.appendChild(
 
-            criarMensagemVazia(
+            criarLinhaVazia(
 
                 4,
 
@@ -252,43 +242,35 @@ function renderizarEmpregados(
     }
 
 
-    empregados.forEach(
+    dados.forEach(
 
         empregado => {
 
-            const linha = document.createElement(
-
-                "tr"
-
-            );
+            const tr = document.createElement("tr");
 
 
-            linha.innerHTML = `
+            tr.innerHTML = `
 
                 <td>
-                    ${escaparHtml(empregado.codigo)}
+                    ${texto(empregado.codigo)}
                 </td>
 
                 <td>
-                    ${escaparHtml(empregado.nome)}
+                    ${texto(empregado.nome)}
                 </td>
 
                 <td>
-                    ${escaparHtml(empregado.cargo)}
+                    ${texto(empregado.cargo)}
                 </td>
 
                 <td>
-                    ${escaparHtml(empregado.situacao)}
+                    ${texto(empregado.situacao)}
                 </td>
 
             `;
 
 
-            tbody.appendChild(
-
-                linha
-
-            );
+            tbody.appendChild(tr);
 
         }
 
@@ -298,23 +280,29 @@ function renderizarEmpregados(
 
 
 // ============================================================================
-// RENDERIZAR LANÇAMENTOS
+// OCORRÊNCIAS
 // ============================================================================
 
-function renderizarLancamentos(
+function renderizarOcorrencias(
 
-    lancamentos = []
+    dados = []
 
 ) {
 
-    const tbody = obterElemento(
+    const tbody = document.getElementById(
 
-        ELEMENTOS.tabelaLancamentos
+        ELEMENTOS.ocorrencias
 
     );
 
 
     if (!tbody) {
+
+        console.error(
+
+            "ENGINE DASHBOARD → Elemento tabela-ocorrencias-body não encontrado."
+
+        );
 
         return;
 
@@ -324,15 +312,15 @@ function renderizarLancamentos(
     tbody.innerHTML = "";
 
 
-    if (!lancamentos.length) {
+    if (!dados.length) {
 
         tbody.appendChild(
 
-            criarMensagemVazia(
+            criarLinhaVazia(
 
-                6,
+                5,
 
-                "Nenhum lançamento encontrado."
+                "Nenhuma ocorrência em andamento."
 
             )
 
@@ -343,51 +331,39 @@ function renderizarLancamentos(
     }
 
 
-    lancamentos.forEach(
+    dados.forEach(
 
-        lancamento => {
+        ocorrencia => {
 
-            const linha = document.createElement(
-
-                "tr"
-
-            );
+            const tr = document.createElement("tr");
 
 
-            linha.innerHTML = `
+            tr.innerHTML = `
 
                 <td>
-                    ${formatarData(lancamento.data)}
+                    ${formatarData(ocorrencia.data)}
                 </td>
 
                 <td>
-                    ${escaparHtml(lancamento.veiculo)}
+                    ${texto(ocorrencia.veiculo)}
                 </td>
 
                 <td>
-                    ${escaparHtml(lancamento.empregado)}
+                    ${texto(ocorrencia.tipo)}
                 </td>
 
                 <td>
-                    ${escaparHtml(lancamento.tipo)}
+                    ${texto(ocorrencia.descricao)}
                 </td>
 
                 <td>
-                    ${escaparHtml(lancamento.descricao)}
-                </td>
-
-                <td>
-                    ${formatarValor(lancamento.valor)}
+                    ${texto(ocorrencia.status)}
                 </td>
 
             `;
 
 
-            tbody.appendChild(
-
-                linha
-
-            );
+            tbody.appendChild(tr);
 
         }
 
@@ -397,29 +373,10 @@ function renderizarLancamentos(
 
 
 // ============================================================================
-// ELEMENTO
+// LINHA VAZIA
 // ============================================================================
 
-function obterElemento(
-
-    id
-
-) {
-
-    return document.getElementById(
-
-        id
-
-    );
-
-}
-
-
-// ============================================================================
-// MENSAGEM VAZIA
-// ============================================================================
-
-function criarMensagemVazia(
+function criarLinhaVazia(
 
     colspan,
 
@@ -427,46 +384,55 @@ function criarMensagemVazia(
 
 ) {
 
-    const linha = document.createElement(
+    const tr = document.createElement("tr");
 
-        "tr"
-
-    );
+    const td = document.createElement("td");
 
 
-    const coluna = document.createElement(
+    td.colSpan = colspan;
 
-        "td"
-
-    );
+    td.textContent = mensagem;
 
 
-    coluna.colSpan = colspan;
-
-    coluna.textContent = mensagem;
+    tr.appendChild(td);
 
 
-    linha.appendChild(
-
-        coluna
-
-    );
-
-
-    return linha;
+    return tr;
 
 }
 
 
 // ============================================================================
-// FORMATAR DATA
+// TEXTO
 // ============================================================================
 
-function formatarData(
+function texto(valor) {
 
-    valor
+    if (
 
-) {
+        valor === null ||
+
+        valor === undefined ||
+
+        valor === ""
+
+    ) {
+
+        return "-";
+
+    }
+
+
+    return escaparHtml(valor);
+
+}
+
+
+// ============================================================================
+// DATA
+// ============================================================================
+
+function formatarData(valor) {
 
     if (!valor) {
 
@@ -475,16 +441,12 @@ function formatarData(
     }
 
 
-    const data = new Date(
-
-        valor
-
-    );
+    const data = new Date(valor);
 
 
     if (Number.isNaN(data.getTime())) {
 
-        return valor;
+        return texto(valor);
 
     }
 
@@ -495,7 +457,9 @@ function formatarData(
 
         {
 
-            dateStyle: "short"
+            dateStyle: "short",
+
+            timeStyle: "short"
 
         }
 
@@ -505,89 +469,15 @@ function formatarData(
 
 
 // ============================================================================
-// FORMATAR VALOR
-// ============================================================================
-
-function formatarValor(
-
-    valor
-
-) {
-
-    if (
-        valor === null ||
-        valor === undefined ||
-        valor === ""
-    ) {
-
-        return "-";
-
-    }
-
-
-    const numero = Number(
-
-        valor
-
-    );
-
-
-    if (Number.isNaN(numero)) {
-
-        return escaparHtml(valor);
-
-    }
-
-
-    return new Intl.NumberFormat(
-
-        "pt-BR",
-
-        {
-
-            style: "currency",
-
-            currency: "BRL"
-
-        }
-
-    ).format(numero);
-
-}
-
-
-// ============================================================================
 // ESCAPAR HTML
 // ============================================================================
 
-function escaparHtml(
+function escaparHtml(valor) {
 
-    valor
-
-) {
-
-    if (
-        valor === null ||
-        valor === undefined
-    ) {
-
-        return "";
-
-    }
+    const elemento = document.createElement("div");
 
 
-    const elemento = document.createElement(
-
-        "div"
-
-    );
-
-
-    elemento.textContent = String(
-
-        valor
-
-    );
+    elemento.textContent = String(valor);
 
 
     return elemento.innerHTML;
