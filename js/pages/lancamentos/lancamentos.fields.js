@@ -182,7 +182,7 @@ export function preencherFormulario(
     // ------------------------------------------------------------------------
 
     selecionarEmpregado(
-        registro["ID Empregado"],
+        registro["ID Empregado"]
         
     );
 
@@ -191,7 +191,7 @@ export function preencherFormulario(
     // ------------------------------------------------------------------------
 
     selecionarVeiculo(
-        registro["ID Veículo"],
+        registro["ID Veículo"]
         
     );
 }
