@@ -29,7 +29,7 @@ import {
 
     registrarEventos
 
-} from "../../controllers/dashboard.events.js";
+} from "./dashboard.events.js";
 
 
 import {
