@@ -285,6 +285,11 @@ export function limparErro() {
 
 export function carregarEmpregados(lista = []) {
 
+    console.log(
+        "ENGINE → EMPREGADOS RECEBIDOS:",
+        lista
+    );
+
     const select =
         document.getElementById("empregado");
 
@@ -297,6 +302,13 @@ export function carregarEmpregados(lista = []) {
     `;
 
     lista.forEach(empregado => {
+
+        console.log(
+            "ENGINE → EMPREGADO:",
+            empregado,
+            "ID:",
+            empregado.ID
+        );
 
         const option =
             document.createElement("option");
@@ -333,6 +345,11 @@ export function selecionarEmpregado(id) {
 
 export function carregarVeiculos(lista = []) {
 
+    console.log(
+        "ENGINE → VEÍCULOS RECEBIDOS:",
+        lista
+    );
+
     const select =
         document.getElementById("veiculo");
 
@@ -345,6 +362,13 @@ export function carregarVeiculos(lista = []) {
     `;
 
     lista.forEach(veiculo => {
+
+        console.log(
+            "ENGINE → VEÍCULO:",
+            veiculo,
+            "ID:",
+            veiculo.ID
+        );
 
         const option =
             document.createElement("option");
