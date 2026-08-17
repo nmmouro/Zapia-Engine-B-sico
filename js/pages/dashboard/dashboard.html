@@ -92,17 +92,65 @@
         <!-- PAINEL DE OCORRÊNCIAS -->
         <!-- =========================================================== -->
 
-       <section class="dashboard-bottom">
+       <section class="table-panel ocorrencias-panel">
 
-        <article class="card">
+    <div class="table-panel-header">
 
-            <h2>Ocorrências em Andamento</h2>
+        <h2>
+            Ocorrências em andamento
+        </h2>
 
-            <div id="tabelaOcorrencias"></div>
+    </div>
 
-            </article>
+    <div class="table-container">
 
-        </section>
+        <table id="tabela-ocorrencias">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Data
+                    </th>
+
+                    <th>
+                        Veículo
+                    </th>
+
+                    <th>
+                        Tipo
+                    </th>
+
+                    <th>
+                        Descrição
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tabela-ocorrencias-body">
+
+                <tr>
+
+                    <td colspan="5">
+                        Carregando...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
 
     </main>
     <!-- =============================================================== -->
