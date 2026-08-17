@@ -5,6 +5,18 @@
 // ============================================================================
 
 import {
+
+    iniciarRelogio
+
+} from "./utils/relogio.js";
+
+import {
+
+    iniciarFullscreen
+
+} from "./utils/fullscreen.js";
+
+import {
     startRouter
 } from "./core/router.js";
 
@@ -26,3 +38,15 @@ document.addEventListener(
     "DOMContentLoaded",
     boot
 );
+
+// ================= APLICAÇÃO =================
+
+function iniciarAplicacao(){
+
+
+    iniciarRelogio();
+
+
+    iniciarFullscreen();
+
+}
