@@ -286,9 +286,9 @@ export function limparErro() {
 export function carregarEmpregados(lista = []) {
 
     console.log(
-    "ENGINE → LISTA EMPREGADOS:",
-    JSON.stringify(lista, null, 2)
-);
+        "ENGINE → LISTA EMPREGADOS:",
+        JSON.stringify(lista, null, 2)
+    );
 
     const select =
         document.getElementById("empregado");
@@ -304,10 +304,12 @@ export function carregarEmpregados(lista = []) {
     lista.forEach(empregado => {
 
         console.log(
-            "ENGINE → EMPREGADO:",
-            empregado,
-            "ID:",
-            empregado.ID
+            "EMPREGADO → ID:",
+            empregado.ID,
+            "| Nome:",
+            empregado.Empregado,
+            "| Matrícula:",
+            empregado.Matrícula
         );
 
         const option =
@@ -345,10 +347,10 @@ export function selecionarEmpregado(id) {
 
 export function carregarVeiculos(lista = []) {
 
-   console.log(
-    "ENGINE → LISTA VEÍCULOS:",
-    JSON.stringify(lista, null, 2)
-);
+    console.log(
+        "ENGINE → LISTA VEÍCULOS:",
+        JSON.stringify(lista, null, 2)
+    );
 
     const select =
         document.getElementById("veiculo");
@@ -364,10 +366,12 @@ export function carregarVeiculos(lista = []) {
     lista.forEach(veiculo => {
 
         console.log(
-            "ENGINE → VEÍCULO:",
-            veiculo,
-            "ID:",
-            veiculo.ID
+            "VEÍCULO → ID:",
+            veiculo.ID,
+            "| Placa:",
+            veiculo.Placa,
+            "| Modelo:",
+            veiculo.Modelo
         );
 
         const option =
