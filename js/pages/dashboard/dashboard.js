@@ -22,13 +22,13 @@ import {
 
     carregarDashboard
 
-} from "../controllers/dashboard.helpers.js";
+} from "../pages/dashboard/dashboard.helpers.js";
 
 import {
 
     registrarEventos
 
-} from "../controllers/dashboard.events.js";
+} from "../pages/dashboard/dashboard.events.js";
 
 import {
 
