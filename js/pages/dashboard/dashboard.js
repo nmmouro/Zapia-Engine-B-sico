@@ -63,6 +63,22 @@ let timerAtualizacao = null;
 
 export async function initDashboard() {
 
+     console.log(
+        "ENGINE DASHBOARD → Inicializando..."
+    );
+
+    console.log(
+        "ENGINE DASHBOARD → View:",
+        document.querySelector(".dashboard")
+    );
+
+    console.log(
+        "ENGINE DASHBOARD → Veículos:",
+        document.getElementById(
+            "tabela-veiculos-body"
+        )
+    );
+
     try {
 
         mostrarLoading();
