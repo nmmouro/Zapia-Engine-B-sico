@@ -1,36 +1,56 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Painel Frota</title>
+
 
     <!-- ============================================================
          CSS GLOBAL
     ============================================================ -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components.css">
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="css/components.css">
+
 </head>
 
+
 <body>
+
 
     <!-- ============================================================
          HEADER
     ============================================================ -->
+
     <header class="header">
 
         <div class="header-logo">
+
             <img
                 src="assets/img/logo.png"
                 alt="Logo Painel Frota">
+
         </div>
 
+
         <div class="header-title">
+
             <h1>PAINEL FROTA</h1>
+
         </div>
+
 
         <div class="header-info">
 
@@ -40,13 +60,16 @@
                 aria-label="Relógio">
             </div>
 
+
             <button
                 id="btnFullscreen"
                 class="btn-icon"
                 type="button"
                 aria-label="Tela cheia"
                 title="Tela cheia">
+
                 ⛶
+
             </button>
 
         </div>
@@ -56,22 +79,40 @@
 
     <!-- ============================================================
          HOME
-         SOMENTE MENU — NENHUMA TABELA É CARREGADA AQUI
+         
+         A Home não possui:
+         - tabela
+         - CRUD
+         - datasource
+         - schema
+         - Google Sheets
+         - Router de entidades
+         
+         Ela é somente navegação.
     ============================================================ -->
+
     <main class="home-container">
 
         <section
             class="menu-grid"
             aria-label="Menu principal">
 
-            <!-- DASHBOARD -->
+
+            <!-- ====================================================
+                 DASHBOARD
+            ===================================================== -->
+
             <a
                 href="pages/dashboard.html"
                 class="menu-card">
 
-                <span class="menu-icon">📊</span>
+                <span class="menu-icon">
+                    📊
+                </span>
 
-                <h2>Dashboard</h2>
+                <h2>
+                    Dashboard
+                </h2>
 
                 <p>
                     Visualização da operação
@@ -80,14 +121,21 @@
             </a>
 
 
-            <!-- LANÇAMENTOS -->
+            <!-- ====================================================
+                 LANÇAMENTOS
+            ===================================================== -->
+
             <a
                 href="pages/lancamentos.html"
                 class="menu-card">
 
-                <span class="menu-icon">📝</span>
+                <span class="menu-icon">
+                    📝
+                </span>
 
-                <h2>Lançamentos</h2>
+                <h2>
+                    Lançamentos
+                </h2>
 
                 <p>
                     Registrar utilização dos veículos
@@ -96,14 +144,21 @@
             </a>
 
 
-            <!-- CADASTRO -->
+            <!-- ====================================================
+                 CADASTRO
+            ===================================================== -->
+
             <a
                 href="pages/cadastro.html"
                 class="menu-card">
 
-                <span class="menu-icon">➕</span>
+                <span class="menu-icon">
+                    ➕
+                </span>
 
-                <h2>Cadastro</h2>
+                <h2>
+                    Cadastro
+                </h2>
 
                 <p>
                     Cadastros gerais
@@ -112,14 +167,21 @@
             </a>
 
 
-            <!-- VEÍCULOS -->
+            <!-- ====================================================
+                 VEÍCULOS
+            ===================================================== -->
+
             <a
                 href="pages/veiculos.html"
                 class="menu-card">
 
-                <span class="menu-icon">🚙</span>
+                <span class="menu-icon">
+                    🚙
+                </span>
 
-                <h2>Veículos</h2>
+                <h2>
+                    Veículos
+                </h2>
 
                 <p>
                     Controle da frota
@@ -128,14 +190,21 @@
             </a>
 
 
-            <!-- EMPREGADOS -->
+            <!-- ====================================================
+                 EMPREGADOS
+            ===================================================== -->
+
             <a
                 href="pages/empregados.html"
                 class="menu-card">
 
-                <span class="menu-icon">👨‍✈️</span>
+                <span class="menu-icon">
+                    👨‍✈️
+                </span>
 
-                <h2>Empregados</h2>
+                <h2>
+                    Empregados
+                </h2>
 
                 <p>
                     Cadastro e disponibilidade
@@ -144,14 +213,21 @@
             </a>
 
 
-            <!-- AGENDA -->
+            <!-- ====================================================
+                 AGENDA
+            ===================================================== -->
+
             <a
                 href="pages/agenda.html"
                 class="menu-card">
 
-                <span class="menu-icon">📅</span>
+                <span class="menu-icon">
+                    📅
+                </span>
 
-                <h2>Agenda</h2>
+                <h2>
+                    Agenda
+                </h2>
 
                 <p>
                     Programação diária
@@ -160,14 +236,21 @@
             </a>
 
 
-            <!-- ABASTECIMENTOS -->
+            <!-- ====================================================
+                 ABASTECIMENTOS
+            ===================================================== -->
+
             <a
                 href="pages/abastecimentos.html"
                 class="menu-card">
 
-                <span class="menu-icon">⛽</span>
+                <span class="menu-icon">
+                    ⛽
+                </span>
 
-                <h2>Abastecimentos</h2>
+                <h2>
+                    Abastecimentos
+                </h2>
 
                 <p>
                     Controle de combustível
@@ -176,14 +259,21 @@
             </a>
 
 
-            <!-- MANUTENÇÕES -->
+            <!-- ====================================================
+                 MANUTENÇÕES
+            ===================================================== -->
+
             <a
                 href="pages/manutencoes.html"
                 class="menu-card">
 
-                <span class="menu-icon">🔧</span>
+                <span class="menu-icon">
+                    🔧
+                </span>
 
-                <h2>Manutenções</h2>
+                <h2>
+                    Manutenções
+                </h2>
 
                 <p>
                     Controle mecânico
@@ -199,6 +289,7 @@
     <!-- ============================================================
          FOOTER
     ============================================================ -->
+
     <footer class="footer">
 
         <p>
@@ -211,19 +302,22 @@
     <!-- ============================================================
          JAVASCRIPT GLOBAL
          
-         Importante:
-         app.js NÃO deve carregar tabelas, CRUDs ou páginas.
-         Ele deve cuidar somente dos recursos globais:
-         - relógio
-         - tela cheia
-         - comportamento visual global
+         NÃO usar:
+         - createModule()
+         - Router de CRUD
+         - schema
+         - datasource
+         - CRUD
+         
+         Apenas recursos globais da Home.
     ============================================================ -->
+
     <script
         type="module"
         src="js/app.js">
     </script>
 
+
 </body>
 
 </html>
-```
