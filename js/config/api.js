@@ -3,74 +3,40 @@
 // API CLIENT
 // Painel Frota
 // Engine Framework
-// Arquivo: js/api.js
 // ============================================================================
 
 export const API_URL =
     "https://script.google.com/macros/s/AKfycbyTWT1EILDhv9q9x8QbbRJh-mfrtT3iKLxbNi2bLPLkD-zy6aX_M5mtPqp8KXoPBa0Mjw/exec";
 
-
 export const API_TIMEOUT = 30000;
-
-
-// ============================================================================
-// CONTROLE JSONP
-// ============================================================================
-
-let jsonpSequence = 0;
-
-
-// ============================================================================
-// UTILITÁRIOS
-// ============================================================================
-
-function gerarCallback() {
-
-    jsonpSequence++;
-
-    return `painelFrotaCallback_${Date.now()}_${jsonpSequence}`;
-
-}
-
-
-function montarQuery(params = {}) {
-
-    const searchParams =
-        new URLSearchParams();
-
-
-    Object.entries(params).forEach(
-        ([chave, valor]) => {
-
-            if (
-                valor !== undefined &&
-                valor !== null
-            ) {
-
-                searchParams.set(
-                    chave,
-                    valor
-                );
-
-            }
-
-        }
-    );
-
-
-    return searchParams.toString();
-
-}
 
 
 // ============================================================================
 // JSONP
 // ============================================================================
 
-function jsonp(
-    params = {},
-    timeout = API_TIMEOUT
-) {
+let contadorCallback = 0;
+
+
+function gerarCallback() {
+
+    contadorCallback++;
+
+    return (
+        "painelFrota_" +
+        Date.now() +
+        "_" +
+        contadorCallback
+    );
+
+}
+
+
+// ============================================================================
+// GET
+// ============================================================================
+
+export function get(params = {}) {
 
     return new Promise(
         (resolve, reject) => {
@@ -86,7 +52,7 @@ function jsonp(
             let finalizado = false;
 
 
-            const timer =
+            const timeout =
                 setTimeout(
                     () => {
 
@@ -94,12 +60,12 @@ function jsonp(
 
                         reject(
                             new Error(
-                                "Tempo limite excedido na requisição JSONP."
+                                "Timeout na comunicação com a API."
                             )
                         );
 
                     },
-                    timeout
+                    API_TIMEOUT
                 );
 
 
@@ -116,7 +82,7 @@ function jsonp(
 
 
                 clearTimeout(
-                    timer
+                    timeout
                 );
 
 
@@ -137,7 +103,7 @@ function jsonp(
 
 
             window[callback] =
-                (resposta) => {
+                resposta => {
 
                     finalizar();
 
@@ -155,7 +121,7 @@ function jsonp(
 
                     reject(
                         new Error(
-                            "Falha ao acessar a API Google Apps Script."
+                            "Erro ao acessar a API."
                         )
                     );
 
@@ -163,17 +129,37 @@ function jsonp(
 
 
             const query =
-                montarQuery({
+                new URLSearchParams();
 
-                    ...params,
 
-                    prefix: callback
+            Object.entries(params)
+                .forEach(
+                    ([chave, valor]) => {
 
-                });
+                        if (
+                            valor !== undefined &&
+                            valor !== null
+                        ) {
+
+                            query.set(
+                                chave,
+                                valor
+                            );
+
+                        }
+
+                    }
+                );
+
+
+            query.set(
+                "prefix",
+                callback
+            );
 
 
             script.src =
-                `${API_URL}?${query}`;
+                `${API_URL}?${query.toString()}`;
 
 
             script.async = true;
@@ -185,103 +171,6 @@ function jsonp(
 
         }
     );
-
-}
-
-
-// ============================================================================
-// GET
-// ============================================================================
-
-export async function get(
-    params = {}
-) {
-
-    return jsonp(
-        params
-    );
-
-}
-
-
-// ============================================================================
-// POST
-// ============================================================================
-
-export async function post(
-    body = {}
-) {
-
-    const controller =
-        new AbortController();
-
-
-    const timeout =
-        setTimeout(
-            () => controller.abort(),
-            API_TIMEOUT
-        );
-
-
-    try {
-
-        const resposta =
-            await fetch(
-                API_URL,
-                {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-
-                    body:
-                        JSON.stringify(body),
-
-                    signal:
-                        controller.signal
-
-                }
-            );
-
-
-        if (
-            !resposta.ok
-        ) {
-
-            throw new Error(
-                `HTTP ${resposta.status}`
-            );
-
-        }
-
-
-        return await resposta.json();
-
-    } catch (erro) {
-
-        if (
-            erro.name === "AbortError"
-        ) {
-
-            throw new Error(
-                "Tempo limite excedido na requisição."
-            );
-
-        }
-
-
-        throw erro;
-
-    } finally {
-
-        clearTimeout(
-            timeout
-        );
-
-    }
 
 }
 
@@ -312,33 +201,20 @@ export async function request(
     }
 
 
-    if (
-        method === "POST"
-    ) {
-
-        return post(
-            params
-        );
-
-    }
-
-
     throw new Error(
-        `Método HTTP não suportado: ${method}`
+        `Método ainda não implementado: ${method}`
     );
 
 }
 
 
 // ============================================================================
-// EXPORTAÇÃO PADRÃO
+// EXPORT DEFAULT
 // ============================================================================
 
 export default {
 
     get,
-
-    post,
 
     request
 
