@@ -20,7 +20,7 @@
 // CONFIGURAÇÃO
 // ============================================================================
 
-const DEFAULT_ROUTE = "dashboard";
+const DEFAULT_ROUTE = "home";
 
 const ENGINE = {
 
@@ -41,9 +41,9 @@ const routes = {
     dashboard: {
 
         path: "/",
-        page: "dashboard",
+        page: "null",
         titulo: "PAINEL FROTA",
-        initFunction: "initDashboard"
+        initFunction: "null"
 
     },
 
