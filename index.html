@@ -1,220 +1,229 @@
+```html
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Painel Frota</title>
 
-    <title>
-        Painel Frota
-    </title>
-
-
-    <!-- ================================================================
-         CSS
-         ================================================================ -->
-
-    <link
-        rel="stylesheet"
-        href="./css/style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="./css/components.css"
-    >
-
+    <!-- ============================================================
+         CSS GLOBAL
+    ============================================================ -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
 </head>
-
 
 <body>
 
-
-    <!-- ================================================================
-         HEADER GLOBAL
-         ================================================================ -->
-
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
     <header class="header">
 
-
-        <!-- LOGO -->
-
         <div class="header-logo">
-
             <img
-                src="./assets/img/logo.png"
-                alt="Logo Painel Frota"
-            >
-
+                src="assets/img/logo.png"
+                alt="Logo Painel Frota">
         </div>
-
-
-        <!-- TÍTULO -->
 
         <div class="header-title">
-
-            <h1 id="pageTitle">
-                PAINEL FROTA
-            </h1>
-
+            <h1>PAINEL FROTA</h1>
         </div>
 
-
-        <!-- RELÓGIO / FULLSCREEN -->
-
         <div class="header-info">
-
 
             <div
                 id="clock"
                 class="clock"
-                aria-label="Relógio"
-            >
+                aria-label="Relógio">
             </div>
-
 
             <button
                 id="btnFullscreen"
                 class="btn-icon"
                 type="button"
                 aria-label="Tela cheia"
-                title="Tela cheia"
-            >
+                title="Tela cheia">
                 ⛶
             </button>
-
 
         </div>
 
     </header>
 
 
-    <!-- ================================================================
-         ÁREA PRINCIPAL
-         ================================================================ -->
-
+    <!-- ============================================================
+         HOME
+         SOMENTE MENU — NENHUMA TABELA É CARREGADA AQUI
+    ============================================================ -->
     <main class="home-container">
 
-
-        <!-- ============================================================
-             MENU PRINCIPAL
-             ============================================================ -->
-
         <section
-            id="menu"
             class="menu-grid"
-            aria-label="Menu principal"
-        >
+            aria-label="Menu principal">
 
-
-            <!-- ========================================================
-                 LANÇAMENTOS
-                 ======================================================== -->
-
+            <!-- DASHBOARD -->
             <a
-                href="#/lancamentos"
-                class="menu-card"
-            >
+                href="dashboard.html"
+                class="menu-card">
 
-                <span class="menu-icon">
-                    📋
-                </span>
+                <span class="menu-icon">📊</span>
 
-                <h2>
-                    Lançamentos
-                </h2>
+                <h2>Dashboard</h2>
 
                 <p>
-                    Controle de lançamentos
+                    Visualização da operação
                 </p>
 
             </a>
 
 
-            <!-- ========================================================
-                 VEÍCULOS
-                 ======================================================== -->
-
+            <!-- LANÇAMENTOS -->
             <a
-                href="#/veiculos"
-                class="menu-card"
-            >
+                href="lancamentos.html"
+                class="menu-card">
 
-                <span class="menu-icon">
-                    🚙
-                </span>
+                <span class="menu-icon">📝</span>
 
-                <h2>
-                    Veículos
-                </h2>
+                <h2>Lançamentos</h2>
 
                 <p>
-                    Cadastro de veículos
+                    Registrar utilização dos veículos
                 </p>
 
             </a>
 
 
-            <!-- ========================================================
-                 EMPREGADOS
-                 ======================================================== -->
-
+            <!-- CADASTRO -->
             <a
-                href="#/empregados"
-                class="menu-card"
-            >
+                href="cadastro.html"
+                class="menu-card">
 
-                <span class="menu-icon">
-                    👤
-                </span>
+                <span class="menu-icon">➕</span>
 
-                <h2>
-                    Empregados
-                </h2>
+                <h2>Cadastro</h2>
 
                 <p>
-                    Cadastro de empregados
+                    Cadastros gerais
                 </p>
 
             </a>
 
+
+            <!-- VEÍCULOS -->
+            <a
+                href="veiculos.html"
+                class="menu-card">
+
+                <span class="menu-icon">🚙</span>
+
+                <h2>Veículos</h2>
+
+                <p>
+                    Controle da frota
+                </p>
+
+            </a>
+
+
+            <!-- EMPREGADOS -->
+            <a
+                href="empregados.html"
+                class="menu-card">
+
+                <span class="menu-icon">👨‍✈️</span>
+
+                <h2>Empregados</h2>
+
+                <p>
+                    Cadastro e disponibilidade
+                </p>
+
+            </a>
+
+
+            <!-- AGENDA -->
+            <a
+                href="agenda.html"
+                class="menu-card">
+
+                <span class="menu-icon">📅</span>
+
+                <h2>Agenda</h2>
+
+                <p>
+                    Programação diária
+                </p>
+
+            </a>
+
+
+            <!-- ABASTECIMENTOS -->
+            <a
+                href="abastecimentos.html"
+                class="menu-card">
+
+                <span class="menu-icon">⛽</span>
+
+                <h2>Abastecimentos</h2>
+
+                <p>
+                    Controle de combustível
+                </p>
+
+            </a>
+
+
+            <!-- MANUTENÇÕES -->
+            <a
+                href="manutencoes.html"
+                class="menu-card">
+
+                <span class="menu-icon">🔧</span>
+
+                <h2>Manutenções</h2>
+
+                <p>
+                    Controle mecânico
+                </p>
+
+            </a>
 
         </section>
-
-
-        <!-- ============================================================
-             ENGINE ROUTER
-             
-             As páginas carregadas pelo Router serão inseridas aqui.
-             ============================================================ -->
-
-        <section
-            id="app"
-            aria-live="polite"
-        >
-        </section>
-
 
     </main>
 
 
-    <!-- ================================================================
-         APP ENGINE
-         ================================================================ -->
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="footer">
 
+        <p>
+            Painel Frota © 2026
+        </p>
+
+    </footer>
+
+
+    <!-- ============================================================
+         JAVASCRIPT GLOBAL
+         
+         Importante:
+         app.js NÃO deve carregar tabelas, CRUDs ou páginas.
+         Ele deve cuidar somente dos recursos globais:
+         - relógio
+         - tela cheia
+         - comportamento visual global
+    ============================================================ -->
     <script
         type="module"
-        src="./js/app.js"
-    >
+        src="js/app.js">
     </script>
-
 
 </body>
 
 </html>
+```
